@@ -126,6 +126,7 @@ def resolve_vote(
     policy: Policy,
     world: World,
     proposer: Agent | None = None,
+    executive: Agent | None = None,
 ) -> VoteResult:
     """Run a vote across the legislature and return the result."""
     yes: list[Agent] = []
@@ -142,6 +143,19 @@ def resolve_vote(
             abstain.append(member)
 
     passed = len(yes) > (len(legislature.members) / 2)
+
+    # Executive tie-breaking: if yes == no and there are actual votes cast,
+    # the executive casts the deciding vote.
+    if not passed and executive is not None and len(yes) == len(no) and len(yes) > 0:
+        exec_disposition = compute_vote_disposition(executive, policy, world, proposer)
+        if exec_disposition > 0.0:
+            passed = True
+            _log.debug("  Executive %s broke tie in favour (disposition=%.3f)",
+                       executive.name, exec_disposition)
+        else:
+            _log.debug("  Executive %s broke tie against (disposition=%.3f)",
+                       executive.name, exec_disposition)
+
     _log.info(
         "  Vote on '%s': %s (%dY/%dN/%dA)",
         policy.name, "PASSED" if passed else "FAILED",
@@ -151,6 +165,7 @@ def resolve_vote(
     return VoteResult(
         policy=policy,
         place=legislature.place,
+        proposer=proposer,
         yes_votes=yes,
         no_votes=no,
         abstentions=abstain,

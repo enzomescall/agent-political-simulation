@@ -17,7 +17,7 @@ class ActionType(Enum):
     BUILD_RELATIONSHIP = auto()
     CAMPAIGN = auto()
     # Office-specific
-    PROPOSE_POLICY = auto()
+    REQUEST_VOTE = auto()
     ALLOCATE_BUDGET = auto()
     VETO = auto()
     # Party-role-specific
@@ -44,6 +44,7 @@ class VoteResult:
 
     policy: Policy
     place: Place
+    proposer: Agent | None = None
     yes_votes: list[Agent] = field(default_factory=list)
     no_votes: list[Agent] = field(default_factory=list)
     abstentions: list[Agent] = field(default_factory=list)

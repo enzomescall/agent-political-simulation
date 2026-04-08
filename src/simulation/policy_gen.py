@@ -7,7 +7,10 @@ from typing import TYPE_CHECKING
 from src.models.policy import Policy
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from src.models.agent import Agent
+    from src.models.government import Government
     from src.models.world import World
 
 _log = logging.getLogger("simulation.policy_gen")
@@ -65,3 +68,44 @@ def generate_policy(
         ", ".join(f"{k}={v:+.3f}" for k, v in ideology_alignment.items()),
     )
     return policy
+
+
+def generate_policy_pool(
+    gov: Government,
+    world: World,
+    rng: _random.Random,
+    max_party_proposals: int = 3,
+) -> list[tuple[Policy, Agent]]:
+    """Generate a pool of candidate policies for a legislature.
+
+    The executive generates 1 policy.
+    
+    For each of the N largest parties in the legislature,
+    the highest-standing legislator generates 1 policy.
+    """
+    pool: list[tuple[Policy, Agent]] = []
+
+    # Executive proposal.
+    if gov.executive.holder is not None:
+        policy = generate_policy(gov.executive.holder, world, rng)
+        pool.append((policy, gov.executive.holder))
+        _log.debug("Pool: executive %s generated '%s'", gov.executive.holder.name, policy.name)
+
+    if gov.legislature is None:
+        return pool
+
+    # Count party representation in the legislature.
+    party_members: dict[Any, list[Agent]] = {}
+    for member in gov.legislature.members:
+        party_members.setdefault(member.party, []).append(member)
+
+    # Sort parties by number of seats (descending), take top N.
+    ranked_parties = sorted(party_members.keys(), key=lambda p: len(party_members[p]), reverse=True)
+    for party in ranked_parties[:max_party_proposals]:
+        # Highest party_standing legislator proposes.
+        champion = max(party_members[party], key=lambda a: a.party_standing)
+        policy = generate_policy(champion, world, rng)
+        pool.append((policy, champion))
+        _log.debug("Pool: %s (%s) generated '%s'", champion.name, party.name, policy.name)
+
+    return pool

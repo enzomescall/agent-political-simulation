@@ -9,7 +9,7 @@ from src.actions.decision import choose_action
 from src.actions.voting import resolve_vote
 from src.simulation.consequences import apply_action_consequences, apply_vote_consequences
 from src.simulation.elections import check_elections, run_executive_election, run_legislative_election
-from src.simulation.policy_gen import generate_policy
+from src.simulation.policy_gen import generate_policy_pool
 
 if TYPE_CHECKING:
     from src.models.world import World
@@ -37,48 +37,69 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             report.events.extend(leg_result.events)
         gov.attributes["last_election_turn"] = world.turn
 
-    proposed_policies: list[tuple[Action, ...]] = []
-    non_vote_actions: list[Action] = []
+    # --- Phase 1: policy generation ---
+    # For each government, generate a pool of candidate policies.
+    policy_pools: dict[str, list[tuple]] = {}  # place_id -> [(Policy, Agent)]
+    for place_id, gov in world.governments.items():
+        pool = generate_policy_pool(gov, world, rng)
+        policy_pools[place_id] = pool
+        for policy, author in pool:
+            _log.info("  Policy pool: '%s' by %s", policy.name, author.name)
 
-    # Sort agents: L0 first, then L1 — skip L2/L3 for now.
+    # --- Phase 2: action selection (all agents, utility-scored) ---
     agents = sorted(
         world.politicians.values(),
         key=lambda a: a.detail_level.value,
     )
 
-    # --- Phase 1: each agent chooses an action ---
+    vote_requests: list[Action] = []
+    non_vote_actions: list[Action] = []
+
     for agent in agents:
         if agent.detail_level.value > 1:
-            continue  # Skip L2/L3 for now.
+            continue
 
-        action = choose_action(agent, world, rng=rng)
+        # Get the policy pool for this agent's place.
+        pool = policy_pools.get(agent.place.id, [])
+
+        action = choose_action(agent, world, policy_pool=pool, rng=rng)
         if action is None:
             continue
 
-        if action.action_type is ActionType.PROPOSE_POLICY:
-            policy = generate_policy(agent, world, rng)
-            action.policy = policy
-            proposed_policies.append((action,))
+        if action.action_type is ActionType.REQUEST_VOTE and action.policy is not None:
+            vote_requests.append(action)
             report.actions_taken.append(action)
-            report.events.append(f"{agent.name} proposed '{policy.name}'")
-            _log.info("  %s proposed '%s'", agent.name, policy.name)
-        elif action.action_type is not ActionType.VOTE:
+            report.events.append(
+                f"{agent.name} requested vote on '{action.policy.name}'"
+            )
+            _log.info("  %s requested vote on '%s'", agent.name, action.policy.name)
+        else:
             non_vote_actions.append(action)
             report.actions_taken.append(action)
 
-    # --- Phase 2: vote on all proposed policies ---
-    for (proposal_action,) in proposed_policies:
-        policy = proposal_action.policy
+    # --- Phase 3: vote resolution ---
+    # Deduplicate: if multiple agents requested the same policy, only vote once.
+    voted_policies: set[int] = set()
+    for request in vote_requests:
+        policy = request.policy
         assert policy is not None
-        place = proposal_action.actor.place
+        policy_id = id(policy)
+        if policy_id in voted_policies:
+            continue
+        voted_policies.add(policy_id)
 
-        # Find the legislature for this place.
+        proposer = request.params.get("proposer", request.actor)
+        place = request.actor.place
         gov = world.governments.get(place.id)
         if gov is None or gov.legislature is None:
             report.events.append(f"No legislature to vote on '{policy.name}' — skipped")
             continue
 
-        result = resolve_vote(gov.legislature, policy, world, proposer=proposal_action.actor)
+        executive = gov.executive.holder
+        result = resolve_vote(
+            gov.legislature, policy, world,
+            proposer=proposer, executive=executive,
+        )
         report.vote_results.append(result)
 
         # Record individual vote actions.
@@ -93,11 +114,10 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             )
             report.actions_taken.append(vote_action)
 
-        # Apply vote consequences.
         vote_events = apply_vote_consequences(result, world)
         report.events.extend(vote_events)
 
-    # --- Phase 3: apply consequences for non-vote actions ---
+    # --- Phase 4: apply consequences for non-vote actions ---
     for action in non_vote_actions:
         action_events = apply_action_consequences(action, world)
         report.events.extend(action_events)

@@ -27,6 +27,7 @@ from src.models import (
     DetailLevel,
     PartyRole,
 )
+from src.actions.utility import perturb_weights
 from src.simulation import initialize_local_variables, run_simulation
 
 # ---------------------------------------------------------------------------
@@ -186,6 +187,11 @@ world.add_government(gov)
 # ---------------------------------------------------------------------------
 # 7. Initialize dynamic variables + run simulation
 # ---------------------------------------------------------------------------
+
+# Assign unique utility weights to each agent.
+weight_rng = random.Random(123)
+for agent in world.politicians.values():
+    agent.attributes["utility_weights"] = perturb_weights(weight_rng)
 
 initialize_local_variables(world)
 

@@ -12,12 +12,12 @@ if TYPE_CHECKING:
 
 # Maps office types to the extra actions they unlock.
 _OFFICE_ACTIONS: dict[OfficeType, set[ActionType]] = {
-    OfficeType.MAYOR: {ActionType.PROPOSE_POLICY, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
-    OfficeType.GOVERNOR: {ActionType.PROPOSE_POLICY, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
-    OfficeType.PRESIDENT: {ActionType.PROPOSE_POLICY, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
-    OfficeType.COUNCILPERSON: {ActionType.PROPOSE_POLICY},
-    OfficeType.STATE_ASSEMBLYPERSON: {ActionType.PROPOSE_POLICY},
-    OfficeType.CONGRESSPERSON: {ActionType.PROPOSE_POLICY},
+    OfficeType.MAYOR: {ActionType.REQUEST_VOTE, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
+    OfficeType.GOVERNOR: {ActionType.REQUEST_VOTE, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
+    OfficeType.PRESIDENT: {ActionType.REQUEST_VOTE, ActionType.ALLOCATE_BUDGET, ActionType.VETO},
+    OfficeType.COUNCILPERSON: {ActionType.REQUEST_VOTE},
+    OfficeType.STATE_ASSEMBLYPERSON: {ActionType.REQUEST_VOTE},
+    OfficeType.CONGRESSPERSON: {ActionType.REQUEST_VOTE},
 }
 
 # Maps party roles to the extra actions they unlock.
