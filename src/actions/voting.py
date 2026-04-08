@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from src.models.types import Archetype
@@ -11,6 +12,8 @@ if TYPE_CHECKING:
     from src.models.government import Legislature
     from src.models.policy import Policy
     from src.models.world import World
+
+_log = logging.getLogger("simulation.voting")
 
 
 # Archetype weight profiles for vote disposition.
@@ -101,14 +104,21 @@ def compute_vote_disposition(
 ) -> float:
     """Return a score in [-1, 1] for how inclined the agent is to vote yes."""
     w = ARCHETYPE_WEIGHTS[agent.archetype]
-    score = (
-        w["ideology"] * _ideology_score(agent, policy)
-        + w["party_directive"] * _party_directive_score(agent, policy, world)
-        + w["ig_pressure"] * _ig_pressure_score(agent, policy)
-        + w["electoral"] * _electoral_score(agent, policy)
-        + w["relationships"] * _relationship_score(agent, policy, proposer)
+    components = {
+        "ideology": _ideology_score(agent, policy),
+        "party_directive": _party_directive_score(agent, policy, world),
+        "ig_pressure": _ig_pressure_score(agent, policy),
+        "electoral": _electoral_score(agent, policy),
+        "relationships": _relationship_score(agent, policy, proposer),
+    }
+    score = sum(w[k] * v for k, v in components.items())
+    score = max(-1.0, min(1.0, score))
+    _log.debug(
+        "%s vote disposition on '%s': %.3f  [%s]",
+        agent.name, policy.name, score,
+        ", ".join(f"{k}={w[k]:.2f}*{v:+.3f}" for k, v in components.items()),
     )
-    return max(-1.0, min(1.0, score))
+    return score
 
 
 def resolve_vote(
@@ -132,6 +142,11 @@ def resolve_vote(
             abstain.append(member)
 
     passed = len(yes) > (len(legislature.members) / 2)
+    _log.info(
+        "  Vote on '%s': %s (%dY/%dN/%dA)",
+        policy.name, "PASSED" if passed else "FAILED",
+        len(yes), len(no), len(abstain),
+    )
 
     return VoteResult(
         policy=policy,

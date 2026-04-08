@@ -179,7 +179,8 @@ executive_office = Office(
     place=city,
     holder=mayor,
 )
-gov = Government(place=city, executive=executive_office, legislature=council)
+gov = Government(place=city, executive=executive_office, legislature=council,
+                 attributes={"election_interval": 5, "last_election_turn": 0})
 world.add_government(gov)
 
 # ---------------------------------------------------------------------------
@@ -190,7 +191,9 @@ initialize_local_variables(world)
 
 print(f"=== Initial State (Turn {world.turn}) ===")
 print(f"Place: {city.name} ({city.tier.name})")
-print(f"Mayor: {mayor.name} ({labor.name}, {mayor.party_role.name})")
+print(f"Mayor: {mayor.name} ({mayor.party.name}, {mayor.party_role.name})")
+print(f"  {mayor.name:15s}  {mayor.party.name:20s}  "
+          f"ideology=({mayor.ideology['economic']:+.1f}, {mayor.ideology['social']:+.1f})")
 print(f"Council ({council.total_seats} seats):")
 for c in councillors:
     print(f"  {c.name:15s}  {c.party.name:20s}  "
@@ -204,16 +207,11 @@ for ig in [workers, business, youth]:
     print(f"  {ig.name:25s}  sat={sat:.2f}  share={share:.2f}  pressure={pressure:.2f}")
 
 print("\n" + "=" * 60)
-print("Running 5 turns...")
-print("=" * 60)
+print("Running 10 turns (verbose log → simulation.log)...")
+print("=" * 60 + "\n")
 
 rng = random.Random(42)
-reports = run_simulation(world, num_turns=5, rng=rng)
-
-for report in reports:
-    print(f"\n--- Turn {report.turn} ---")
-    for event in report.events:
-        print(f"  {event}")
+reports = run_simulation(world, num_turns=10, rng=rng, debug=True)
 
 print(f"\n=== Final State (Turn {world.turn}) ===")
 print("Interest group satisfaction:")
@@ -224,4 +222,5 @@ for ig in [workers, business, youth]:
 
 print("\nAgent standings:")
 for agent in [mayor] + councillors:
-    print(f"  {agent.name:15s}  party_standing={agent.party_standing:.2f}")
+    office_str = agent.office.name if agent.office else "none"
+    print(f"  {agent.name:15s}  office={office_str:15s}  party_standing={agent.party_standing:.2f}")

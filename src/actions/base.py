@@ -51,10 +51,23 @@ class VoteResult:
 
 
 @dataclass
+class ElectionResult:
+    """Outcome of an election."""
+
+    place: Place
+    election_type: str  # "executive" or "legislative"
+    winners: list[Agent] = field(default_factory=list)
+    losers: list[Agent] = field(default_factory=list)
+    vote_shares: dict[str, float] = field(default_factory=dict)  # name -> share
+    events: list[str] = field(default_factory=list)
+
+
+@dataclass
 class TurnReport:
     """Summary of everything that happened in a single turn."""
 
     turn: int
     actions_taken: list[Action] = field(default_factory=list)
     vote_results: list[VoteResult] = field(default_factory=list)
+    election_results: list[ElectionResult] = field(default_factory=list)
     events: list[str] = field(default_factory=list)

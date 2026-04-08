@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import random as _random
 from typing import TYPE_CHECKING
 
@@ -8,6 +9,8 @@ from src.models.policy import Policy
 if TYPE_CHECKING:
     from src.models.agent import Agent
     from src.models.world import World
+
+_log = logging.getLogger("simulation.policy_gen")
 
 _POLICY_TEMPLATES = [
     ("Raise minimum wage", "Increase the local minimum wage"),
@@ -49,9 +52,16 @@ def generate_policy(
     for axis, position in agent.ideology.axes.items():
         ideology_alignment[axis] = position * rng.uniform(0.5, 1.0)
 
-    return Policy(
+    policy = Policy(
         name=name,
         description=description,
         interest_group_impacts=ig_impacts,
         ideology_alignment=ideology_alignment,
     )
+    _log.debug(
+        "Generated policy '%s' by %s: IG impacts=[%s], ideology=[%s]",
+        name, agent.name,
+        ", ".join(f"{ig.name}={v:+.3f}" for ig, v in ig_impacts.items()),
+        ", ".join(f"{k}={v:+.3f}" for k, v in ideology_alignment.items()),
+    )
+    return policy

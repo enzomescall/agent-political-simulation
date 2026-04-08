@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import random as _random
 from typing import TYPE_CHECKING
 
@@ -12,6 +13,8 @@ if TYPE_CHECKING:
     from src.models.agent import Agent
     from src.models.policy import Policy
     from src.models.world import World
+
+_log = logging.getLogger("simulation.decision")
 
 
 # Discretionary action weights per archetype.
@@ -60,16 +63,19 @@ def choose_action(
         rng = _random.Random()
 
     allowed = set(available_actions(agent, world))
+    _log.debug("%s: available actions = %s", agent.name,
+               [a.name for a in allowed])
 
     # 1. Mandatory: if there's a pending vote, vote on it.
     if pending_votes and ActionType.VOTE in allowed:
+        _log.debug("%s: priority 1 — mandatory vote on pending policy", agent.name)
         return Action(
             action_type=ActionType.VOTE,
             actor=agent,
             policy=pending_votes[0],
         )
 
-    # 2. Executive with high IG pressure → propose policy.
+    # 2a. Executive with high IG pressure → propose policy.
     if ActionType.PROPOSE_POLICY in allowed and agent.office in (
         OfficeType.MAYOR, OfficeType.GOVERNOR, OfficeType.PRESIDENT,
     ):
@@ -77,7 +83,25 @@ def choose_action(
         for ig in agent.place.interest_group_presence:
             max_pressure = max(max_pressure, ig.pressure_on(agent.place))
         if max_pressure > 0.15:
+            _log.debug("%s: priority 2a — executive proposing policy (max pressure=%.3f)",
+                       agent.name, max_pressure)
             return Action(action_type=ActionType.PROPOSE_POLICY, actor=agent)
+
+    # 2b. Legislator with random chance → propose policy.
+    if ActionType.PROPOSE_POLICY in allowed and agent.office in (
+        OfficeType.COUNCILPERSON, OfficeType.STATE_ASSEMBLYPERSON, OfficeType.CONGRESSPERSON,
+    ):
+        propose_chance = 0.08 + (agent.ambition * 0.07)
+        if agent.archetype is Archetype.IDEOLOGUE:
+            propose_chance += 0.10
+        roll = rng.random()
+        if roll < propose_chance:
+            _log.debug("%s: priority 2b — legislator proposing policy (roll=%.3f < chance=%.3f)",
+                       agent.name, roll, propose_chance)
+            return Action(action_type=ActionType.PROPOSE_POLICY, actor=agent)
+        else:
+            _log.debug("%s: priority 2b — legislator skipped proposal (roll=%.3f >= chance=%.3f)",
+                       agent.name, roll, propose_chance)
 
     # 3. Party leader with a low-standing member → enforce discipline.
     if ActionType.ENFORCE_DISCIPLINE in allowed and agent.party_role in (
@@ -85,6 +109,8 @@ def choose_action(
     ):
         for member, _role in agent.party.members.items():
             if member is not agent and member.party_standing < 0.25:
+                _log.debug("%s: priority 3 — enforcing discipline on %s (standing=%.2f)",
+                           agent.name, member.name, member.party_standing)
                 return Action(
                     action_type=ActionType.ENFORCE_DISCIPLINE,
                     actor=agent,
@@ -104,6 +130,9 @@ def choose_action(
     choices = list(adjusted.keys())
     choice_weights = [adjusted[c] for c in choices]
     action_type = rng.choices(choices, weights=choice_weights, k=1)[0]
+    _log.debug("%s: priority 4 — discretionary %s (weights: %s)",
+               agent.name, action_type.name,
+               {k.name: f"{v:.2f}" for k, v in adjusted.items()})
 
     if action_type is ActionType.BUILD_RELATIONSHIP:
         target = _pick_relationship_target(agent, world, rng)

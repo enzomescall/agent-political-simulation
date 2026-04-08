@@ -1,0 +1,51 @@
+simulation | === Turn 0 ===
+simulation.decision | Fernando Costa: available actions = ['ALLOCATE_BUDGET', 'PROPOSE_POLICY', 'EXPEL_MEMBER', 'VOTE', 'CAMPAIGN', 'ENFORCE_DISCIPLINE', 'VETO', 'TAKE_POSITION', 'ISSUE_DIRECTIVE', 'BUILD_RELATIONSHIP']
+simulation.decision | Fernando Costa: priority 2a — executive proposing policy (max pressure=0.275)
+simulation.policy_gen | Generated policy 'Cut business tax' by Fernando Costa: IG impacts=[Urban Workers Union=+0.158, Business Council=-0.067, Youth Coalition=+0.167], ideology=[economic=-0.260, social=+0.252]
+simulation |   Fernando Costa proposed 'Cut business tax'
+simulation.decision | Ana Souza: available actions = ['PROPOSE_POLICY', 'VOTE', 'CAMPAIGN', 'TAKE_POSITION', 'BUILD_RELATIONSHIP']
+simulation.decision | Ana Souza: priority 2b — legislator skipped proposal (roll=0.892 >= chance=0.108)
+simulation.decision | Ana Souza: priority 4 — discretionary TAKE_POSITION (weights: {'TAKE_POSITION': '0.20', 'BUILD_RELATIONSHIP': '0.40', 'CAMPAIGN': '0.36'})
+simulation.decision | Bruno Melo: available actions = ['PROPOSE_POLICY', 'VOTE', 'CAMPAIGN', 'TAKE_POSITION', 'BUILD_RELATIONSHIP']
+simulation.decision | Bruno Melo: priority 2b — legislator skipped proposal (roll=0.422 >= chance=0.129)
+simulation.decision | Bruno Melo: priority 4 — discretionary TAKE_POSITION (weights: {'TAKE_POSITION': '0.15', 'BUILD_RELATIONSHIP': '0.15', 'CAMPAIGN': '0.84'})
+simulation.decision | Clara Faria: available actions = ['PROPOSE_POLICY', 'VOTE', 'CAMPAIGN', 'TAKE_POSITION', 'BUILD_RELATIONSHIP']
+simulation.decision | Clara Faria: priority 2b — legislator skipped proposal (roll=0.219 >= chance=0.215)
+simulation.decision | Clara Faria: priority 4 — discretionary TAKE_POSITION (weights: {'TAKE_POSITION': '0.60', 'BUILD_RELATIONSHIP': '0.25', 'CAMPAIGN': '0.15'})
+simulation.decision | Diego Ramos: available actions = ['PROPOSE_POLICY', 'VOTE', 'CAMPAIGN', 'TAKE_POSITION', 'BUILD_RELATIONSHIP']
+simulation.decision | Diego Ramos: priority 2b — legislator proposing policy (roll=0.027 < chance=0.122)
+simulation.policy_gen | Generated policy 'Housing subsidy program' by Diego Ramos: IG impacts=[Urban Workers Union=+0.065, Business Council=+0.460, Youth Coalition=-0.024], ideology=[economic=+0.362, social=-0.192]
+simulation |   Diego Ramos proposed 'Housing subsidy program'
+simulation.decision | Elisa Nunes: available actions = ['PROPOSE_POLICY', 'VOTE', 'CAMPAIGN', 'TAKE_POSITION', 'BUILD_RELATIONSHIP']
+simulation.decision | Elisa Nunes: priority 2b — legislator skipped proposal (roll=0.869 >= chance=0.136)
+simulation.decision | Elisa Nunes: priority 4 — discretionary CAMPAIGN (weights: {'TAKE_POSITION': '0.15', 'BUILD_RELATIONSHIP': '0.15', 'CAMPAIGN': '0.91'})
+simulation.voting | Ana Souza vote disposition on 'Cut business tax': 0.122  [ideology=0.20*+0.154, party_directive=0.40*+0.128, ig_pressure=0.15*+0.158, electoral=0.10*+0.162, relationships=0.15*+0.000]
+simulation.voting | Bruno Melo vote disposition on 'Cut business tax': 0.138  [ideology=0.15*+0.077, party_directive=0.10*+0.128, ig_pressure=0.40*+0.162, electoral=0.30*+0.162, relationships=0.05*+0.000]
+simulation.voting | Clara Faria vote disposition on 'Cut business tax': -0.026  [ideology=0.50*-0.026, party_directive=0.10*-0.026, ig_pressure=0.15*-0.067, electoral=0.05*+0.004, relationships=0.20*+0.000]
+simulation.voting | Diego Ramos vote disposition on 'Cut business tax': -0.043  [ideology=0.20*-0.103, party_directive=0.40*-0.026, ig_pressure=0.15*-0.067, electoral=0.10*-0.017, relationships=0.15*+0.000]
+simulation.voting | Elisa Nunes vote disposition on 'Cut business tax': 0.142  [ideology=0.15*+0.088, party_directive=0.10*+0.128, ig_pressure=0.40*+0.167, electoral=0.30*+0.164, relationships=0.05*+0.000]
+simulation.voting |   Vote on 'Cut business tax': PASSED (3Y/0N/2A)
+simulation.consequences |   Urban Workers Union satisfaction: 0.500 -> 0.547 (impact=0.158)
+simulation.consequences |   Business Council satisfaction: 0.500 -> 0.480 (impact=-0.067)
+simulation.consequences |   Youth Coalition satisfaction: 0.500 -> 0.550 (impact=0.167)
+simulation.consequences |   Ana Souza popularity[Urban Workers Union]: 0.750 -> 0.766 (delta=0.016)
+simulation.consequences |   Ana Souza popularity[Youth Coalition]: 0.600 -> 0.617 (delta=0.017)
+simulation.consequences |   Bruno Melo popularity[Urban Workers Union]: 0.550 -> 0.566 (delta=0.016)
+simulation.consequences |   Bruno Melo popularity[Youth Coalition]: 0.500 -> 0.517 (delta=0.017)
+simulation.consequences |   Elisa Nunes popularity[Urban Workers Union]: 0.450 -> 0.466 (delta=0.016)
+simulation.consequences |   Elisa Nunes popularity[Youth Coalition]: 0.800 -> 0.817 (delta=0.017)
+simulation.consequences |   Ana Souza party_standing: 0.900 -> 0.930 (party_lean=0.128, voted_yes=True)
+simulation.consequences |   Bruno Melo party_standing: 0.600 -> 0.630 (party_lean=0.128, voted_yes=True)
+simulation.consequences |   Elisa Nunes party_standing: 0.500 -> 0.530 (party_lean=0.128, voted_yes=True)
+simulation.voting | Ana Souza vote disposition on 'Housing subsidy program': -0.082  [ideology=0.20*-0.175, party_directive=0.40*-0.147, ig_pressure=0.15*+0.065, electoral=0.10*+0.025, relationships=0.15*+0.000]
+simulation.voting | Bruno Melo vote disposition on 'Housing subsidy program': -0.012  [ideology=0.15*-0.092, party_directive=0.10*-0.147, ig_pressure=0.40*+0.025, electoral=0.30*+0.022, relationships=0.05*+0.000]
+simulation.voting | Clara Faria vote disposition on 'Housing subsidy program': 0.108  [ideology=0.50*+0.036, party_directive=0.10*+0.045, ig_pressure=0.15*+0.460, electoral=0.05*+0.335, relationships=0.20*+0.000]
+simulation.voting | Diego Ramos vote disposition on 'Housing subsidy program': 0.148  [ideology=0.20*+0.119, party_directive=0.40*+0.045, ig_pressure=0.15*+0.460, electoral=0.10*+0.372, relationships=0.15*+0.000]
+simulation.voting | Elisa Nunes vote disposition on 'Housing subsidy program': -0.033  [ideology=0.15*-0.076, party_directive=0.10*-0.147, ig_pressure=0.40*-0.024, electoral=0.30*+0.008, relationships=0.05*+0.000]
+simulation.voting |   Vote on 'Housing subsidy program': FAILED (2Y/0N/3A)
+simulation.consequences |   Clara Faria popularity[Urban Workers Union]: 0.300 -> 0.306 (delta=0.006)
+simulation.consequences |   Clara Faria popularity[Business Council]: 0.650 -> 0.696 (delta=0.046)
+simulation.consequences |   Diego Ramos popularity[Urban Workers Union]: 0.200 -> 0.206 (delta=0.006)
+simulation.consequences |   Diego Ramos popularity[Business Council]: 0.700 -> 0.746 (delta=0.046)
+simulation.consequences |   Clara Faria party_standing: 0.800 -> 0.750 (party_lean=0.045, voted_yes=True)
+simulation.consequences |   Diego Ramos party_standing: 0.700 -> 0.650 (party_lean=0.045, voted_yes=True)

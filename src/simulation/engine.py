@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import random as _random
 from typing import TYPE_CHECKING
 
@@ -7,10 +8,13 @@ from src.actions.base import Action, ActionType, TurnReport
 from src.actions.decision import choose_action
 from src.actions.voting import resolve_vote
 from src.simulation.consequences import apply_action_consequences, apply_vote_consequences
+from src.simulation.elections import check_elections, run_executive_election, run_legislative_election
 from src.simulation.policy_gen import generate_policy
 
 if TYPE_CHECKING:
     from src.models.world import World
+
+_log = logging.getLogger("simulation")
 
 
 def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
@@ -19,6 +23,20 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
         rng = _random.Random()
 
     report = TurnReport(turn=world.turn)
+    _log.info("=== Turn %d ===", world.turn)
+
+    # --- Phase 0: check for scheduled elections ---
+    for gov in check_elections(world):
+        _log.info("Election triggered for %s", gov.place.name)
+        exec_result = run_executive_election(gov, world, rng)
+        report.election_results.append(exec_result)
+        report.events.extend(exec_result.events)
+        if gov.legislature is not None:
+            leg_result = run_legislative_election(gov, world, rng)
+            report.election_results.append(leg_result)
+            report.events.extend(leg_result.events)
+        gov.attributes["last_election_turn"] = world.turn
+
     proposed_policies: list[tuple[Action, ...]] = []
     non_vote_actions: list[Action] = []
 
@@ -43,6 +61,7 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             proposed_policies.append((action,))
             report.actions_taken.append(action)
             report.events.append(f"{agent.name} proposed '{policy.name}'")
+            _log.info("  %s proposed '%s'", agent.name, policy.name)
         elif action.action_type is not ActionType.VOTE:
             non_vote_actions.append(action)
             report.actions_taken.append(action)
@@ -91,10 +110,27 @@ def run_simulation(
     world: World,
     num_turns: int,
     rng: _random.Random | None = None,
+    debug: bool = False,
 ) -> list[TurnReport]:
     """Run multiple turns and return all reports."""
     if rng is None:
         rng = _random.Random()
+
+    if debug:
+        sim_logger = logging.getLogger("simulation")
+        sim_logger.setLevel(logging.DEBUG)
+        if not sim_logger.handlers:
+            # Verbose log → file
+            fh = logging.FileHandler("simulation.log", mode="w")
+            fh.setLevel(logging.DEBUG)
+            fh.setFormatter(logging.Formatter("%(name)s | %(message)s"))
+            sim_logger.addHandler(fh)
+            # Summary log → terminal (INFO only)
+            sh = logging.StreamHandler()
+            sh.setLevel(logging.INFO)
+            sh.setFormatter(logging.Formatter("%(message)s"))
+            sim_logger.addHandler(sh)
+
     reports = []
     for _ in range(num_turns):
         reports.append(run_turn(world, rng))

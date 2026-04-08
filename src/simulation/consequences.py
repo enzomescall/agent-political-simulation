@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from src.actions.base import Action, ActionType, VoteResult
 
 if TYPE_CHECKING:
     from src.models.world import World
+
+_log = logging.getLogger("simulation.consequences")
 
 
 def _clamp(value: float, lo: float = -1.0, hi: float = 1.0) -> float:
@@ -23,6 +26,8 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
             if result.place in ig.satisfaction:
                 old = ig.satisfaction[result.place]
                 ig.satisfaction[result.place] = _clamp(old + impact * 0.3, 0.0, 1.0)
+                _log.debug("  %s satisfaction: %.3f -> %.3f (impact=%.3f)",
+                           ig.name, old, ig.satisfaction[result.place], impact)
 
     # 2. Agent popularity — voters remember how you voted.
     all_voters = result.yes_votes + result.no_votes
@@ -34,7 +39,10 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
             # Voting with the group's interest → popularity up; against → down.
             direction = 1.0 if voted_yes else -1.0
             delta = direction * impact * 0.1
-            agent.popularity[ig] = _clamp(agent.popularity[ig] + delta, 0.0, 1.0)
+            old_pop = agent.popularity[ig]
+            agent.popularity[ig] = _clamp(old_pop + delta, 0.0, 1.0)
+            _log.debug("  %s popularity[%s]: %.3f -> %.3f (delta=%.3f)",
+                       agent.name, ig.name, old_pop, agent.popularity[ig], delta)
 
     # 3. Party standing — did they follow the party line?
     for agent in all_voters:
@@ -49,11 +57,14 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
             party_lean /= count
         party_wants_yes = party_lean > 0.05
 
+        old_standing = agent.party_standing
         if voted_yes == party_wants_yes:
             agent.party_standing = _clamp(agent.party_standing + 0.03, 0.0, 1.0)
         else:
             agent.party_standing = _clamp(agent.party_standing - 0.05, 0.0, 1.0)
             events.append(f"{agent.name} defied {agent.party.name} party line")
+        _log.debug("  %s party_standing: %.3f -> %.3f (party_lean=%.3f, voted_yes=%s)",
+                   agent.name, old_standing, agent.party_standing, party_lean, voted_yes)
 
     # 4. Relationships — voting together builds trust.
     for a in result.yes_votes:
