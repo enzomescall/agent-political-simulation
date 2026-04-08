@@ -1,41 +1,45 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from .ideology import Ideology
 from .types import (
     AgentId,
     Archetype,
     DetailLevel,
-    InterestGroupId,
     OfficeType,
-    PartyId,
-    PlaceId,
+    PartyRole,
 )
 
+if TYPE_CHECKING:
+    from .interest_group import InterestGroup
+    from .party import Party
+    from .place import Place
 
-@dataclass
+
+@dataclass(eq=False)
 class Agent:
     """The core simulated entity — an elected (or aspiring) official."""
 
     id: AgentId
     name: str
     ideology: Ideology
-    party_id: PartyId
-    place_id: PlaceId
+    party: Party
+    place: Place
 
     # Current office held (None if out of office).
     office: OfficeType | None = None
+    party_role: PartyRole = PartyRole.MEMBER
 
     # Weighted map to interest groups — who they identify with / who funds them.
-    allegiances: dict[InterestGroupId, float] = field(default_factory=dict)
+    allegiances: dict[InterestGroup, float] = field(default_factory=dict)
 
-    # Bilateral political-trust scores with other politicians.
-    relationships: dict[AgentId, float] = field(default_factory=dict)
+    # Bilateral political-trust scores with other agents.
+    relationships: dict[Agent, float] = field(default_factory=dict, repr=False)
 
     # Approval scores broken down by interest group.
-    popularity: dict[InterestGroupId, float] = field(default_factory=dict)
+    popularity: dict[InterestGroup, float] = field(default_factory=dict, repr=False)
 
     # How loyal vs. rebellious within their party (0.0 = rebel, 1.0 = loyal).
     party_standing: float = 0.5

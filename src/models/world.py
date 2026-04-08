@@ -39,10 +39,9 @@ class World:
 
     def add_place(self, place: Place) -> None:
         self.places[place.id] = place
-        if place.parent_id and place.parent_id in self.places:
-            parent = self.places[place.parent_id]
-            if place.id not in parent.children_ids:
-                parent.children_ids.append(place.id)
+        if place.parent is not None:
+            if place not in place.parent.children:
+                place.parent.children.append(place)
 
     def add_party(self, party: Party) -> None:
         self.parties[party.id] = party
@@ -52,40 +51,22 @@ class World:
 
     def add_politician(self, agent: Agent) -> None:
         self.politicians[agent.id] = agent
+        agent.party.add_member(agent, agent.party_role)
 
     def add_government(self, government: Government) -> None:
-        self.governments[government.place_id] = government
+        self.governments[government.place.id] = government
 
     # ------------------------------------------------------------------
     # Queries
     # ------------------------------------------------------------------
 
-    def politicians_in_place(self, place_id: PlaceId) -> list[Agent]:
-        return [p for p in self.politicians.values() if p.place_id == place_id]
+    def politicians_in_place(self, place: Place) -> list[Agent]:
+        return [p for p in self.politicians.values() if p.place is place]
 
-    def party_members(self, party_id: PartyId) -> list[Agent]:
-        return [p for p in self.politicians.values() if p.party_id == party_id]
+    def party_members(self, party: Party) -> list[Agent]:
+        return [p for p in self.politicians.values() if p.party is party]
 
-    def children_of(self, place_id: PlaceId) -> list[Place]:
-        place = self.places.get(place_id)
-        if place is None:
+    def siblings_of(self, place: Place) -> list[Place]:
+        if place.parent is None:
             return []
-        return [self.places[cid] for cid in place.children_ids if cid in self.places]
-
-    def siblings_of(self, place_id: PlaceId) -> list[Place]:
-        place = self.places.get(place_id)
-        if place is None or place.parent_id is None:
-            return []
-        return [
-            p
-            for p in self.children_of(place.parent_id)
-            if p.id != place_id
-        ]
-
-    def interest_group_pressure(
-        self, group_id: InterestGroupId, place_id: PlaceId
-    ) -> float:
-        group = self.interest_groups.get(group_id)
-        if group is None:
-            return 0.0
-        return group.pressure_on(place_id)
+        return [p for p in place.parent.children if p is not place]

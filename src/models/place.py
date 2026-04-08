@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from .types import InterestGroupId, PlaceId, PlaceTier
+from .types import PlaceId, PlaceTier
+
+if TYPE_CHECKING:
+    from .interest_group import InterestGroup
 
 
-@dataclass
+@dataclass(eq=False)
 class Place:
     """A geographic/administrative unit at any tier of government."""
 
@@ -14,11 +17,11 @@ class Place:
     name: str
     tier: PlaceTier
 
-    parent_id: PlaceId | None = None
-    children_ids: list[PlaceId] = field(default_factory=list)
+    parent: Place | None = None
+    children: list[Place] = field(default_factory=list)
 
-    # Interest-group presence: group_id → share of local population [0, 1].
-    interest_group_presence: dict[InterestGroupId, float] = field(
+    # Interest-group presence: group → share of local population [0, 1].
+    interest_group_presence: dict[InterestGroup, float] = field(
         default_factory=dict,
     )
 

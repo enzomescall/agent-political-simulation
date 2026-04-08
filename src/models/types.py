@@ -39,3 +39,10 @@ class DetailLevel(Enum):
     L1 = 1  # Player's state + national leadership — full weight-based decisions
     L2 = 2  # Neighbouring/relevant states — party-level behaviour, individual rolls
     L3 = 3  # Everyone else — pure aggregate statistics
+
+
+class PartyRole(Enum):
+    LEADER = auto()
+    WHIP = auto()
+    SPOKESPERSON = auto()
+    MEMBER = auto()
