@@ -44,6 +44,9 @@ class Agent:
     # How loyal vs. rebellious within their party (0.0 = rebel, 1.0 = loyal).
     party_standing: float = 0.5
 
+    # How satisfied the agent is with their party's ideology and direction.
+    party_satisfaction: float = 0.5
+
     # Drives risk-taking behaviour (0.0 = cautious, 1.0 = reckless).
     ambition: float = 0.5
 

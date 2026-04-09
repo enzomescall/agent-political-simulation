@@ -24,6 +24,10 @@ class ActionType(Enum):
     ISSUE_DIRECTIVE = auto()
     ENFORCE_DISCIPLINE = auto()
     EXPEL_MEMBER = auto()
+    # Party-leader-only (split action budget)
+    IDEOLOGY_PUSH = auto()
+    PARTY_OUTREACH = auto()
+    PARTY_MERGE = auto()
 
 
 @dataclass
@@ -49,6 +53,10 @@ class VoteResult:
     no_votes: list[Agent] = field(default_factory=list)
     abstentions: list[Agent] = field(default_factory=list)
     passed: bool = False
+    # Veto fields — populated when an executive uses veto power
+    vetoed: bool = False
+    veto_override: bool = False
+    veto_disposition: float | None = None  # executive's raw disposition score
 
 
 @dataclass
@@ -72,3 +80,6 @@ class TurnReport:
     vote_results: list[VoteResult] = field(default_factory=list)
     election_results: list[ElectionResult] = field(default_factory=list)
     events: list[str] = field(default_factory=list)
+    veto_events: list[str] = field(default_factory=list)
+    drift_events: list[str] = field(default_factory=list)
+    split_events: list[str] = field(default_factory=list)

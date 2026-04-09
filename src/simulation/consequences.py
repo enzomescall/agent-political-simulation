@@ -23,14 +23,34 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
     events: list[str] = []
     policy = result.policy
 
-    # 1. Interest-group satisfaction (only if the policy passed).
+    # 1. Interest-group satisfaction — apply all impacts (positive and negative).
     if result.passed:
         for ig, impact in policy.interest_group_impacts.items():
-            if result.place in ig.satisfaction:
-                old = ig.satisfaction[result.place]
-                ig.satisfaction[result.place] = _clamp(old + impact * 0.3, 0.0, 1.0)
-                _log.debug("  %s satisfaction: %.3f -> %.3f (impact=%.3f)",
-                           ig.name, old, ig.satisfaction[result.place], impact)
+            if result.place not in ig.satisfaction:
+                continue
+            old = ig.satisfaction[result.place]
+            # Scale: positive impacts land at 0.3×, negatives at 0.4× (slightly harsher)
+            scale = 0.3 if impact >= 0 else 0.4
+            ig.satisfaction[result.place] = _clamp(old + impact * scale, 0.0, 1.0)
+            _log.debug("  %s satisfaction: %.3f -> %.3f (impact=%.3f)",
+                       ig.name, old, ig.satisfaction[result.place], impact)
+
+        # Cross-IG conflict: IGs that are ideologically opposed to a gaining IG
+        # suffer a small secondary dissatisfaction hit.
+        for ig_a, impact_a in policy.interest_group_impacts.items():
+            if impact_a <= 0 or result.place not in ig_a.satisfaction:
+                continue
+            gained = ig_a.satisfaction[result.place] - ig_a.satisfaction.get(result.place, 0.5)
+            for ig_b, impact_b in policy.interest_group_impacts.items():
+                if ig_b is ig_a or result.place not in ig_b.satisfaction:
+                    continue
+                conflict = 1.0 - ig_a.ideology.alignment(ig_b.ideology)
+                if conflict > 0.3:  # only meaningfully opposed IGs
+                    old_b = ig_b.satisfaction[result.place]
+                    penalty = abs(impact_a) * conflict * 0.15
+                    ig_b.satisfaction[result.place] = _clamp(old_b - penalty, 0.0, 1.0)
+                    _log.debug("  %s satisfaction: %.3f -> %.3f (cross-IG conflict with %s)",
+                               ig_b.name, old_b, ig_b.satisfaction[result.place], ig_a.name)
 
     # 2. Agent popularity — voters remember how you voted.
     all_voters = result.yes_votes + result.no_votes
@@ -205,6 +225,58 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
                 0.0, action.target.attributes.get("recent_defiance", 0.0) - 0.5
             )
             events.append(f"{fmt(agent)} disciplined {fmt(action.target)}")
+
+    elif action.action_type is ActionType.IDEOLOGY_PUSH:
+        # Shift party ideology slightly toward the direction stored in params.
+        direction = action.params.get("direction", {})  # {axis: target_value}
+        for axis, target in direction.items():
+            current = agent.party.ideology[axis]
+            delta = (target - current) * 0.05
+            agent.party.ideology.axes[axis] = _clamp(current + delta)
+            _log.debug("  %s ideology push: %s axis %.3f -> %.3f",
+                       agent.party.name, axis, current, agent.party.ideology[axis])
+        events.append(f"{fmt(agent)} pushed {agent.party.name} ideology toward {direction}")
+
+    elif action.action_type is ActionType.PARTY_OUTREACH:
+        target_party = action.params.get("target_party")
+        target_ig = action.params.get("target_ig")
+        if target_party is not None:
+            old_rel = agent.party.relations.get(target_party, 0.0)
+            agent.party.relations[target_party] = _clamp(old_rel + 0.05)
+            events.append(
+                f"{fmt(agent)} improved {agent.party.name}↔{target_party.name} relations "
+                f"({old_rel:+.2f} → {agent.party.relations[target_party]:+.2f})"
+            )
+        elif target_ig is not None:
+            old_rel = agent.party.ig_relations.get(target_ig, 0.0)
+            agent.party.ig_relations[target_ig] = _clamp(old_rel + 0.05, 0.0, 1.0)
+            events.append(
+                f"{fmt(agent)} improved {agent.party.name}↔{target_ig.name} relations "
+                f"({old_rel:.2f} → {agent.party.ig_relations[target_ig]:.2f})"
+            )
+
+    elif action.action_type is ActionType.PARTY_MERGE:
+        target_party = action.params.get("target_party")
+        if target_party is not None:
+            absorbing = agent.party
+            absorbed = target_party
+            # Dominant (absorbing) party nudges ideology 10% toward absorbed
+            for axis in absorbing.ideology.axes:
+                delta = (absorbed.ideology[axis] - absorbing.ideology[axis]) * 0.10
+                absorbing.ideology.axes[axis] = _clamp(absorbing.ideology[axis] + delta)
+            # Move all absorbed members to absorbing party
+            for member in list(absorbed.members.keys()):
+                absorbed.remove_member(member)
+                absorbing.add_member(member, PartyRole.MEMBER)
+                member.party = absorbing
+                member.party_role = PartyRole.MEMBER
+                member.party_satisfaction = max(0.3, member.party_satisfaction - 0.2)
+            world.parties.pop(absorbed.id, None)
+            events.append(
+                f"{absorbing.name} absorbed {absorbed.name} "
+                f"({len(absorbing.members)} total members after merge)"
+            )
+            _log.info("  %s merged with %s", absorbing.name, absorbed.name)
 
     elif action.action_type is ActionType.EXPEL_MEMBER:
         if action.target is not None:

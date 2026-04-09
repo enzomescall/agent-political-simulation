@@ -33,13 +33,19 @@ def _ideology_score(agent: Agent, policy: Policy) -> float:
 
 
 def _ig_pressure_score(agent: Agent, policy: Policy) -> float:
-    """How much the agent's interest groups want this policy [-1, 1]."""
+    """How much the agent's interest groups want this policy [-1, 1].
+
+    IGs to which the agent has low allegiance (< 0.15) are dampened — agents
+    don't feel strong pressure from groups they're opposed to.
+    """
     total = 0.0
     weight_sum = 0.0
     for ig, allegiance in agent.allegiances.items():
         impact = policy.interest_group_impacts.get(ig, 0.0)
-        total += impact * allegiance
-        weight_sum += allegiance
+        # Dampen influence of opposed/unaffiliated IGs
+        effective = allegiance if allegiance >= 0.15 else allegiance * 0.4
+        total += impact * effective
+        weight_sum += effective
     return total / weight_sum if weight_sum > 0 else 0.0
 
 
@@ -246,10 +252,27 @@ def resolve_vote(
             _log.debug("  Executive %s broke tie against (disposition=%.3f)",
                        fmt(executive), exec_disposition)
 
+    # --- Executive veto ---
+    vetoed = False
+    veto_disposition_val: float | None = None
+    if passed and executive is not None:
+        gov = world.governments.get(legislature.place.id)
+        veto_threshold = gov.veto_threshold if gov is not None else -0.3
+        exec_disp = compute_vote_disposition(executive, policy, world, proposer)
+        veto_disposition_val = exec_disp
+        if exec_disp < veto_threshold:
+            vetoed = True
+            passed = False
+            _log.info(
+                "  VETO: %s vetoed '%s' (exec_disp=%.3f < threshold=%.3f)",
+                fmt(executive), policy.name, exec_disp, veto_threshold,
+            )
+
     _log.info(
-        "  Vote on '%s': %s (%dY/%dN/%dA)",
+        "  Vote on '%s': %s (%dY/%dN/%dA)%s",
         policy.name, "PASSED" if passed else "FAILED",
         len(yes), len(no), len(abstain),
+        " [VETOED]" if vetoed else "",
     )
 
     return VoteResult(
@@ -260,4 +283,6 @@ def resolve_vote(
         no_votes=no,
         abstentions=abstain,
         passed=passed,
+        vetoed=vetoed,
+        veto_disposition=veto_disposition_val,
     )

@@ -1,6 +1,7 @@
 """
 visualize_sim3.py
-Runs the Cascadia Federation simulation and generates 10 visualizations.
+Runs the Cascadia Federation simulation and generates 21 visualizations + animated GIF.
+Each run outputs into visualizations/{YYYYMMDD_HHMMSS}/.
 """
 from __future__ import annotations
 
@@ -10,12 +11,19 @@ import os
 import random
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
+
+try:
+    from PIL import Image as _PIL_Image
+    _HAS_PIL = True
+except ImportError:
+    _HAS_PIL = False
 
 plt.style.use("seaborn-v0_8-whitegrid")
 
@@ -31,8 +39,13 @@ from src.simulation import initialize_local_variables, run_turn
 # Suppress simulation logging
 logging.getLogger("simulation").setLevel(logging.CRITICAL)
 
-# Output directory
-os.makedirs("visualizations", exist_ok=True)
+# Timestamped output directory
+_RUN_TS = datetime.now().strftime("%Y%m%d_%H%M%S")
+OUT_DIR = os.path.join("visualizations", _RUN_TS)
+os.makedirs(OUT_DIR, exist_ok=True)
+EPOCH_DIR = os.path.join(OUT_DIR, "ideological_epochs")
+os.makedirs(EPOCH_DIR, exist_ok=True)
+print(f"Output directory: {OUT_DIR}")
 
 # Party colors
 PARTY_COLORS = {
@@ -513,6 +526,90 @@ history_ig_sat: list[dict[str, dict[str, float]]] = []  # per turn
 history_standing: list[dict[str, list[dict]]] = []  # per turn
 history_key_agents: dict[str, list[float | None]] = {n: [] for n in KEY_AGENT_NAMES}  # name -> [pop per turn]
 
+# NEW: extended tracking
+history_agent_ideologies: dict[str, list[tuple[float, float]]] = defaultdict(list)  # id -> [(econ,soc)]
+history_exec_holders: dict[str, list[tuple[str, str]]] = defaultdict(list)  # place_id -> [(name,party)]
+history_party_leaders: dict[str, list[str]] = defaultdict(list)  # party_id -> [leader_name]
+history_party_ideologies: dict[str, list[tuple[float, float]]] = defaultdict(list)  # party_id -> [(econ,soc)]
+history_ig_ideologies: dict[str, list[tuple[float, float]]] = defaultdict(list)  # ig_name -> [(econ,soc)]
+history_agent_party_standing: dict[str, list[float]] = defaultdict(list)  # id -> [standing]
+history_veto_counts: list[tuple[int, int]] = []  # per turn: (vetoed, overrides)
+history_exec_actions: list[dict[str, int]] = []  # per turn: {action_type_name: count}
+history_agent_offices: dict[str, list] = defaultdict(list)  # id -> [office_type or None]
+history_party_total_seats: dict[str, list[int]] = defaultdict(list)  # party_name -> [seats per turn]
+
+def snapshot_extended(world: "World", report=None) -> None:
+    """Capture extended per-turn state into history structures."""
+    # Agent ideologies, standing, offices
+    for agent in world.politicians.values():
+        aid = agent.id
+        history_agent_ideologies[aid].append(
+            (agent.ideology["economic"], agent.ideology["social"])
+        )
+        history_agent_party_standing[aid].append(agent.party_standing)
+        history_agent_offices[aid].append(agent.office)
+
+    # Executive holders per place
+    for place_id, gov in world.governments.items():
+        if gov.executive and gov.executive.holder:
+            h = gov.executive.holder
+            history_exec_holders[place_id].append((h.name, h.party.name))
+        else:
+            history_exec_holders[place_id].append(("vacant", ""))
+
+    # Party leaders per party
+    for party_id, party in world.parties.items():
+        leaders = [a for a, role in party.members.items() if role.name == "LEADER"]
+        if leaders:
+            history_party_leaders[party_id].append(leaders[0].name)
+        else:
+            history_party_leaders[party_id].append("none")
+
+    # Party ideologies
+    for party_id, party in world.parties.items():
+        history_party_ideologies[party_id].append(
+            (party.ideology["economic"], party.ideology["social"])
+        )
+
+    # IG ideologies
+    for ig in ALL_IGs:
+        history_ig_ideologies[ig.name].append(
+            (ig.ideology["economic"], ig.ideology["social"])
+        )
+
+    # Party total seats across all tiers
+    seat_counts: dict[str, int] = defaultdict(int)
+    for gov in world.governments.values():
+        if gov.legislature:
+            for m in gov.legislature.members:
+                seat_counts[m.party.name] += 1
+    for pname in [p.name for p in ALL_PARTIES]:
+        history_party_total_seats[pname].append(seat_counts.get(pname, 0))
+
+    # Veto counts from report
+    if report is not None:
+        vetoed = sum(1 for vr in report.vote_results if vr.vetoed)
+        overrides = sum(1 for vr in report.vote_results if vr.veto_override)
+        history_veto_counts.append((vetoed, overrides))
+    else:
+        history_veto_counts.append((0, 0))
+
+    # Executive agent actions this turn
+    from src.actions.base import ActionType as _AT
+    exec_action_types = [
+        _AT.REQUEST_VOTE, _AT.CAMPAIGN, _AT.BUILD_RELATIONSHIP,
+        _AT.TAKE_POSITION, _AT.ENFORCE_DISCIPLINE,
+        _AT.IDEOLOGY_PUSH, _AT.PARTY_OUTREACH, _AT.PARTY_MERGE,
+    ]
+    exec_office_types = {OfficeType.PRESIDENT, OfficeType.GOVERNOR, OfficeType.MAYOR}
+    turn_exec_actions: dict[str, int] = defaultdict(int)
+    if report is not None:
+        for action in report.actions_taken:
+            if action.actor.office in exec_office_types:
+                turn_exec_actions[action.action_type.name] += 1
+    history_exec_actions.append(dict(turn_exec_actions))
+
+
 # Capture turn-0 snapshot
 history_seats.append(snapshot_seats(world))
 history_ig_sat.append(snapshot_ig_satisfaction(world))
@@ -520,6 +617,7 @@ history_standing.append(snapshot_agent_standing(world))
 for name in KEY_AGENT_NAMES:
     agent_obj = next((a for a in world.politicians.values() if a.name == name), None)
     history_key_agents[name].append(avg_popularity(agent_obj) if agent_obj else None)
+snapshot_extended(world, report=None)
 
 # Run simulation turn-by-turn
 sim_rng = random.Random(42)
@@ -537,13 +635,14 @@ for t in range(NUM_TURNS):
     for name in KEY_AGENT_NAMES:
         agent_obj = next((a for a in world.politicians.values() if a.name == name), None)
         history_key_agents[name].append(avg_popularity(agent_obj) if agent_obj else None)
+    snapshot_extended(world, report=report)
 
 print(f"Simulation complete. {len(all_reports)} reports collected.")
 
 # ==========================================================================
 # VIZ 1: Ideological Landscape
 # ==========================================================================
-print("Generating viz 1/10: Ideological Landscape...")
+print("Generating viz 1/21: Ideological Landscape...")
 
 fig, ax = plt.subplots(figsize=(12, 9))
 
@@ -624,13 +723,13 @@ ax.text(-1.05, -1.05, "Conservative\nLeft", fontsize=8, color="gray", va="bottom
 ax.text(0.55, -1.05, "Conservative\nRight", fontsize=8, color="gray", va="bottom")
 
 plt.tight_layout()
-plt.savefig("visualizations/01_ideological_landscape.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "01_ideological_landscape.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 2: Seat Evolution
 # ==========================================================================
-print("Generating viz 2/10: Seat Evolution...")
+print("Generating viz 2/21: Seat Evolution...")
 
 fig, axes = plt.subplots(3, 1, figsize=(14, 12), sharex=True)
 tier_names = ["FEDERAL", "STATE", "MUNICIPALITY"]
@@ -661,13 +760,13 @@ for ax_idx, (tier, label) in enumerate(zip(tier_names, tier_labels)):
 axes[-1].set_xlabel("Turn", fontsize=11)
 fig.suptitle("Seat Distribution Evolution — All Tiers", fontsize=14, fontweight="bold", y=1.01)
 plt.tight_layout()
-plt.savefig("visualizations/02_seat_evolution.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "02_seat_evolution.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 3: Vote Dynamics
 # ==========================================================================
-print("Generating viz 3/10: Vote Dynamics...")
+print("Generating viz 3/21: Vote Dynamics...")
 
 # Collect per-turn vote counts
 turn_passed = []
@@ -711,13 +810,13 @@ ax2.set_xticks(turns_x)
 
 fig.suptitle("Legislative Vote Dynamics", fontsize=14, fontweight="bold")
 plt.tight_layout()
-plt.savefig("visualizations/03_vote_dynamics.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "03_vote_dynamics.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 4: Policy Success
 # ==========================================================================
-print("Generating viz 4/10: Policy Success...")
+print("Generating viz 4/21: Policy Success...")
 
 policy_proposed: dict[str, int] = defaultdict(int)
 policy_passed: dict[str, int] = defaultdict(int)
@@ -755,13 +854,13 @@ ax.legend(fontsize=10)
 ax.invert_yaxis()
 
 plt.tight_layout()
-plt.savefig("visualizations/04_policy_success.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "04_policy_success.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 5: IG Satisfaction
 # ==========================================================================
-print("Generating viz 5/10: IG Satisfaction...")
+print("Generating viz 5/21: IG Satisfaction...")
 
 # Compute overall avg satisfaction per IG per turn (average across all states)
 # history_ig_sat: list of {ig_name -> {state_name -> avg}}
@@ -795,13 +894,13 @@ ax.set_title("Interest Group Satisfaction Over Time\n(averaged across states)", 
 ax.legend(loc="upper right", fontsize=8, framealpha=0.9)
 
 plt.tight_layout()
-plt.savefig("visualizations/05_ig_satisfaction.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "05_ig_satisfaction.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 6: Election Heatmap (Legislative)
 # ==========================================================================
-print("Generating viz 6/10: Election Heatmap...")
+print("Generating viz 6/21: Election Heatmap...")
 
 # Collect all legislative election results
 leg_elections = []
@@ -821,7 +920,7 @@ if not leg_elections:
     ax.text(0.5, 0.5, "No legislative elections found", ha="center", va="center", transform=ax.transAxes)
     ax.set_title("Legislative Election Vote Shares (Heatmap)")
     plt.tight_layout()
-    plt.savefig("visualizations/06_election_heatmap.png", dpi=150, bbox_inches="tight")
+    plt.savefig(os.path.join(OUT_DIR, "06_election_heatmap.png"), dpi=150, bbox_inches="tight")
     plt.close()
 else:
     party_names = [p.name for p in ALL_PARTIES]
@@ -860,13 +959,13 @@ else:
     ax.set_title("Legislative Election Vote Shares by Place and Party\n(grouped by epoch; red lines = epoch boundaries)", 
                  fontsize=12, fontweight="bold")
     plt.tight_layout()
-    plt.savefig("visualizations/06_election_heatmap.png", dpi=150, bbox_inches="tight")
+    plt.savefig(os.path.join(OUT_DIR, "06_election_heatmap.png"), dpi=150, bbox_inches="tight")
     plt.close()
 
 # ==========================================================================
 # VIZ 7: Popularity Trajectories
 # ==========================================================================
-print("Generating viz 7/10: Popularity Trajectories...")
+print("Generating viz 7/21: Popularity Trajectories...")
 
 # Key agent initial party colors
 key_agent_parties = {}
@@ -906,13 +1005,13 @@ ax.set_title("Popularity Trajectories — Key Executives Over Time", fontsize=13
 ax.legend(fontsize=9, framealpha=0.9)
 
 plt.tight_layout()
-plt.savefig("visualizations/07_popularity_trajectories.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "07_popularity_trajectories.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 8: Party Discipline
 # ==========================================================================
-print("Generating viz 8/10: Party Discipline...")
+print("Generating viz 8/21: Party Discipline...")
 
 # 3 time points: turn 0, turn 7, turn 14
 time_points = [0, 7, 14]
@@ -979,24 +1078,27 @@ ax.set_title("Party Discipline Distribution — Standing Scores at 3 Time Points
 ax.axhline(0.5, color="gray", linestyle="--", linewidth=1, alpha=0.5)
 
 plt.tight_layout()
-plt.savefig("visualizations/08_party_discipline.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "08_party_discipline.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 9: Action Breakdown
 # ==========================================================================
-print("Generating viz 9/10: Action Breakdown...")
+print("Generating viz 9/21: Action Breakdown...")
 
 from src.actions.base import ActionType
 
 action_type_labels = {
-    ActionType.VOTE: "VOTE",
+    # VOTE excluded — it dominates and obscures real decisions
     ActionType.REQUEST_VOTE: "REQUEST_VOTE",
     ActionType.CAMPAIGN: "CAMPAIGN",
     ActionType.BUILD_RELATIONSHIP: "BUILD_RELATIONSHIP",
     ActionType.TAKE_POSITION: "TAKE_POSITION",
     ActionType.ENFORCE_DISCIPLINE: "ENFORCE_DISCIPLINE",
     ActionType.EXPEL_MEMBER: "EXPEL_MEMBER",
+    ActionType.IDEOLOGY_PUSH: "IDEOLOGY_PUSH",
+    ActionType.PARTY_OUTREACH: "PARTY_OUTREACH",
+    ActionType.PARTY_MERGE: "PARTY_MERGE",
 }
 
 defined_types = list(action_type_labels.keys())
@@ -1046,13 +1148,13 @@ ax.set_title("Action Type Breakdown by Party (Normalized)", fontsize=13, fontwei
 ax.legend(loc="lower right", fontsize=8, framealpha=0.9)
 
 plt.tight_layout()
-plt.savefig("visualizations/09_action_breakdown.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "09_action_breakdown.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # ==========================================================================
 # VIZ 10: Agent Stories
 # ==========================================================================
-print("Generating viz 10/10: Agent Stories...")
+print("Generating viz 10/21: Agent Stories...")
 
 # Panel 1: Top Policy Proposers (passed policies)
 proposer_counts: dict[str, int] = defaultdict(int)
@@ -1202,8 +1304,563 @@ fig.legend(handles=party_patches, loc="upper center", ncol=4, fontsize=9, bbox_t
 
 fig.suptitle("Agent Stories — Key Performance Stats", fontsize=15, fontweight="bold", y=1.03)
 
-plt.savefig("visualizations/10_agent_stories.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "10_agent_stories.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-print("Done! Visualizations saved to visualizations/")
+# ==========================================================================
+# VIZ 11: Executive Actions Over Time
+# ==========================================================================
+print("Generating viz 11/21: Executive Actions Over Time...")
+
+from src.actions.base import ActionType as _AT_ALL
+
+exec_action_names = [
+    "REQUEST_VOTE", "CAMPAIGN", "BUILD_RELATIONSHIP", "TAKE_POSITION",
+    "ENFORCE_DISCIPLINE", "IDEOLOGY_PUSH", "PARTY_OUTREACH", "PARTY_MERGE",
+]
+turns_x = list(range(1, NUM_TURNS + 1))
+exec_colors = plt.cm.tab10(np.linspace(0, 0.9, len(exec_action_names)))
+
+fig, ax = plt.subplots(figsize=(14, 6))
+bottoms = np.zeros(NUM_TURNS)
+for aname, color in zip(exec_action_names, exec_colors):
+    counts = [history_exec_actions[t].get(aname, 0) for t in range(NUM_TURNS)]
+    ax.bar(turns_x, counts, bottom=bottoms, color=color, label=aname, alpha=0.85)
+    bottoms += np.array(counts)
+
+for epoch_turn in [5, 10, 15]:
+    ax.axvline(epoch_turn, color="black", linewidth=1.5, linestyle=":", alpha=0.6)
+ax.set_xlabel("Turn", fontsize=11)
+ax.set_ylabel("Actions Taken", fontsize=11)
+ax.set_title("Executive Agent Actions Over Time (PRESIDENT, GOVERNOR, MAYOR)", fontsize=13, fontweight="bold")
+ax.legend(loc="upper right", fontsize=8, framealpha=0.9)
+ax.set_xticks(turns_x)
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "11_exec_actions_over_time.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 12: Executive Gantt Chart (Federal + State)
+# ==========================================================================
+print("Generating viz 12/21: Executive Timeline (Gantt)...")
+
+gantt_places = [federation] + ALL_STATES  # President + 3 Governors
+place_ids = [p.id for p in gantt_places]
+place_labels = [p.name for p in gantt_places]
+
+fig, ax = plt.subplots(figsize=(16, 5))
+
+# history_exec_holders has turns 0..NUM_TURNS (inclusive, NUM_TURNS+1 entries)
+all_party_names_seen = set()
+for row_idx, place_id in enumerate(place_ids):
+    turns_holders = history_exec_holders[place_id]  # list of (name, party)
+    if not turns_holders:
+        continue
+    seg_start = 0
+    seg_name, seg_party = turns_holders[0]
+    for t_idx in range(1, len(turns_holders) + 1):
+        if t_idx == len(turns_holders) or turns_holders[t_idx] != (seg_name, seg_party):
+            color = PARTY_COLORS.get(seg_party, "#888888")
+            ax.broken_barh([(seg_start, t_idx - seg_start)], (row_idx - 0.4, 0.8),
+                           facecolors=color, alpha=0.85, edgecolors="white", linewidth=0.5)
+            mid = seg_start + (t_idx - seg_start) / 2
+            if t_idx - seg_start >= 2:
+                ax.text(mid, row_idx, seg_name.split()[-1], ha="center", va="center",
+                        fontsize=7, fontweight="bold", color="white")
+            all_party_names_seen.add(seg_party)
+            if t_idx < len(turns_holders):
+                seg_start = t_idx
+                seg_name, seg_party = turns_holders[t_idx]
+
+for epoch_turn in [5, 10, 15]:
+    ax.axvline(epoch_turn, color="black", linewidth=1.5, linestyle=":", alpha=0.6)
+
+ax.set_yticks(range(len(place_labels)))
+ax.set_yticklabels(place_labels, fontsize=10)
+ax.set_xlabel("Turn", fontsize=11)
+ax.set_xlim(0, NUM_TURNS + 1)
+ax.set_xticks(list(range(NUM_TURNS + 1)))
+ax.set_title("Executive Office Holders Over Time (Federal + State)", fontsize=13, fontweight="bold")
+party_patches_gantt = [
+    mpatches.Patch(color=PARTY_COLORS.get(pname, "#888888"), label=pname)
+    for pname in sorted(all_party_names_seen)
+]
+ax.legend(handles=party_patches_gantt, loc="upper right", fontsize=9, framealpha=0.9)
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "12_exec_timeline.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 13: Party Popularity Over Time
+# ==========================================================================
+print("Generating viz 13/21: Party Popularity...")
+
+# Party popularity = sum(ig.satisfaction[state] * party.base_constituency.get(ig, 0))
+#                   averaged across states per turn
+# We use history_ig_sat to reconstruct
+
+def compute_party_popularity_from_ig(party: Party, ig_sat_snap: dict) -> float:
+    """Approx party popularity given IG satisfaction snapshot."""
+    total_weight = 0.0
+    total_pop = 0.0
+    for ig_name, state_avgs in ig_sat_snap.items():
+        ig_obj = next((i for i in ALL_IGs if i.name == ig_name), None)
+        if ig_obj is None:
+            continue
+        affinity = party.base_constituency.get(ig_obj, 0.0)
+        if affinity < 0.05:
+            continue
+        avg_sat = sum(state_avgs.values()) / len(state_avgs) if state_avgs else 0.5
+        total_pop += affinity * avg_sat
+        total_weight += affinity
+    return total_pop / total_weight if total_weight > 0 else 0.5
+
+fig, ax = plt.subplots(figsize=(14, 7))
+turns_x2 = list(range(NUM_TURNS + 1))
+for party in ALL_PARTIES:
+    pops = [compute_party_popularity_from_ig(party, snap) for snap in history_ig_sat]
+    ax.plot(turns_x2, pops, color=PARTY_COLORS[party.name], linewidth=2.5,
+            label=party.name, marker="o", markersize=4)
+for epoch_turn in [5, 10, 15]:
+    ax.axvline(epoch_turn, color="black", linewidth=1.5, linestyle=":", alpha=0.5)
+ax.axhline(0.5, color="gray", linestyle="--", linewidth=1, alpha=0.6)
+ax.set_xticks(turns_x2)
+ax.set_ylim(0.2, 0.9)
+ax.set_xlabel("Turn", fontsize=11)
+ax.set_ylabel("Party Popularity (IG-weighted)", fontsize=11)
+ax.set_title("Party Popularity Over Time", fontsize=13, fontweight="bold")
+ax.legend(fontsize=9, framealpha=0.9)
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "13_party_popularity.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 14: Agent Mobility (net office-tier change)
+# ==========================================================================
+print("Generating viz 14/21: Mobility...")
+
+TIER_RANK = {
+    None: 0,
+    OfficeType.COUNCILPERSON: 1,
+    OfficeType.STATE_ASSEMBLYPERSON: 2,
+    OfficeType.CONGRESSPERSON: 3,
+    OfficeType.MAYOR: 2,
+    OfficeType.GOVERNOR: 3,
+    OfficeType.PRESIDENT: 4,
+}
+
+mobility_data = []
+for agent in world.politicians.values():
+    offices = history_agent_offices.get(agent.id, [])
+    if len(offices) < 2:
+        continue
+    first_rank = TIER_RANK.get(offices[0], 0)
+    last_rank = TIER_RANK.get(offices[-1], 0)
+    net = last_rank - first_rank
+    if net != 0:
+        mobility_data.append((agent.name, net, agent.party.name))
+
+mobility_data.sort(key=lambda x: x[1], reverse=True)
+if not mobility_data:
+    # create empty
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.text(0.5, 0.5, "No office mobility detected", ha="center", va="center",
+            transform=ax.transAxes, fontsize=12)
+else:
+    fig, ax = plt.subplots(figsize=(max(10, len(mobility_data) * 0.7 + 2), 6))
+    names_m = [x[0] for x in mobility_data]
+    vals_m = [x[1] for x in mobility_data]
+    colors_m = [PARTY_COLORS.get(x[2], "#888888") for x in mobility_data]
+    bars_m = ax.bar(range(len(names_m)), vals_m, color=colors_m, alpha=0.85)
+    ax.axhline(0, color="black", linewidth=0.8)
+    ax.set_xticks(range(len(names_m)))
+    ax.set_xticklabels([n.split()[-1] for n in names_m], rotation=45, ha="right", fontsize=8)
+    ax.set_ylabel("Net Office Tier Change", fontsize=11)
+    # party legend
+    party_patches_m = [mpatches.Patch(color=PARTY_COLORS[p.name], label=p.name) for p in ALL_PARTIES]
+    ax.legend(handles=party_patches_m, fontsize=9, loc="upper right")
+
+ax.set_title("Agent Office Mobility (Turn 0 → Final, +upward / −downward)", fontsize=13, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "14_mobility.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 15: Party Seat Share Stacked Area
+# ==========================================================================
+print("Generating viz 15/21: Party Seat Share...")
+
+turns_x3 = list(range(NUM_TURNS + 1))
+fig, ax = plt.subplots(figsize=(14, 6))
+# Compute total seats per turn
+total_seats_per_turn = []
+for t in range(NUM_TURNS + 1):
+    total = sum(history_party_total_seats[p.name][t] for p in ALL_PARTIES
+                if len(history_party_total_seats[p.name]) > t)
+    total_seats_per_turn.append(total if total > 0 else 1)
+
+prev_bottom = np.zeros(NUM_TURNS + 1)
+for party in ALL_PARTIES:
+    raw = [history_party_total_seats[party.name][t]
+           if len(history_party_total_seats[party.name]) > t else 0
+           for t in range(NUM_TURNS + 1)]
+    pct = np.array(raw) / np.array(total_seats_per_turn) * 100
+    ax.fill_between(turns_x3, prev_bottom, prev_bottom + pct,
+                    alpha=0.75, color=PARTY_COLORS[party.name], label=party.name)
+    prev_bottom = prev_bottom + pct
+
+for epoch_turn in [5, 10, 15]:
+    ax.axvline(epoch_turn, color="white", linewidth=2, linestyle=":", alpha=0.8)
+ax.set_xticks(turns_x3)
+ax.set_ylim(0, 100)
+ax.set_xlabel("Turn", fontsize=11)
+ax.set_ylabel("% of Total Seats", fontsize=11)
+ax.set_title("Party Seat Share (All Tiers Combined) — Stacked Area", fontsize=13, fontweight="bold")
+ax.legend(loc="upper right", fontsize=9, framealpha=0.9)
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "15_party_seat_share.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 16: Party Leadership Timeline
+# ==========================================================================
+print("Generating viz 16/21: Party Leadership Timeline...")
+
+fig, axes16 = plt.subplots(len(ALL_PARTIES), 1, figsize=(16, 3 * len(ALL_PARTIES)), sharex=True)
+if len(ALL_PARTIES) == 1:
+    axes16 = [axes16]
+
+turns_x4 = list(range(NUM_TURNS + 2))  # 0..NUM_TURNS inclusive
+for ax16, party in zip(axes16, ALL_PARTIES):
+    leaders_list = history_party_leaders.get(party.id, [])
+    if not leaders_list:
+        ax16.set_yticks([])
+        ax16.set_title(party.name, fontsize=10, fontweight="bold")
+        continue
+    color = PARTY_COLORS[party.name]
+    seg_start = 0
+    seg_leader = leaders_list[0]
+    # Collect all unique leaders for y-axis
+    unique_leaders = list(dict.fromkeys(leaders_list))
+    leader_y = {ldr: i for i, ldr in enumerate(unique_leaders)}
+
+    for t_idx in range(1, len(leaders_list) + 1):
+        cur = leaders_list[t_idx] if t_idx < len(leaders_list) else None
+        if cur != seg_leader:
+            y_pos = leader_y[seg_leader]
+            ax16.broken_barh([(seg_start, t_idx - seg_start)], (y_pos - 0.4, 0.8),
+                             facecolors=color, alpha=0.85, edgecolors="white", linewidth=0.5)
+            mid = seg_start + (t_idx - seg_start) / 2
+            ax16.text(mid, y_pos, seg_leader.split()[-1], ha="center", va="center",
+                      fontsize=7, fontweight="bold", color="white")
+            seg_start = t_idx
+            seg_leader = cur if cur else seg_leader
+
+    ax16.set_yticks(list(leader_y.values()))
+    ax16.set_yticklabels([ldr.split()[-1] for ldr in unique_leaders], fontsize=8)
+    ax16.set_title(party.name, fontsize=10, fontweight="bold", color=color)
+    for epoch_turn in [5, 10, 15]:
+        ax16.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+
+axes16[-1].set_xlabel("Turn", fontsize=11)
+axes16[-1].set_xticks(list(range(NUM_TURNS + 1)))
+fig.suptitle("Party Leadership Timelines", fontsize=14, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "16_party_leadership_timeline.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 17: Party Discipline Heatmap (agent × turn)
+# ==========================================================================
+print("Generating viz 17/21: Party Discipline Heatmap...")
+
+# Sort agents by party then by initial standing
+sorted_agents_for_heatmap = sorted(
+    world.politicians.values(),
+    key=lambda a: (a.party.name, -a.party_standing)
+)
+agent_ids_hmap = [a.id for a in sorted_agents_for_heatmap]
+
+# Build matrix: rows=agents, cols=turns
+n_agents_h = len(agent_ids_hmap)
+n_turns_h = NUM_TURNS + 1
+matrix_h = np.full((n_agents_h, n_turns_h), 0.5)
+for row_idx, aid in enumerate(agent_ids_hmap):
+    standings = history_agent_party_standing.get(aid, [])
+    for t_idx, val in enumerate(standings[:n_turns_h]):
+        matrix_h[row_idx, t_idx] = val
+
+fig17, ax17 = plt.subplots(figsize=(max(14, n_turns_h * 0.8), max(8, n_agents_h * 0.18)))
+im17 = ax17.imshow(matrix_h, aspect="auto", cmap="RdYlGn", vmin=0.0, vmax=1.0,
+                   interpolation="nearest")
+plt.colorbar(im17, ax=ax17, label="Party Standing (0=rebel, 1=loyal)", shrink=0.6)
+
+# Party boundary lines
+prev_party = None
+for row_idx, a in enumerate(sorted_agents_for_heatmap):
+    if prev_party is not None and a.party.name != prev_party:
+        ax17.axhline(row_idx - 0.5, color="black", linewidth=2)
+    prev_party = a.party.name
+
+# Party name annotations on left side
+party_start = 0
+prev_party_name = sorted_agents_for_heatmap[0].party.name
+for row_idx, a in enumerate(sorted_agents_for_heatmap):
+    if a.party.name != prev_party_name or row_idx == n_agents_h - 1:
+        mid_row = (party_start + row_idx - 1) / 2
+        ax17.text(-1.5, mid_row, prev_party_name[:8], ha="right", va="center",
+                  fontsize=7, fontweight="bold",
+                  color=PARTY_COLORS.get(prev_party_name, "black"))
+        party_start = row_idx
+        prev_party_name = a.party.name
+
+ax17.set_xticks(list(range(n_turns_h)))
+ax17.set_xticklabels(list(range(n_turns_h)), fontsize=8)
+ax17.set_yticks(list(range(n_agents_h)))
+ax17.set_yticklabels([a.name.split()[-1] for a in sorted_agents_for_heatmap], fontsize=6)
+for epoch_turn in [5, 10, 15]:
+    ax17.axvline(epoch_turn, color="black", linewidth=1.5, linestyle=":", alpha=0.7)
+ax17.set_xlabel("Turn", fontsize=11)
+ax17.set_title("Party Discipline Heatmap — All Agents × Turns (green=loyal, red=rebel)",
+               fontsize=12, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "17_party_discipline_heatmap.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 18: Party Ideology Drift
+# ==========================================================================
+print("Generating viz 18/21: Party Ideology Drift...")
+
+fig18, (ax18a, ax18b) = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
+turns_x5 = list(range(NUM_TURNS + 1))
+
+for party in ALL_PARTIES:
+    color = PARTY_COLORS[party.name]
+    pid = party.id
+    econs = [history_party_ideologies[pid][t][0] if len(history_party_ideologies[pid]) > t else 0
+             for t in range(NUM_TURNS + 1)]
+    socs = [history_party_ideologies[pid][t][1] if len(history_party_ideologies[pid]) > t else 0
+            for t in range(NUM_TURNS + 1)]
+    ax18a.plot(turns_x5, econs, color=color, linewidth=2.5, label=party.name, marker="o", markersize=4)
+    ax18b.plot(turns_x5, socs, color=color, linewidth=2.5, label=party.name, marker="^", markersize=4)
+
+for epoch_turn in [5, 10, 15]:
+    ax18a.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+    ax18b.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+
+ax18a.axhline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+ax18b.axhline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+ax18a.set_ylabel("Economic Axis", fontsize=11)
+ax18b.set_ylabel("Social Axis", fontsize=11)
+ax18b.set_xlabel("Turn", fontsize=11)
+ax18b.set_xticks(turns_x5)
+ax18a.set_ylim(-1.1, 1.1)
+ax18b.set_ylim(-1.1, 1.1)
+ax18a.legend(fontsize=9, framealpha=0.9)
+ax18b.legend(fontsize=9, framealpha=0.9)
+fig18.suptitle("Party Ideology Centroid Drift Over Time", fontsize=14, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "18_party_ideology_drift.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 19: Veto Analysis
+# ==========================================================================
+print("Generating viz 19/21: Veto Analysis...")
+
+turns_x6 = list(range(1, NUM_TURNS + 1))
+vetoed_counts = [history_veto_counts[t][0] for t in range(NUM_TURNS)]
+override_counts = [history_veto_counts[t][1] for t in range(NUM_TURNS)]
+
+fig19, ax19 = plt.subplots(figsize=(12, 5))
+x19 = np.arange(NUM_TURNS)
+w19 = 0.35
+ax19.bar(x19 - w19 / 2, vetoed_counts, width=w19, color="#C0392B", alpha=0.85, label="Vetoes")
+ax19.bar(x19 + w19 / 2, override_counts, width=w19, color="#27AE60", alpha=0.85, label="Override Attempts")
+
+for epoch_turn in [5, 10, 15]:
+    ax19.axvline(epoch_turn - 1, color="black", linewidth=1.5, linestyle=":", alpha=0.6)
+
+ax19.set_xticks(list(range(NUM_TURNS)))
+ax19.set_xticklabels([f"T{t + 1}" for t in range(NUM_TURNS)], fontsize=8)
+ax19.set_xlabel("Turn", fontsize=11)
+ax19.set_ylabel("Count", fontsize=11)
+ax19.set_title("Executive Vetoes and Legislature Override Attempts Per Turn", fontsize=13, fontweight="bold")
+ax19.legend(fontsize=10)
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "19_veto_analysis.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 20: Ideology Drift — Key Agents
+# ==========================================================================
+print("Generating viz 20/21: Ideology Drift (Agents)...")
+
+fig20, (ax20a, ax20b) = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
+turns_x7 = list(range(NUM_TURNS + 1))
+
+key_agent_objs = [a for a in world.politicians.values() if a.name in KEY_AGENT_NAMES]
+colors20 = plt.cm.Set1(np.linspace(0, 0.8, len(key_agent_objs)))
+
+for agent_obj, color20 in zip(key_agent_objs, colors20):
+    ideo_hist = history_agent_ideologies.get(agent_obj.id, [])
+    if not ideo_hist:
+        continue
+    econs20 = [v[0] for v in ideo_hist]
+    socs20 = [v[1] for v in ideo_hist]
+    ts20 = list(range(len(ideo_hist)))
+    label20 = f"{agent_obj.name} ({agent_obj.party.name})"
+    ax20a.plot(ts20, econs20, color=color20, linewidth=2.5, label=label20, marker="o", markersize=4)
+    ax20b.plot(ts20, socs20, color=color20, linewidth=2.5, label=label20, marker="^", markersize=4)
+
+for epoch_turn in [5, 10, 15]:
+    ax20a.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+    ax20b.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+
+ax20a.axhline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+ax20b.axhline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+ax20a.set_ylabel("Economic Axis", fontsize=11)
+ax20b.set_ylabel("Social Axis", fontsize=11)
+ax20b.set_xlabel("Turn", fontsize=11)
+ax20b.set_xticks(turns_x7)
+ax20a.set_ylim(-1.1, 1.1)
+ax20b.set_ylim(-1.1, 1.1)
+ax20a.legend(fontsize=9, framealpha=0.9, loc="upper right")
+ax20b.legend(fontsize=9, framealpha=0.9, loc="upper right")
+fig20.suptitle("Ideology Drift — Key Executive Agents", fontsize=14, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "20_ideology_drift_agents.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# VIZ 21: IG Radicalization
+# ==========================================================================
+print("Generating viz 21/21: IG Radicalization...")
+
+fig21, (ax21a, ax21b) = plt.subplots(2, 1, figsize=(14, 9), sharex=True)
+turns_x8 = list(range(NUM_TURNS + 1))
+ig_colors21 = plt.cm.tab10(np.linspace(0, 0.9, len(ALL_IGs)))
+
+for ig_obj, color21 in zip(ALL_IGs, ig_colors21):
+    ig_name = ig_obj.name
+    # Satisfaction over time
+    sat_series = []
+    for snap in history_ig_sat:
+        state_vals = list(snap.get(ig_name, {}).values())
+        sat_series.append(sum(state_vals) / len(state_vals) if state_vals else 0.5)
+    ax21a.plot(turns_x8, sat_series, color=color21, linewidth=2, label=ig_name, marker="o", markersize=4)
+
+    # Ideology extremism = sqrt(econ^2 + soc^2) over time
+    ideo_hist21 = history_ig_ideologies.get(ig_name, [])
+    if ideo_hist21:
+        extremism = [np.sqrt(e**2 + s**2) for e, s in ideo_hist21]
+        ax21b.plot(range(len(extremism)), extremism, color=color21, linewidth=2,
+                   label=ig_name, marker="s", markersize=4)
+
+ax21a.axhline(0.25, color="red", linewidth=1.5, linestyle="--", alpha=0.7, label="Radicalization threshold (0.25)")
+ax21a.axhline(0.5, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+for epoch_turn in [5, 10, 15]:
+    ax21a.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+    ax21b.axvline(epoch_turn, color="black", linewidth=1, linestyle=":", alpha=0.5)
+
+ax21a.set_ylabel("Avg Satisfaction (0–1)", fontsize=11)
+ax21b.set_ylabel("Ideology Extremism (L2 norm)", fontsize=11)
+ax21b.set_xlabel("Turn", fontsize=11)
+ax21b.set_xticks(turns_x8)
+ax21a.set_ylim(0, 1.0)
+ax21a.legend(fontsize=7, ncol=2, framealpha=0.9, loc="upper right")
+ax21b.legend(fontsize=7, ncol=2, framealpha=0.9, loc="upper right")
+fig21.suptitle("Interest Group Radicalization: Satisfaction & Ideology Extremism",
+               fontsize=14, fontweight="bold")
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "21_ig_radicalization.png"), dpi=150, bbox_inches="tight")
+plt.close()
+
+# ==========================================================================
+# EPOCH SNAPSHOTS: Ideological Landscape at elections (turns 5, 10, 15)
+# ==========================================================================
+print("Generating epoch ideological snapshots + animated GIF...")
+
+EPOCH_TURNS = [0, 5, 10, 15]  # epoch_0 = initial, epoch_1..3 = post-election
+
+def _snapshot_elected_ideologies(world: "World", turn_idx: int) -> list[dict]:
+    """Return per-agent data for agents with an office at the given turn snapshot index."""
+    data = []
+    for aid, agent in world.politicians.items():
+        ideo_list = history_agent_ideologies.get(aid, [])
+        office_list = history_agent_offices.get(aid, [])
+        if turn_idx >= len(ideo_list):
+            continue
+        office_at_turn = office_list[turn_idx] if turn_idx < len(office_list) else None
+        econ, soc = ideo_list[turn_idx]
+        data.append({
+            "name": agent.name,
+            "party": agent.party.name,
+            "econ": econ,
+            "soc": soc,
+            "office": office_at_turn,
+            "is_exec": office_at_turn in {OfficeType.PRESIDENT, OfficeType.GOVERNOR, OfficeType.MAYOR},
+        })
+    return data
+
+epoch_png_paths = []
+for epoch_idx, turn_idx in enumerate(EPOCH_TURNS):
+    epoch_data = _snapshot_elected_ideologies(world, turn_idx)
+    elected = [d for d in epoch_data if d["office"] is not None]
+    if not elected:
+        elected = epoch_data[:30]  # fallback
+
+    fig_e, ax_e = plt.subplots(figsize=(10, 8))
+    ax_e.axhline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+    ax_e.axvline(0, color="gray", linewidth=0.8, linestyle="--", alpha=0.5)
+
+    for d in elected:
+        color_e = PARTY_COLORS.get(d["party"], "#888888")
+        size_e = 200 if d["is_exec"] else 60
+        marker_e = "*" if d["is_exec"] else "o"
+        ax_e.scatter(d["econ"], d["soc"], c=color_e, s=size_e, marker=marker_e,
+                     alpha=0.8, edgecolors="white", linewidths=0.4, zorder=3)
+        if d["is_exec"]:
+            ax_e.annotate(d["name"].split()[-1], (d["econ"], d["soc"]),
+                          textcoords="offset points", xytext=(5, 5),
+                          fontsize=7, color=color_e, fontweight="bold")
+
+    ax_e.set_xlim(-1.1, 1.1)
+    ax_e.set_ylim(-1.1, 1.1)
+    ax_e.set_xlabel("Economic Axis (Left ← → Right)", fontsize=10)
+    ax_e.set_ylabel("Social Axis (Conservative ← → Progressive)", fontsize=10)
+    epoch_label = f"Initial State" if epoch_idx == 0 else f"After Election {epoch_idx} (Turn {turn_idx})"
+    ax_e.set_title(f"Ideological Landscape — Elected Officials\nEpoch {epoch_idx}: {epoch_label}",
+                   fontsize=12, fontweight="bold")
+
+    party_patches_e = [mpatches.Patch(color=PARTY_COLORS[p.name], label=p.name) for p in ALL_PARTIES]
+    exec_patch = plt.Line2D([0], [0], marker="*", color="gray", linestyle="None", markersize=12, label="Executive")
+    leg_patch = plt.Line2D([0], [0], marker="o", color="gray", linestyle="None", markersize=8, label="Legislative")
+    ax_e.legend(handles=party_patches_e + [exec_patch, leg_patch], fontsize=8, loc="upper right", framealpha=0.9)
+
+    plt.tight_layout()
+    out_path = os.path.join(EPOCH_DIR, f"epoch_{epoch_idx}.png")
+    plt.savefig(out_path, dpi=120, bbox_inches="tight")
+    plt.close()
+    epoch_png_paths.append(out_path)
+    print(f"  Saved {out_path}")
+
+# Build animated GIF if PIL is available
+if _HAS_PIL and epoch_png_paths:
+    frames = [_PIL_Image.open(p).convert("RGB") for p in epoch_png_paths]
+    gif_path = os.path.join(EPOCH_DIR, "animated.gif")
+    frames[0].save(
+        gif_path,
+        save_all=True,
+        append_images=frames[1:],
+        duration=1500,
+        loop=0,
+    )
+    print(f"  Animated GIF saved to {gif_path}")
+else:
+    if not _HAS_PIL:
+        print("  (Pillow not installed — skipping animated GIF)")
+
+print(f"\nDone! All visualizations saved to {OUT_DIR}/")
 
