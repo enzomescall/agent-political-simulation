@@ -1,0 +1,2102 @@
+===========================================================================
+CASCADIA FEDERATION — FULL FEDERAL SIMULATION
+  Tiers: Federal → 3 States → 13 Cities
+  Parties: Labor Front, Civic Democrats, Reform Alliance, Green Future
+  Politicians: 119
+  Turns: 15 (3 election epochs)
+===========================================================================
+
+--- Federal ---
+  [FEDERAL] Cascadia Federation
+    Executive: Eleanor Marsh (Civic Democrats)
+    Legislature (12 seats): Lab: 3, Civ: 3, Ref: 3, Gre: 3
+
+--- Ironfield ---
+  [STATE] Ironfield
+    Executive: Bernard Holloway (Labor Front)
+    Legislature (9 seats): Lab: 4, Civ: 2, Ref: 2, Gre: 1
+    [MUNICIPALITY] Steelburg
+      Executive: Derek Santos (Reform Alliance)
+      Legislature (5 seats): Civ: 2, Lab: 2, Ref: 1
+    [MUNICIPALITY] Coalton
+      Executive: Chloe Brooks (Labor Front)
+      Legislature (5 seats): Ref: 3, Civ: 1, Lab: 1
+    [MUNICIPALITY] Millford
+      Executive: Walter Ibrahim (Civic Democrats)
+      Legislature (5 seats): Ref: 2, Gre: 1, Lab: 1, Civ: 1
+    [MUNICIPALITY] Irondale
+      Executive: Oscar Chen (Civic Democrats)
+      Legislature (5 seats): Lab: 3, Ref: 1, Civ: 1
+
+--- Verdana ---
+  [STATE] Verdana
+    Executive: Margaret Tillson (Reform Alliance)
+    Legislature (7 seats): Ref: 3, Civ: 2, Lab: 1, Gre: 1
+    [MUNICIPALITY] Farmington
+      Executive: Marco Castillo (Civic Democrats)
+      Legislature (5 seats): Civ: 2, Ref: 2, Lab: 1
+    [MUNICIPALITY] Crestview
+      Executive: Xena Xu (Civic Democrats)
+      Legislature (5 seats): Ref: 4, Gre: 1
+    [MUNICIPALITY] Riverdale
+      Executive: George Laurent (Labor Front)
+      Legislature (5 seats): Lab: 2, Civ: 2, Gre: 1
+    [MUNICIPALITY] Granville
+      Executive: Chloe Park (Reform Alliance)
+      Legislature (5 seats): Civ: 3, Ref: 2
+
+--- Pacifica ---
+  [STATE] Pacifica
+    Executive: Jerome Nakamura (Green Future)
+    Legislature (9 seats): Gre: 4, Civ: 2, Lab: 2, Ref: 1
+    [MUNICIPALITY] Bayshore
+      Executive: Ivan Adeyemi (Civic Democrats)
+      Legislature (5 seats): Gre: 3, Lab: 1, Civ: 1
+    [MUNICIPALITY] Harborview
+      Executive: Vera Bauer (Civic Democrats)
+      Legislature (5 seats): Gre: 2, Civ: 2, Lab: 1
+    [MUNICIPALITY] Solana
+      Executive: Tina Santos (Green Future)
+      Legislature (5 seats): Gre: 2, Ref: 1, Civ: 1, Lab: 1
+    [MUNICIPALITY] Crestwood
+      Executive: Ivan Castillo (Green Future)
+      Legislature (5 seats): Ref: 2, Civ: 2, Gre: 1
+    [MUNICIPALITY] Waverly
+      Executive: Derek Flores (Reform Alliance)
+      Legislature (5 seats): Civ: 3, Ref: 1, Gre: 1
+
+===========================================================================
+Running 15 turns across all 119 politicians…
+(verbose log → simulation.log)
+===========================================================================
+
+=== Turn 0 ===
+  Policy pool: 'Infrastructure bond by Eleanor Marsh' by Eleanor Marsh
+  Policy pool: 'Social services expansion by Oscar Dalton' by Oscar Dalton
+  Policy pool: 'Expand public transit by Walter Brooks' by Walter Brooks
+  Policy pool: 'Small business loan program by Aaron Flores' by Aaron Flores
+  Policy pool: 'Expand public transit by Bernard Holloway' by Bernard Holloway
+  Policy pool: 'Universal childcare pilot by George Dalton' by George Dalton
+  Policy pool: 'Worker training grant by Ethan Grant' by Ethan Grant
+  Policy pool: 'Balanced budget reform by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Worker training grant by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Cut business tax by Vera Osei' by Vera Osei
+  Policy pool: 'Balanced budget reform by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Education reform by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Green energy mandate by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Education reform by Derek Bauer' by Derek Bauer
+  Policy pool: 'Expand public transit by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Prescription price cap by Diana Park' by Diana Park
+  Policy pool: 'Family tax credit by Derek Santos' by Derek Santos
+  Policy pool: 'Small business loan program by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Fatima Chen' by Fatima Chen
+  Policy pool: 'Family tax credit by Samuel Navarro' by Samuel Navarro
+  Policy pool: 'Expand public transit by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Cut business tax by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Infrastructure bond by Xena Chen' by Xena Chen
+  Policy pool: 'Balanced budget reform by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Expand public transit by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Small business loan program by Fatima Laurent' by Fatima Laurent
+  Policy pool: 'Worker training grant by Carlos Huang' by Carlos Huang
+  Policy pool: 'Police accountability board by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Infrastructure privatization by Oscar Chen' by Oscar Chen
+  Policy pool: 'Raise minimum wage by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Public safety initiative by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Expand public transit by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Social services expansion by Marco Castillo' by Marco Castillo
+  Policy pool: 'Expand public transit by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Infrastructure privatization by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Prescription price cap by Vera Laurent' by Vera Laurent
+  Policy pool: 'Charter school expansion by Xena Xu' by Xena Xu
+  Policy pool: 'Public safety initiative by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Universal childcare pilot by George Vargas' by George Vargas
+  Policy pool: 'Infrastructure bond by George Laurent' by George Laurent
+  Policy pool: 'Raise minimum wage by Zara Xu' by Zara Xu
+  Policy pool: 'Education reform by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Expand public transit by Walter Reyes' by Walter Reyes
+  Policy pool: 'Education reform by Chloe Park' by Chloe Park
+  Policy pool: 'Charter school expansion by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Deregulation package by Derek Chen' by Derek Chen
+  Policy pool: 'Housing subsidy program by Ivan Adeyemi' by Ivan Adeyemi
+  Policy pool: 'Social services expansion by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Climate resilience plan by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Worker training grant by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Small business loan program by Vera Bauer' by Vera Bauer
+  Policy pool: 'Worker training grant by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Worker training grant by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Universal childcare pilot by Ivan Huang' by Ivan Huang
+  Policy pool: 'Education reform by Tina Santos' by Tina Santos
+  Policy pool: 'Family tax credit by Zara Laurent' by Zara Laurent
+  Policy pool: 'Prescription price cap by Aaron Ueda' by Aaron Ueda
+  Policy pool: 'Education reform by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Housing subsidy program by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Deregulation package by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Police accountability board by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Balanced budget reform by Samuel Flores' by Samuel Flores
+  Policy pool: 'Deregulation package by Derek Flores' by Derek Flores
+  Policy pool: 'Charter school expansion by Fatima Kim' by Fatima Kim
+  Policy pool: 'Balanced budget reform by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Charter school expansion by Julia Bauer' by Julia Bauer
+  Marco Castillo requested vote on 'Infrastructure privatization by Marco Eriksen'
+  George Laurent requested vote on 'Education reform by Ulrich Reyes'
+  Chloe Park requested vote on 'Education reform by Chloe Park'
+  Brendan Thornton requested vote on 'Infrastructure bond by Eleanor Marsh'
+  Aaron Flores requested vote on 'Infrastructure bond by Eleanor Marsh'
+  George Dalton requested vote on 'Expand public transit by Bernard Holloway'
+  Alicia Ziegler requested vote on 'Universal childcare pilot by George Dalton'
+  Marco Mercer requested vote on 'Expand public transit by Bernard Holloway'
+  Ethan Grant requested vote on 'Expand public transit by Bernard Holloway'
+  Leila Grant requested vote on 'Cut business tax by Vera Osei'
+  Derek Eriksen requested vote on 'Education reform by Carlos Ibrahim'
+  Paula Reyes requested vote on 'Education reform by Derek Bauer'
+  Ulrich Park requested vote on 'Education reform by Derek Bauer'
+  Marco Dalton requested vote on 'Education reform by Derek Bauer'
+  Walter Flores requested vote on 'Expand public transit by Rosa Quinn'
+  Naomi Vargas requested vote on 'Infrastructure bond by Xena Chen'
+  Chloe Thornton requested vote on 'Worker training grant by Carlos Huang'
+  Leila Eriksen requested vote on 'Expand public transit by Ivan Donovan'
+  George Vargas requested vote on 'Public safety initiative by Ivan Thornton'
+  Derek Walsh requested vote on 'Public safety initiative by Ivan Thornton'
+  Naomi Ziegler requested vote on 'Public safety initiative by Ivan Thornton'
+  Ivan Thornton requested vote on 'Public safety initiative by Ivan Thornton'
+  Kevin Dalton requested vote on 'Public safety initiative by Ivan Thornton'
+  Zara Adeyemi requested vote on 'Education reform by Ulrich Reyes'
+  Ulrich Reyes requested vote on 'Expand public transit by Walter Reyes'
+  Walter Walsh requested vote on 'Education reform by Chloe Park'
+  Marco Ziegler requested vote on 'Charter school expansion by Ulrich Adeyemi'
+  Diana Grant requested vote on 'Social services expansion by Kevin Castillo'
+  Kevin Brooks requested vote on 'Social services expansion by Kevin Castillo'
+  Ivan Huang requested vote on 'Universal childcare pilot by Ivan Huang'
+  Aaron Bauer requested vote on 'Worker training grant by Alicia Quinn'
+  Aaron Ueda requested vote on 'Prescription price cap by Aaron Ueda'
+  Carlos Xu requested vote on 'Balanced budget reform by Samuel Flores'
+  Samuel Mercer requested vote on 'Housing subsidy program by Ivan Castillo'
+  Chloe Bauer requested vote on 'Housing subsidy program by Ivan Castillo'
+  Vote on 'Infrastructure privatization by Marco Eriksen': FAILED (2Y/3N/0A)
+  Vote on 'Education reform by Ulrich Reyes': PASSED (3Y/2N/0A)
+  Vote on 'Education reform by Chloe Park': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Eleanor Marsh': FAILED (0Y/12N/0A)
+  Vote on 'Expand public transit by Bernard Holloway': PASSED (5Y/4N/0A)
+  Vote on 'Universal childcare pilot by George Dalton': PASSED (5Y/4N/0A)
+  Vote on 'Cut business tax by Vera Osei': FAILED (3Y/4N/0A)
+  Vote on 'Education reform by Carlos Ibrahim': FAILED (2Y/5N/0A)
+  Vote on 'Education reform by Derek Bauer': PASSED (5Y/4N/0A)
+  Vote on 'Expand public transit by Rosa Quinn': FAILED (0Y/9N/0A)
+  Vote on 'Infrastructure bond by Xena Chen': FAILED (1Y/4N/0A)
+  Vote on 'Worker training grant by Carlos Huang': FAILED (0Y/5N/0A)
+  Vote on 'Expand public transit by Ivan Donovan': FAILED (1Y/4N/0A)
+  Vote on 'Public safety initiative by Ivan Thornton': PASSED (4Y/1N/0A)
+  Vote on 'Expand public transit by Walter Reyes': FAILED (1Y/4N/0A)
+  Vote on 'Charter school expansion by Ulrich Adeyemi': FAILED (1Y/4N/0A)
+  Vote on 'Social services expansion by Kevin Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Ivan Huang': PASSED (3Y/2N/0A)
+  Vote on 'Worker training grant by Alicia Quinn': FAILED (0Y/5N/0A)
+  Vote on 'Prescription price cap by Aaron Ueda': FAILED (0Y/5N/0A)
+  Vote on 'Balanced budget reform by Samuel Flores': FAILED (0Y/5N/0A)
+  Vote on 'Housing subsidy program by Ivan Castillo': FAILED (2Y/3N/0A)
+=== Turn 1 ===
+  Policy pool: 'Social services expansion by Eleanor Marsh' by Eleanor Marsh
+  Policy pool: 'Universal childcare pilot by Oscar Dalton' by Oscar Dalton
+  Policy pool: 'Police accountability board by Walter Brooks' by Walter Brooks
+  Policy pool: 'Housing subsidy program by Aaron Flores' by Aaron Flores
+  Policy pool: 'Universal childcare pilot by Bernard Holloway' by Bernard Holloway
+  Policy pool: 'Infrastructure bond by George Dalton' by George Dalton
+  Policy pool: 'Housing subsidy program by Ethan Grant' by Ethan Grant
+  Policy pool: 'Climate resilience plan by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Balanced budget reform by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Infrastructure privatization by Vera Osei' by Vera Osei
+  Policy pool: 'Infrastructure bond by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Small business loan program by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Green energy mandate by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Expand public transit by Derek Bauer' by Derek Bauer
+  Policy pool: 'Small business loan program by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Prescription price cap by Diana Park' by Diana Park
+  Policy pool: 'Infrastructure bond by Derek Santos' by Derek Santos
+  Policy pool: 'Housing subsidy program by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Police accountability board by Fatima Chen' by Fatima Chen
+  Policy pool: 'Infrastructure privatization by Samuel Navarro' by Samuel Navarro
+  Policy pool: 'Education reform by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Infrastructure privatization by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Cut business tax by Xena Chen' by Xena Chen
+  Policy pool: 'Universal childcare pilot by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Police accountability board by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Family tax credit by Fatima Laurent' by Fatima Laurent
+  Policy pool: 'Green energy mandate by Carlos Huang' by Carlos Huang
+  Policy pool: 'Climate resilience plan by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Police accountability board by Oscar Chen' by Oscar Chen
+  Policy pool: 'Expand public transit by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Housing subsidy program by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Public safety initiative by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Family tax credit by Marco Castillo' by Marco Castillo
+  Policy pool: 'Education reform by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Infrastructure privatization by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Raise minimum wage by Vera Laurent' by Vera Laurent
+  Policy pool: 'Green energy mandate by Xena Xu' by Xena Xu
+  Policy pool: 'Balanced budget reform by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Family tax credit by George Vargas' by George Vargas
+  Policy pool: 'Infrastructure bond by George Laurent' by George Laurent
+  Policy pool: 'Universal childcare pilot by Zara Xu' by Zara Xu
+  Policy pool: 'Cut business tax by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Universal childcare pilot by Walter Reyes' by Walter Reyes
+  Policy pool: 'Cut business tax by Chloe Park' by Chloe Park
+  Policy pool: 'Balanced budget reform by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Cut business tax by Derek Chen' by Derek Chen
+  Policy pool: 'Public safety initiative by Ivan Adeyemi' by Ivan Adeyemi
+  Policy pool: 'Education reform by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Green energy mandate by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Infrastructure bond by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Charter school expansion by Vera Bauer' by Vera Bauer
+  Policy pool: 'Education reform by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Climate resilience plan by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Universal childcare pilot by Ivan Huang' by Ivan Huang
+  Policy pool: 'Police accountability board by Tina Santos' by Tina Santos
+  Policy pool: 'Universal childcare pilot by Zara Laurent' by Zara Laurent
+  Policy pool: 'Raise minimum wage by Aaron Ueda' by Aaron Ueda
+  Policy pool: 'Worker training grant by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Expand public transit by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Balanced budget reform by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Expand public transit by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Universal childcare pilot by Samuel Flores' by Samuel Flores
+  Policy pool: 'Public safety initiative by Derek Flores' by Derek Flores
+  Policy pool: 'Cut business tax by Fatima Kim' by Fatima Kim
+  Policy pool: 'Infrastructure bond by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Prescription price cap by Julia Bauer' by Julia Bauer
+  Jerome Nakamura requested vote on 'Expand public transit by Derek Bauer'
+  Xena Xu requested vote on 'Balanced budget reform by Ivan Thornton'
+  Ivan Adeyemi requested vote on 'Education reform by Kevin Castillo'
+  Tina Santos requested vote on 'Universal childcare pilot by Zara Laurent'
+  Ivan Castillo requested vote on 'Balanced budget reform by Chloe Bauer'
+  Brendan Thornton requested vote on 'Police accountability board by Walter Brooks'
+  Oscar Dalton requested vote on 'Housing subsidy program by Aaron Flores'
+  Alicia Ziegler requested vote on 'Universal childcare pilot by Bernard Holloway'
+  Quinn Donovan requested vote on 'Balanced budget reform by Margaret Tillson'
+  Oscar Navarro requested vote on 'Balanced budget reform by Margaret Tillson'
+  Carlos Ibrahim requested vote on 'Balanced budget reform by Margaret Tillson'
+  Paula Reyes requested vote on 'Green energy mandate by Jerome Nakamura'
+  Ulrich Park requested vote on 'Expand public transit by Derek Bauer'
+  Rosa Quinn requested vote on 'Expand public transit by Derek Bauer'
+  Oscar Mercer requested vote on 'Expand public transit by Derek Bauer'
+  Naomi Vargas requested vote on 'Infrastructure privatization by Oscar Quinn'
+  Oscar Quinn requested vote on 'Infrastructure privatization by Oscar Quinn'
+  Vera Laurent requested vote on 'Education reform by Beatrice Amara'
+  Marco Eriksen requested vote on 'Education reform by Beatrice Amara'
+  Oscar Thornton requested vote on 'Infrastructure privatization by Marco Eriksen'
+  Beatrice Grant requested vote on 'Family tax credit by Marco Castillo'
+  Derek Walsh requested vote on 'Balanced budget reform by Ivan Thornton'
+  Naomi Ziegler requested vote on 'Balanced budget reform by Ivan Thornton'
+  Kevin Dalton requested vote on 'Balanced budget reform by Ivan Thornton'
+  Zara Xu requested vote on 'Infrastructure bond by George Laurent'
+  Zara Adeyemi requested vote on 'Infrastructure bond by George Laurent'
+  Ulrich Reyes requested vote on 'Infrastructure bond by George Laurent'
+  Walter Reyes requested vote on 'Infrastructure bond by George Laurent'
+  Derek Chen requested vote on 'Cut business tax by Derek Chen'
+  Walter Walsh requested vote on 'Cut business tax by Derek Chen'
+  Rosa Xu requested vote on 'Cut business tax by Derek Chen'
+  Kevin Castillo requested vote on 'Green energy mandate by Beatrice Walsh'
+  Beatrice Walsh requested vote on 'Education reform by Kevin Castillo'
+  Diana Grant requested vote on 'Education reform by Kevin Castillo'
+  Kevin Brooks requested vote on 'Education reform by Kevin Castillo'
+  Kevin Flores requested vote on 'Education reform by Kevin Castillo'
+  Ivan Huang requested vote on 'Universal childcare pilot by Ivan Huang'
+  Alicia Quinn requested vote on 'Universal childcare pilot by Ivan Huang'
+  Chloe Osei requested vote on 'Education reform by Aaron Bauer'
+  Aaron Bauer requested vote on 'Universal childcare pilot by Ivan Huang'
+  Samuel Ibrahim requested vote on 'Universal childcare pilot by Zara Laurent'
+  Zara Chen requested vote on 'Universal childcare pilot by Zara Laurent'
+  Zara Laurent requested vote on 'Universal childcare pilot by Zara Laurent'
+  Carlos Xu requested vote on 'Universal childcare pilot by Samuel Flores'
+  Samuel Mercer requested vote on 'Expand public transit by Quinn Dalton'
+  Julia Bauer requested vote on 'Public safety initiative by Derek Flores'
+  Vote on 'Expand public transit by Derek Bauer': PASSED (5Y/4N/0A)
+  Vote on 'Balanced budget reform by Ivan Thornton': PASSED (4Y/1N/0A)
+  Vote on 'Education reform by Kevin Castillo': PASSED (4Y/1N/0A)
+  Vote on 'Universal childcare pilot by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Balanced budget reform by Chloe Bauer': FAILED (0Y/5N/0A)
+  Vote on 'Police accountability board by Walter Brooks': FAILED (0Y/12N/0A)
+  Vote on 'Housing subsidy program by Aaron Flores': FAILED (2Y/10N/0A)
+  Vote on 'Universal childcare pilot by Bernard Holloway': PASSED (5Y/4N/0A)
+  Vote on 'Balanced budget reform by Margaret Tillson': FAILED (3Y/4N/0A)
+  Vote on 'Green energy mandate by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Infrastructure privatization by Oscar Quinn': PASSED (3Y/2N/0A)
+  Vote on 'Education reform by Beatrice Amara': FAILED (1Y/4N/0A)
+  Vote on 'Infrastructure privatization by Marco Eriksen': FAILED (2Y/3N/0A)
+  Vote on 'Family tax credit by Marco Castillo': FAILED (0Y/5N/0A)
+  Vote on 'Infrastructure bond by George Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Cut business tax by Derek Chen': PASSED (4Y/1N/0A)
+  Vote on 'Green energy mandate by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Ivan Huang': PASSED (4Y/1N/0A)
+  Vote on 'Education reform by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Universal childcare pilot by Samuel Flores': FAILED (2Y/3N/0A)
+  Vote on 'Expand public transit by Quinn Dalton': FAILED (1Y/4N/0A)
+  Vote on 'Public safety initiative by Derek Flores': FAILED (1Y/4N/0A)
+=== Turn 2 ===
+  Policy pool: 'Expand public transit by Eleanor Marsh' by Eleanor Marsh
+  Policy pool: 'Climate resilience plan by Oscar Dalton' by Oscar Dalton
+  Policy pool: 'Education reform by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure privatization by Aaron Flores' by Aaron Flores
+  Policy pool: 'Climate resilience plan by Bernard Holloway' by Bernard Holloway
+  Policy pool: 'Infrastructure bond by George Dalton' by George Dalton
+  Policy pool: 'Expand public transit by Ethan Grant' by Ethan Grant
+  Policy pool: 'Charter school expansion by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Deregulation package by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Public safety initiative by Vera Osei' by Vera Osei
+  Policy pool: 'Infrastructure bond by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Deregulation package by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Infrastructure bond by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Expand public transit by Derek Bauer' by Derek Bauer
+  Policy pool: 'Social services expansion by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Family tax credit by Diana Park' by Diana Park
+  Policy pool: 'Public safety initiative by Derek Santos' by Derek Santos
+  Policy pool: 'Police accountability board by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Green energy mandate by Fatima Chen' by Fatima Chen
+  Policy pool: 'Deregulation package by Samuel Navarro' by Samuel Navarro
+  Policy pool: 'Charter school expansion by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Charter school expansion by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Raise minimum wage by Xena Chen' by Xena Chen
+  Policy pool: 'Family tax credit by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Small business loan program by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Public safety initiative by Fatima Laurent' by Fatima Laurent
+  Policy pool: 'Police accountability board by Carlos Huang' by Carlos Huang
+  Policy pool: 'Housing subsidy program by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Family tax credit by Oscar Chen' by Oscar Chen
+  Policy pool: 'Prescription price cap by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Small business loan program by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Education reform by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Public safety initiative by Marco Castillo' by Marco Castillo
+  Policy pool: 'Education reform by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Housing subsidy program by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Green energy mandate by Vera Laurent' by Vera Laurent
+  Policy pool: 'Charter school expansion by Xena Xu' by Xena Xu
+  Policy pool: 'Infrastructure privatization by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Raise minimum wage by George Vargas' by George Vargas
+  Policy pool: 'Police accountability board by George Laurent' by George Laurent
+  Policy pool: 'Social services expansion by Zara Xu' by Zara Xu
+  Policy pool: 'Worker training grant by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Social services expansion by Walter Reyes' by Walter Reyes
+  Policy pool: 'Family tax credit by Chloe Park' by Chloe Park
+  Policy pool: 'Housing subsidy program by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Public safety initiative by Derek Chen' by Derek Chen
+  Policy pool: 'Expand public transit by Ivan Adeyemi' by Ivan Adeyemi
+  Policy pool: 'Police accountability board by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Social services expansion by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Expand public transit by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Family tax credit by Vera Bauer' by Vera Bauer
+  Policy pool: 'Housing subsidy program by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Universal childcare pilot by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Universal childcare pilot by Ivan Huang' by Ivan Huang
+  Policy pool: 'Expand public transit by Tina Santos' by Tina Santos
+  Policy pool: 'Infrastructure bond by Zara Laurent' by Zara Laurent
+  Policy pool: 'Climate resilience plan by Aaron Ueda' by Aaron Ueda
+  Policy pool: 'Public safety initiative by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Expand public transit by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Charter school expansion by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Charter school expansion by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Housing subsidy program by Samuel Flores' by Samuel Flores
+  Policy pool: 'Family tax credit by Derek Flores' by Derek Flores
+  Policy pool: 'Raise minimum wage by Fatima Kim' by Fatima Kim
+  Policy pool: 'Deregulation package by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Climate resilience plan by Julia Bauer' by Julia Bauer
+  Jerome Nakamura requested vote on 'Expand public transit by Derek Bauer'
+  Chloe Brooks requested vote on 'Charter school expansion by Oscar Quinn'
+  Oscar Chen requested vote on 'Prescription price cap by Leila Eriksen'
+  Xena Xu requested vote on 'Infrastructure privatization by Ivan Thornton'
+  George Laurent requested vote on 'Social services expansion by Zara Xu'
+  Chloe Park requested vote on 'Family tax credit by Chloe Park'
+  Vera Bauer requested vote on 'Housing subsidy program by Aaron Bauer'
+  Tina Santos requested vote on 'Infrastructure bond by Zara Laurent'
+  Naomi Eriksen requested vote on 'Climate resilience plan by Oscar Dalton'
+  Brendan Thornton requested vote on 'Climate resilience plan by Oscar Dalton'
+  George Dalton requested vote on 'Climate resilience plan by Bernard Holloway'
+  Derek Jensen requested vote on 'Climate resilience plan by Bernard Holloway'
+  Kevin Adeyemi requested vote on 'Infrastructure bond by George Dalton'
+  Helena Donovan requested vote on 'Infrastructure bond by George Dalton'
+  Vera Osei requested vote on 'Public safety initiative by Vera Osei'
+  Derek Eriksen requested vote on 'Infrastructure bond by Oscar Navarro'
+  Derek Bauer requested vote on 'Family tax credit by Diana Park'
+  Ulrich Park requested vote on 'Infrastructure bond by Jerome Nakamura'
+  Oscar Mercer requested vote on 'Expand public transit by Derek Bauer'
+  Samuel Walsh requested vote on 'Green energy mandate by Fatima Chen'
+  Diana Jensen requested vote on 'Charter school expansion by Oscar Quinn'
+  Oscar Quinn requested vote on 'Family tax credit by Fatima Ueda'
+  Carlos Huang requested vote on 'Housing subsidy program by Brendan Navarro'
+  Brendan Navarro requested vote on 'Police accountability board by Carlos Huang'
+  Ethan Castillo requested vote on 'Education reform by Ivan Donovan'
+  Ivan Donovan requested vote on 'Family tax credit by Oscar Chen'
+  Vera Laurent requested vote on 'Education reform by Beatrice Amara'
+  Marco Eriksen requested vote on 'Education reform by Beatrice Amara'
+  Beatrice Grant requested vote on 'Housing subsidy program by Marco Eriksen'
+  Derek Walsh requested vote on 'Infrastructure privatization by Ivan Thornton'
+  Naomi Ziegler requested vote on 'Infrastructure privatization by Ivan Thornton'
+  Chloe Eriksen requested vote on 'Social services expansion by Zara Xu'
+  Zara Xu requested vote on 'Social services expansion by Zara Xu'
+  Zara Adeyemi requested vote on 'Police accountability board by George Laurent'
+  Walter Reyes requested vote on 'Social services expansion by Zara Xu'
+  Derek Chen requested vote on 'Family tax credit by Chloe Park'
+  Walter Walsh requested vote on 'Family tax credit by Chloe Park'
+  Beatrice Walsh requested vote on 'Social services expansion by Beatrice Walsh'
+  Diana Grant requested vote on 'Social services expansion by Beatrice Walsh'
+  Kevin Brooks requested vote on 'Social services expansion by Beatrice Walsh'
+  Kevin Flores requested vote on 'Police accountability board by Kevin Castillo'
+  Ivan Huang requested vote on 'Family tax credit by Vera Bauer'
+  Diana Vargas requested vote on 'Housing subsidy program by Aaron Bauer'
+  Alicia Quinn requested vote on 'Housing subsidy program by Aaron Bauer'
+  Chloe Osei requested vote on 'Housing subsidy program by Aaron Bauer'
+  Aaron Bauer requested vote on 'Housing subsidy program by Aaron Bauer'
+  Kevin Eriksen requested vote on 'Climate resilience plan by Aaron Ueda'
+  Samuel Ibrahim requested vote on 'Climate resilience plan by Aaron Ueda'
+  Vote on 'Expand public transit by Derek Bauer': FAILED (4Y/5N/0A)
+  Vote on 'Charter school expansion by Oscar Quinn': FAILED (2Y/3N/0A)
+  Vote on 'Prescription price cap by Leila Eriksen': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure privatization by Ivan Thornton': PASSED (3Y/2N/0A)
+  Vote on 'Social services expansion by Zara Xu': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Chloe Park': PASSED (4Y/1N/0A)
+  Vote on 'Housing subsidy program by Aaron Bauer': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Climate resilience plan by Oscar Dalton': FAILED (3Y/9N/0A)
+  Vote on 'Climate resilience plan by Bernard Holloway': PASSED (5Y/4N/0A)
+  Vote on 'Infrastructure bond by George Dalton': PASSED (5Y/4N/0A)
+  Vote on 'Public safety initiative by Vera Osei': FAILED (3Y/4N/0A)
+  Vote on 'Infrastructure bond by Oscar Navarro': FAILED (2Y/5N/0A)
+  Vote on 'Family tax credit by Diana Park': FAILED (2Y/7N/0A)
+  Vote on 'Infrastructure bond by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Green energy mandate by Fatima Chen': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Fatima Ueda': FAILED (1Y/4N/0A)
+  Vote on 'Housing subsidy program by Brendan Navarro': FAILED (2Y/3N/0A)
+  Vote on 'Police accountability board by Carlos Huang': FAILED (1Y/4N/0A)
+  Vote on 'Education reform by Ivan Donovan': FAILED (0Y/5N/0A)
+  Vote on 'Family tax credit by Oscar Chen': FAILED (0Y/5N/0A)
+  Vote on 'Education reform by Beatrice Amara': FAILED (0Y/5N/0A)
+  Vote on 'Housing subsidy program by Marco Eriksen': FAILED (1Y/4N/0A)
+  Vote on 'Police accountability board by George Laurent': FAILED (0Y/5N/0A)
+  Vote on 'Social services expansion by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Police accountability board by Kevin Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Vera Bauer': FAILED (1Y/4N/0A)
+  Vote on 'Climate resilience plan by Aaron Ueda': FAILED (1Y/4N/0A)
+=== Turn 3 ===
+  Policy pool: 'Small business loan program by Eleanor Marsh' by Eleanor Marsh
+  Policy pool: 'Housing subsidy program by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Family tax credit by Walter Brooks' by Walter Brooks
+  Policy pool: 'Family tax credit by Rosa Ziegler' by Rosa Ziegler
+  Policy pool: 'Infrastructure bond by Bernard Holloway' by Bernard Holloway
+  Policy pool: 'Climate resilience plan by George Dalton' by George Dalton
+  Policy pool: 'Raise minimum wage by Ethan Grant' by Ethan Grant
+  Policy pool: 'Public safety initiative by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Education reform by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Infrastructure privatization by Vera Osei' by Vera Osei
+  Policy pool: 'Prescription price cap by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Social services expansion by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Education reform by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Green energy mandate by Derek Bauer' by Derek Bauer
+  Policy pool: 'Infrastructure bond by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Climate resilience plan by Diana Park' by Diana Park
+  Policy pool: 'Small business loan program by Derek Santos' by Derek Santos
+  Policy pool: 'Infrastructure privatization by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Fatima Chen' by Fatima Chen
+  Policy pool: 'Public safety initiative by Samuel Navarro' by Samuel Navarro
+  Policy pool: 'Expand public transit by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Infrastructure privatization by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Housing subsidy program by Xena Chen' by Xena Chen
+  Policy pool: 'Universal childcare pilot by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Charter school expansion by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Balanced budget reform by Fatima Laurent' by Fatima Laurent
+  Policy pool: 'Charter school expansion by Carlos Huang' by Carlos Huang
+  Policy pool: 'Expand public transit by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Climate resilience plan by Oscar Chen' by Oscar Chen
+  Policy pool: 'Housing subsidy program by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Deregulation package by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Infrastructure bond by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Prescription price cap by Marco Castillo' by Marco Castillo
+  Policy pool: 'Green energy mandate by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Charter school expansion by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Worker training grant by Vera Laurent' by Vera Laurent
+  Policy pool: 'Family tax credit by Xena Xu' by Xena Xu
+  Policy pool: 'Charter school expansion by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Raise minimum wage by George Vargas' by George Vargas
+  Policy pool: 'Green energy mandate by George Laurent' by George Laurent
+  Policy pool: 'Worker training grant by Zara Xu' by Zara Xu
+  Policy pool: 'Infrastructure bond by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Expand public transit by Walter Reyes' by Walter Reyes
+  Policy pool: 'Infrastructure privatization by Chloe Park' by Chloe Park
+  Policy pool: 'Expand public transit by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Small business loan program by Derek Chen' by Derek Chen
+  Policy pool: 'Infrastructure privatization by Ivan Adeyemi' by Ivan Adeyemi
+  Policy pool: 'Public safety initiative by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Housing subsidy program by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Prescription price cap by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Housing subsidy program by Vera Bauer' by Vera Bauer
+  Policy pool: 'Climate resilience plan by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Climate resilience plan by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Expand public transit by Ivan Huang' by Ivan Huang
+  Policy pool: 'Housing subsidy program by Tina Santos' by Tina Santos
+  Policy pool: 'Climate resilience plan by Zara Laurent' by Zara Laurent
+  Policy pool: 'Balanced budget reform by Aaron Ueda' by Aaron Ueda
+  Policy pool: 'Green energy mandate by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Worker training grant by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Infrastructure bond by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Green energy mandate by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Universal childcare pilot by Samuel Flores' by Samuel Flores
+  Policy pool: 'Balanced budget reform by Derek Flores' by Derek Flores
+  Policy pool: 'Green energy mandate by Fatima Kim' by Fatima Kim
+  Policy pool: 'Small business loan program by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Universal childcare pilot by Julia Bauer' by Julia Bauer
+  Bernard Holloway requested vote on 'Climate resilience plan by George Dalton'
+  Derek Santos requested vote on 'Infrastructure privatization by Samuel Walsh'
+  George Laurent requested vote on 'Green energy mandate by George Laurent'
+  Ivan Adeyemi requested vote on 'Public safety initiative by Kevin Castillo'
+  Kevin Ibrahim requested vote on 'Family tax credit by Rosa Ziegler'
+  Alicia Ziegler requested vote on 'Infrastructure bond by Bernard Holloway'
+  Derek Jensen requested vote on 'Climate resilience plan by George Dalton'
+  Marco Mercer requested vote on 'Climate resilience plan by George Dalton'
+  Derek Bauer requested vote on 'Education reform by Jerome Nakamura'
+  Ulrich Park requested vote on 'Green energy mandate by Derek Bauer'
+  Rosa Quinn requested vote on 'Green energy mandate by Derek Bauer'
+  Quinn Jensen requested vote on 'Education reform by Jerome Nakamura'
+  Walter Santos requested vote on 'Infrastructure privatization by Samuel Walsh'
+  Diana Jensen requested vote on 'Infrastructure privatization by Oscar Quinn'
+  Rosa Osei requested vote on 'Balanced budget reform by Fatima Laurent'
+  Chloe Thornton requested vote on 'Balanced budget reform by Fatima Laurent'
+  Derek Walsh requested vote on 'Charter school expansion by Ivan Thornton'
+  Naomi Ziegler requested vote on 'Charter school expansion by Ivan Thornton'
+  Ivan Thornton requested vote on 'Charter school expansion by Ivan Thornton'
+  Kevin Dalton requested vote on 'Charter school expansion by Ivan Thornton'
+  Chloe Eriksen requested vote on 'Green energy mandate by George Laurent'
+  Zara Xu requested vote on 'Green energy mandate by George Laurent'
+  Ulrich Reyes requested vote on 'Green energy mandate by George Laurent'
+  Walter Walsh requested vote on 'Small business loan program by Derek Chen'
+  Marco Ziegler requested vote on 'Infrastructure privatization by Chloe Park'
+  Kevin Castillo requested vote on 'Public safety initiative by Kevin Castillo'
+  Beatrice Walsh requested vote on 'Housing subsidy program by Beatrice Walsh'
+  Diana Grant requested vote on 'Housing subsidy program by Beatrice Walsh'
+  Kevin Brooks requested vote on 'Public safety initiative by Kevin Castillo'
+  Kevin Flores requested vote on 'Public safety initiative by Kevin Castillo'
+  Ivan Huang requested vote on 'Housing subsidy program by Vera Bauer'
+  Diana Vargas requested vote on 'Climate resilience plan by Aaron Bauer'
+  Chloe Osei requested vote on 'Climate resilience plan by Aaron Bauer'
+  Aaron Ueda requested vote on 'Climate resilience plan by Zara Laurent'
+  Zara Laurent requested vote on 'Climate resilience plan by Zara Laurent'
+  Quinn Dalton requested vote on 'Infrastructure bond by Chloe Bauer'
+  Fatima Kim requested vote on 'Balanced budget reform by Derek Flores'
+  Vote on 'Climate resilience plan by George Dalton': PASSED (5Y/4N/0A)
+  Vote on 'Infrastructure privatization by Samuel Walsh': FAILED (2Y/3N/0A)
+  Vote on 'Green energy mandate by George Laurent': PASSED (5Y/0N/0A)
+  Vote on 'Public safety initiative by Kevin Castillo': PASSED (4Y/1N/0A)
+  Vote on 'Family tax credit by Rosa Ziegler': FAILED (2Y/10N/0A)
+  Vote on 'Infrastructure bond by Bernard Holloway': PASSED (5Y/4N/0A)
+  Vote on 'Education reform by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Green energy mandate by Derek Bauer': PASSED (5Y/4N/0A)
+  Vote on 'Infrastructure privatization by Oscar Quinn': FAILED (2Y/3N/0A)
+  Vote on 'Balanced budget reform by Fatima Laurent': FAILED (2Y/3N/0A)
+  Vote on 'Charter school expansion by Ivan Thornton': PASSED (4Y/1N/0A)
+  Vote on 'Small business loan program by Derek Chen': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure privatization by Chloe Park': FAILED (2Y/3N/0A)
+  Vote on 'Housing subsidy program by Beatrice Walsh': PASSED (4Y/1N/0A)
+  Vote on 'Housing subsidy program by Vera Bauer': FAILED (2Y/3N/0A)
+  Vote on 'Climate resilience plan by Aaron Bauer': PASSED (3Y/2N/0A)
+  Vote on 'Climate resilience plan by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure bond by Chloe Bauer': FAILED (0Y/5N/0A)
+  Vote on 'Balanced budget reform by Derek Flores': FAILED (1Y/4N/0A)
+=== Turn 4 ===
+  Policy pool: 'Housing subsidy program by Eleanor Marsh' by Eleanor Marsh
+  Policy pool: 'Infrastructure bond by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Infrastructure bond by Walter Brooks' by Walter Brooks
+  Policy pool: 'Social services expansion by Rosa Ziegler' by Rosa Ziegler
+  Policy pool: 'Police accountability board by Bernard Holloway' by Bernard Holloway
+  Policy pool: 'Raise minimum wage by George Dalton' by George Dalton
+  Policy pool: 'Public safety initiative by Ethan Grant' by Ethan Grant
+  Policy pool: 'Climate resilience plan by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Education reform by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Small business loan program by Vera Osei' by Vera Osei
+  Policy pool: 'Climate resilience plan by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Worker training grant by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Police accountability board by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Police accountability board by Derek Bauer' by Derek Bauer
+  Policy pool: 'Climate resilience plan by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Police accountability board by Diana Park' by Diana Park
+  Policy pool: 'Worker training grant by Derek Santos' by Derek Santos
+  Policy pool: 'Infrastructure bond by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Infrastructure bond by Fatima Chen' by Fatima Chen
+  Policy pool: 'Public safety initiative by Samuel Navarro' by Samuel Navarro
+  Policy pool: 'Social services expansion by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Cut business tax by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Family tax credit by Xena Chen' by Xena Chen
+  Policy pool: 'Small business loan program by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Social services expansion by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Education reform by Fatima Laurent' by Fatima Laurent
+  Policy pool: 'Family tax credit by Carlos Huang' by Carlos Huang
+  Policy pool: 'Climate resilience plan by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Prescription price cap by Oscar Chen' by Oscar Chen
+  Policy pool: 'Infrastructure bond by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Small business loan program by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Police accountability board by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Small business loan program by Marco Castillo' by Marco Castillo
+  Policy pool: 'Expand public transit by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Expand public transit by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Raise minimum wage by Vera Laurent' by Vera Laurent
+  Policy pool: 'Education reform by Xena Xu' by Xena Xu
+  Policy pool: 'Cut business tax by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Social services expansion by George Vargas' by George Vargas
+  Policy pool: 'Infrastructure bond by George Laurent' by George Laurent
+  Policy pool: 'Charter school expansion by Zara Xu' by Zara Xu
+  Policy pool: 'Expand public transit by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Worker training grant by Walter Reyes' by Walter Reyes
+  Policy pool: 'Infrastructure privatization by Chloe Park' by Chloe Park
+  Policy pool: 'Small business loan program by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Balanced budget reform by Derek Chen' by Derek Chen
+  Policy pool: 'Climate resilience plan by Ivan Adeyemi' by Ivan Adeyemi
+  Policy pool: 'Universal childcare pilot by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Worker training grant by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Public safety initiative by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Raise minimum wage by Vera Bauer' by Vera Bauer
+  Policy pool: 'Prescription price cap by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Raise minimum wage by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Family tax credit by Ivan Huang' by Ivan Huang
+  Policy pool: 'Universal childcare pilot by Tina Santos' by Tina Santos
+  Policy pool: 'Climate resilience plan by Zara Laurent' by Zara Laurent
+  Policy pool: 'Infrastructure bond by Aaron Ueda' by Aaron Ueda
+  Policy pool: 'Small business loan program by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Housing subsidy program by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Climate resilience plan by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Small business loan program by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Education reform by Samuel Flores' by Samuel Flores
+  Policy pool: 'Family tax credit by Derek Flores' by Derek Flores
+  Policy pool: 'Charter school expansion by Fatima Kim' by Fatima Kim
+  Policy pool: 'Infrastructure privatization by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Small business loan program by Julia Bauer' by Julia Bauer
+  Bernard Holloway requested vote on 'Raise minimum wage by George Dalton'
+  Jerome Nakamura requested vote on 'Police accountability board by Derek Bauer'
+  George Laurent requested vote on 'Infrastructure bond by George Laurent'
+  Chloe Park requested vote on 'Infrastructure privatization by Chloe Park'
+  Ivan Adeyemi requested vote on 'Universal childcare pilot by Kevin Castillo'
+  Tina Santos requested vote on 'Small business loan program by Kevin Eriksen'
+  Derek Flores requested vote on 'Infrastructure privatization by Alicia Yilmaz'
+  Ulrich Ibrahim requested vote on 'Infrastructure bond by Naomi Eriksen'
+  Oscar Dalton requested vote on 'Infrastructure bond by Walter Brooks'
+  Chloe Ueda requested vote on 'Infrastructure bond by Naomi Eriksen'
+  Kevin Adeyemi requested vote on 'Public safety initiative by Ethan Grant'
+  Helena Donovan requested vote on 'Raise minimum wage by George Dalton'
+  Vera Osei requested vote on 'Climate resilience plan by Oscar Navarro'
+  Derek Eriksen requested vote on 'Small business loan program by Vera Osei'
+  Paula Reyes requested vote on 'Police accountability board by Derek Bauer'
+  Ulrich Park requested vote on 'Police accountability board by Derek Bauer'
+  Walter Santos requested vote on 'Public safety initiative by Samuel Navarro'
+  Samuel Navarro requested vote on 'Infrastructure bond by Samuel Walsh'
+  Naomi Vargas requested vote on 'Family tax credit by Xena Chen'
+  Carlos Huang requested vote on 'Education reform by Fatima Laurent'
+  Rosa Osei requested vote on 'Climate resilience plan by Brendan Navarro'
+  Chloe Thornton requested vote on 'Education reform by Fatima Laurent'
+  Helena Ziegler requested vote on 'Prescription price cap by Oscar Chen'
+  Leila Eriksen requested vote on 'Police accountability board by Ivan Donovan'
+  Oscar Thornton requested vote on 'Raise minimum wage by Vera Laurent'
+  George Vargas requested vote on 'Cut business tax by Ivan Thornton'
+  Derek Walsh requested vote on 'Cut business tax by Ivan Thornton'
+  Naomi Ziegler requested vote on 'Cut business tax by Ivan Thornton'
+  Kevin Dalton requested vote on 'Cut business tax by Ivan Thornton'
+  Chloe Eriksen requested vote on 'Infrastructure bond by George Laurent'
+  Ulrich Reyes requested vote on 'Infrastructure bond by George Laurent'
+  Walter Reyes requested vote on 'Expand public transit by Ulrich Reyes'
+  Derek Chen requested vote on 'Infrastructure privatization by Chloe Park'
+  Walter Walsh requested vote on 'Infrastructure privatization by Chloe Park'
+  Ulrich Adeyemi requested vote on 'Infrastructure privatization by Chloe Park'
+  Kevin Castillo requested vote on 'Universal childcare pilot by Kevin Castillo'
+  Beatrice Walsh requested vote on 'Worker training grant by Beatrice Walsh'
+  Kevin Brooks requested vote on 'Climate resilience plan by Ivan Adeyemi'
+  Kevin Flores requested vote on 'Universal childcare pilot by Kevin Castillo'
+  Ivan Huang requested vote on 'Prescription price cap by Aaron Bauer'
+  Diana Vargas requested vote on 'Raise minimum wage by Vera Bauer'
+  Aaron Bauer requested vote on 'Prescription price cap by Aaron Bauer'
+  Samuel Ibrahim requested vote on 'Climate resilience plan by Zara Laurent'
+  Zara Chen requested vote on 'Small business loan program by Kevin Eriksen'
+  Zara Laurent requested vote on 'Universal childcare pilot by Tina Santos'
+  Julia Walsh requested vote on 'Family tax credit by Derek Flores'
+  Helena Yilmaz requested vote on 'Small business loan program by Julia Bauer'
+  Vote on 'Raise minimum wage by George Dalton': PASSED (5Y/4N/0A)
+  Vote on 'Police accountability board by Derek Bauer': PASSED (5Y/4N/0A)
+  Vote on 'Infrastructure bond by George Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure privatization by Chloe Park': PASSED (4Y/1N/0A)
+  Vote on 'Universal childcare pilot by Kevin Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Small business loan program by Kevin Eriksen': FAILED (1Y/4N/0A)
+  Vote on 'Infrastructure privatization by Alicia Yilmaz': FAILED (1Y/4N/0A)
+  Vote on 'Infrastructure bond by Naomi Eriksen': FAILED (3Y/9N/0A)
+  Vote on 'Infrastructure bond by Walter Brooks': FAILED (0Y/12N/0A)
+  Vote on 'Public safety initiative by Ethan Grant': FAILED (0Y/9N/0A)
+  Vote on 'Climate resilience plan by Oscar Navarro': FAILED (1Y/6N/0A)
+  Vote on 'Small business loan program by Vera Osei': FAILED (3Y/4N/0A)
+  Vote on 'Public safety initiative by Samuel Navarro': FAILED (1Y/4N/0A)
+  Vote on 'Infrastructure bond by Samuel Walsh': FAILED (0Y/5N/0A)
+  Vote on 'Family tax credit by Xena Chen': FAILED (1Y/4N/0A)
+  Vote on 'Education reform by Fatima Laurent': FAILED (2Y/3N/0A)
+  Vote on 'Climate resilience plan by Brendan Navarro': FAILED (2Y/3N/0A)
+  Vote on 'Prescription price cap by Oscar Chen': FAILED (0Y/5N/0A)
+  Vote on 'Police accountability board by Ivan Donovan': FAILED (1Y/4N/0A)
+  Vote on 'Raise minimum wage by Vera Laurent': FAILED (0Y/5N/0A)
+  Vote on 'Cut business tax by Ivan Thornton': PASSED (4Y/1N/0A)
+  Vote on 'Expand public transit by Ulrich Reyes': FAILED (1Y/4N/0A)
+  Vote on 'Worker training grant by Beatrice Walsh': PASSED (4Y/1N/0A)
+  Vote on 'Climate resilience plan by Ivan Adeyemi': FAILED (0Y/5N/0A)
+  Vote on 'Prescription price cap by Aaron Bauer': PASSED (3Y/2N/0A)
+  Vote on 'Raise minimum wage by Vera Bauer': FAILED (0Y/5N/0A)
+  Vote on 'Climate resilience plan by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Tina Santos': FAILED (2Y/3N/0A)
+  Vote on 'Family tax credit by Derek Flores': FAILED (1Y/4N/0A)
+  Vote on 'Small business loan program by Julia Bauer': FAILED (0Y/5N/0A)
+=== Turn 5 ===
+Election triggered for Cascadia Federation
+  Executive election in Cascadia Federation:
+    [fed_0011] Walter Brooks: 44.0%
+    [fed_0013] Chloe Ueda: 37.8%
+    [fed_0002] Naomi Eriksen: 12.5%
+    [fed_0012] Rosa Ziegler: 5.7%
+  Legislative election in Cascadia Federation:
+    Civic Democrats: 49.1% -> 6 seats
+    Labor Front: 34.7% -> 4 seats
+    Reform Alliance: 3.4% -> 0 seats
+    Green Future: 12.8% -> 2 seats
+Election triggered for Ironfield
+  Executive election in Ironfield:
+    [iro_0016] George Dalton: 33.5%
+    [iro_0020] Ethan Grant: 33.2%
+    [iro_0022] Kevin Adeyemi: 29.9%
+    [iro_0023] Helena Donovan: 3.5%
+  Legislative election in Ironfield:
+    Labor Front: 33.6% -> 3 seats
+    Green Future: 14.0% -> 1 seats
+    Civic Democrats: 28.0% -> 3 seats
+    Reform Alliance: 24.4% -> 2 seats
+Election triggered for Verdana
+  Executive election in Verdana:
+    [ver_0027] Vera Osei: 47.7%
+    [ver_0028] Oscar Navarro: 32.8%
+    [ver_0030] Carlos Ibrahim: 17.5%
+    [ver_0031] Tina Xu: 2.1%
+  Legislative election in Verdana:
+    Civic Democrats: 28.9% -> 2 seats
+    Labor Front: 21.1% -> 1 seats
+    Reform Alliance: 38.0% -> 3 seats
+    Green Future: 12.0% -> 1 seats
+Election triggered for Pacifica
+  Executive election in Pacifica:
+    [pac_0033] Derek Bauer: 41.4%
+    [pac_0037] Rosa Quinn: 22.0%
+    [pac_0041] Walter Flores: 19.5%
+    [pac_0040] Diana Park: 17.1%
+  Legislative election in Pacifica:
+    Green Future: 33.2% -> 3 seats
+    Labor Front: 22.2% -> 2 seats
+    Civic Democrats: 23.4% -> 2 seats
+    Reform Alliance: 21.2% -> 2 seats
+Election triggered for Steelburg
+  Executive election in Steelburg:
+    [ste_0045] Fatima Chen: 41.8%
+    [ste_0044] Samuel Walsh: 36.1%
+    [ste_0042] Derek Santos: 22.2%
+  Legislative election in Steelburg:
+    Civic Democrats: 34.4% -> 2 seats
+    Labor Front: 37.4% -> 2 seats
+    Reform Alliance: 28.2% -> 1 seats
+Election triggered for Coalton
+  Executive election in Coalton:
+    [coa_0053] Fatima Ueda: 43.1%
+    [coa_0049] Xena Chen: 35.1%
+    [coa_0052] Oscar Quinn: 21.8%
+  Legislative election in Coalton:
+    Labor Front: 43.6% -> 2 seats
+    Civic Democrats: 31.6% -> 2 seats
+    Reform Alliance: 24.9% -> 1 seats
+Election triggered for Millford
+  Executive election in Millford:
+    [mil_0054] Walter Ibrahim: 33.4%
+    [mil_0056] Fatima Laurent: 30.7%
+    [mil_0057] Brendan Navarro: 29.8%
+    [mil_0055] Carlos Huang: 6.1%
+  Legislative election in Millford:
+    Civic Democrats: 29.8% -> 1 seats
+    Labor Front: 30.5% -> 2 seats
+    Green Future: 13.3% -> 1 seats
+    Reform Alliance: 26.4% -> 1 seats
+Election triggered for Irondale
+  Executive election in Irondale:
+    [iro_0064] Ivan Donovan: 36.0%
+    [iro_0063] Ethan Castillo: 35.9%
+    [iro_0065] Leila Eriksen: 28.1%
+  Legislative election in Irondale:
+    Civic Democrats: 33.7% -> 2 seats
+    Labor Front: 35.2% -> 2 seats
+    Reform Alliance: 31.1% -> 1 seats
+Election triggered for Farmington
+  Executive election in Farmington:
+    [far_0069] Marco Eriksen: 50.5%
+    [far_0066] Marco Castillo: 33.5%
+    [far_0068] Vera Laurent: 15.9%
+  Legislative election in Farmington:
+    Civic Democrats: 34.5% -> 2 seats
+    Labor Front: 20.6% -> 1 seats
+    Reform Alliance: 44.9% -> 2 seats
+Election triggered for Crestview
+  Executive election in Crestview:
+    [cre_0074] Derek Walsh: 54.9%
+    [cre_0072] Xena Xu: 44.3%
+    [cre_0073] George Vargas: 0.8%
+  Legislative election in Crestview:
+    Civic Democrats: 34.5% -> 2 seats
+    Green Future: 16.7% -> 1 seats
+    Reform Alliance: 48.8% -> 2 seats
+Election triggered for Riverdale
+  Executive election in Riverdale:
+    [riv_0080] Zara Xu: 88.0%
+    [riv_0083] Walter Reyes: 12.0%
+  Legislative election in Riverdale:
+    Labor Front: 36.6% -> 2 seats
+    Green Future: 22.7% -> 1 seats
+    Civic Democrats: 40.7% -> 2 seats
+Election triggered for Granville
+  Legislative election in Granville:
+    Civic Democrats: 44.5% -> 2 seats
+    Reform Alliance: 55.5% -> 3 seats
+Election triggered for Bayshore
+  Executive election in Bayshore:
+    [bay_0091] Kevin Castillo: 100.0%
+  Legislative election in Bayshore:
+    Civic Democrats: 29.8% -> 2 seats
+    Labor Front: 26.1% -> 1 seats
+    Green Future: 44.1% -> 2 seats
+Election triggered for Harborview
+  Legislative election in Harborview:
+    Civic Democrats: 33.4% -> 2 seats
+    Labor Front: 25.6% -> 1 seats
+    Green Future: 41.0% -> 2 seats
+Election triggered for Solana
+  Legislative election in Solana:
+    Green Future: 42.3% -> 2 seats
+    Civic Democrats: 20.6% -> 1 seats
+    Labor Front: 20.0% -> 1 seats
+    Reform Alliance: 17.2% -> 1 seats
+Election triggered for Crestwood
+  Legislative election in Crestwood:
+    Green Future: 42.7% -> 2 seats
+    Civic Democrats: 31.0% -> 2 seats
+    Reform Alliance: 26.3% -> 1 seats
+Election triggered for Waverly
+  Legislative election in Waverly:
+    Civic Democrats: 39.1% -> 2 seats
+    Green Future: 19.1% -> 1 seats
+    Reform Alliance: 41.8% -> 2 seats
+  Policy pool: 'Family tax credit by Walter Brooks' by Walter Brooks
+  Policy pool: 'Worker training grant by Civic Democrats Candidate 90402' by Civic Democrats Candidate 90402
+  Policy pool: 'Housing subsidy program by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Green energy mandate by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Raise minimum wage by George Dalton' by George Dalton
+  Policy pool: 'Infrastructure bond by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Prescription price cap by Ethan Grant' by Ethan Grant
+  Policy pool: 'Worker training grant by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Cut business tax by Vera Osei' by Vera Osei
+  Policy pool: 'Charter school expansion by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Expand public transit by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Expand public transit by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Prescription price cap by Derek Bauer' by Derek Bauer
+  Policy pool: 'Green energy mandate by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Police accountability board by Diana Park' by Diana Park
+  Policy pool: 'Raise minimum wage by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Raise minimum wage by Fatima Chen' by Fatima Chen
+  Policy pool: 'Family tax credit by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Charter school expansion by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Cut business tax by Derek Santos' by Derek Santos
+  Policy pool: 'Worker training grant by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Housing subsidy program by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Climate resilience plan by Civic Democrats Candidate 74907' by Civic Democrats Candidate 74907
+  Policy pool: 'Family tax credit by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Education reform by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Green energy mandate by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Deregulation package by Rosa Osei' by Rosa Osei
+  Policy pool: 'Infrastructure bond by Carlos Huang' by Carlos Huang
+  Policy pool: 'Small business loan program by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Green energy mandate by Oscar Chen' by Oscar Chen
+  Policy pool: 'Family tax credit by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Charter school expansion by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Deregulation package by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Infrastructure bond by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Public safety initiative by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Green energy mandate by Vera Laurent' by Vera Laurent
+  Policy pool: 'Infrastructure bond by Derek Walsh' by Derek Walsh
+  Policy pool: 'Police accountability board by Civic Democrats Candidate 14757' by Civic Democrats Candidate 14757
+  Policy pool: 'Infrastructure privatization by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Green energy mandate by George Vargas' by George Vargas
+  Policy pool: 'Expand public transit by Zara Xu' by Zara Xu
+  Policy pool: 'Housing subsidy program by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Prescription price cap by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Social services expansion by Walter Reyes' by Walter Reyes
+  Policy pool: 'Balanced budget reform by Chloe Park' by Chloe Park
+  Policy pool: 'Infrastructure bond by Derek Chen' by Derek Chen
+  Policy pool: 'Raise minimum wage by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Housing subsidy program by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Worker training grant by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Infrastructure bond by Diana Grant' by Diana Grant
+  Policy pool: 'Infrastructure bond by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Charter school expansion by Vera Bauer' by Vera Bauer
+  Policy pool: 'Balanced budget reform by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Family tax credit by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Social services expansion by Ivan Huang' by Ivan Huang
+  Policy pool: 'Universal childcare pilot by Tina Santos' by Tina Santos
+  Policy pool: 'Police accountability board by Zara Laurent' by Zara Laurent
+  Policy pool: 'Small business loan program by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Universal childcare pilot by Zara Chen' by Zara Chen
+  Policy pool: 'Police accountability board by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Climate resilience plan by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Worker training grant by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Charter school expansion by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Infrastructure privatization by Derek Flores' by Derek Flores
+  Policy pool: 'Raise minimum wage by Fatima Kim' by Fatima Kim
+  Policy pool: 'Deregulation package by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Universal childcare pilot by Julia Bauer' by Julia Bauer
+  Chloe Park requested vote on 'Balanced budget reform by Chloe Park'
+  Tina Santos requested vote on 'Police accountability board by Zara Laurent'
+  Derek Jensen requested vote on 'Infrastructure bond by Alicia Ziegler'
+  Tina Xu requested vote on 'Charter school expansion by Margaret Tillson'
+  Derek Santos requested vote on 'Family tax credit by Samuel Walsh'
+  Samuel Walsh requested vote on 'Raise minimum wage by Fatima Chen'
+  Oscar Quinn requested vote on 'Housing subsidy program by Chloe Brooks'
+  Marco Castillo requested vote on 'Green energy mandate by Vera Laurent'
+  Beatrice Grant requested vote on 'Green energy mandate by Vera Laurent'
+  George Laurent requested vote on 'Expand public transit by Zara Xu'
+  Chloe Eriksen requested vote on 'Social services expansion by Walter Reyes'
+  Walter Reyes requested vote on 'Social services expansion by Walter Reyes'
+  Derek Chen requested vote on 'Balanced budget reform by Chloe Park'
+  Walter Walsh requested vote on 'Infrastructure bond by Derek Chen'
+  Diana Grant requested vote on 'Infrastructure bond by Beatrice Walsh'
+  Kevin Flores requested vote on 'Infrastructure bond by Diana Grant'
+  Aaron Bauer requested vote on 'Family tax credit by Aaron Bauer'
+  Zara Chen requested vote on 'Universal childcare pilot by Zara Chen'
+  Zara Laurent requested vote on 'Small business loan program by Kevin Eriksen'
+  Julia Bauer requested vote on 'Deregulation package by Alicia Yilmaz'
+  Reform Alliance Candidate 72960 requested vote on 'Universal childcare pilot by Julia Bauer'
+  Vote on 'Balanced budget reform by Chloe Park': PASSED (4Y/1N/0A)
+  Vote on 'Police accountability board by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure bond by Alicia Ziegler': FAILED (4Y/5N/0A)
+  Vote on 'Charter school expansion by Margaret Tillson': FAILED (3Y/4N/0A)
+  Vote on 'Family tax credit by Samuel Walsh': FAILED (0Y/5N/0A)
+  Vote on 'Raise minimum wage by Fatima Chen': PASSED (3Y/2N/0A)
+  Vote on 'Housing subsidy program by Chloe Brooks': FAILED (1Y/4N/0A)
+  Vote on 'Green energy mandate by Vera Laurent': FAILED (0Y/5N/0A)
+  Vote on 'Expand public transit by Zara Xu': PASSED (3Y/2N/0A)
+  Vote on 'Social services expansion by Walter Reyes': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Derek Chen': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure bond by Diana Grant': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Aaron Bauer': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Zara Chen': PASSED (3Y/2N/0A)
+  Vote on 'Small business loan program by Kevin Eriksen': FAILED (0Y/5N/0A)
+  Vote on 'Deregulation package by Alicia Yilmaz': FAILED (1Y/4N/0A)
+  Vote on 'Universal childcare pilot by Julia Bauer': FAILED (1Y/4N/0A)
+=== Turn 6 ===
+  Policy pool: 'Housing subsidy program by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure bond by Civic Democrats Candidate 27436' by Civic Democrats Candidate 27436
+  Policy pool: 'Prescription price cap by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Housing subsidy program by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Raise minimum wage by George Dalton' by George Dalton
+  Policy pool: 'Green energy mandate by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Prescription price cap by Ethan Grant' by Ethan Grant
+  Policy pool: 'Charter school expansion by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Small business loan program by Vera Osei' by Vera Osei
+  Policy pool: 'Family tax credit by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Infrastructure bond by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Worker training grant by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Universal childcare pilot by Derek Bauer' by Derek Bauer
+  Policy pool: 'Climate resilience plan by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Education reform by Diana Park' by Diana Park
+  Policy pool: 'Infrastructure bond by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Worker training grant by Fatima Chen' by Fatima Chen
+  Policy pool: 'Education reform by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Small business loan program by Derek Santos' by Derek Santos
+  Policy pool: 'Education reform by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Family tax credit by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Green energy mandate by Civic Democrats Candidate 74907' by Civic Democrats Candidate 74907
+  Policy pool: 'Balanced budget reform by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Family tax credit by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Green energy mandate by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Education reform by Rosa Osei' by Rosa Osei
+  Policy pool: 'Education reform by Carlos Huang' by Carlos Huang
+  Policy pool: 'Charter school expansion by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Police accountability board by Oscar Chen' by Oscar Chen
+  Policy pool: 'Housing subsidy program by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Small business loan program by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Deregulation package by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Education reform by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Family tax credit by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Charter school expansion by Vera Laurent' by Vera Laurent
+  Policy pool: 'Public safety initiative by Derek Walsh' by Derek Walsh
+  Policy pool: 'Education reform by Civic Democrats Candidate 14757' by Civic Democrats Candidate 14757
+  Policy pool: 'Small business loan program by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Social services expansion by George Vargas' by George Vargas
+  Policy pool: 'Prescription price cap by Zara Xu' by Zara Xu
+  Policy pool: 'Green energy mandate by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Infrastructure bond by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Worker training grant by Walter Reyes' by Walter Reyes
+  Policy pool: 'Balanced budget reform by Chloe Park' by Chloe Park
+  Policy pool: 'Infrastructure bond by Derek Chen' by Derek Chen
+  Policy pool: 'Expand public transit by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Prescription price cap by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Social services expansion by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Expand public transit by Diana Grant' by Diana Grant
+  Policy pool: 'Climate resilience plan by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Universal childcare pilot by Vera Bauer' by Vera Bauer
+  Policy pool: 'Raise minimum wage by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Police accountability board by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Public safety initiative by Ivan Huang' by Ivan Huang
+  Policy pool: 'Green energy mandate by Tina Santos' by Tina Santos
+  Policy pool: 'Green energy mandate by Zara Laurent' by Zara Laurent
+  Policy pool: 'Housing subsidy program by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Social services expansion by Zara Chen' by Zara Chen
+  Policy pool: 'Raise minimum wage by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Raise minimum wage by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Universal childcare pilot by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Balanced budget reform by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Charter school expansion by Derek Flores' by Derek Flores
+  Policy pool: 'Raise minimum wage by Fatima Kim' by Fatima Kim
+  Policy pool: 'Deregulation package by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Housing subsidy program by Julia Bauer' by Julia Bauer
+  Chloe Park requested vote on 'Infrastructure bond by Derek Chen'
+  Vera Bauer requested vote on 'Police accountability board by Aaron Bauer'
+  Tina Santos requested vote on 'Green energy mandate by Zara Laurent'
+  Brendan Thornton requested vote on 'Housing subsidy program by Chloe Ueda'
+  Oscar Mercer requested vote on 'Climate resilience plan by Jerome Nakamura'
+  Walter Santos requested vote on 'Worker training grant by Fatima Chen'
+  Samuel Walsh requested vote on 'Worker training grant by Fatima Chen'
+  Fatima Laurent requested vote on 'Family tax credit by Walter Ibrahim'
+  Leila Eriksen requested vote on 'Small business loan program by Ethan Castillo'
+  Marco Castillo requested vote on 'Family tax credit by Beatrice Grant'
+  Vera Laurent requested vote on 'Education reform by Beatrice Amara'
+  Xena Xu requested vote on 'Public safety initiative by Derek Walsh'
+  George Laurent requested vote on 'Infrastructure bond by Ulrich Reyes'
+  Chloe Eriksen requested vote on 'Worker training grant by Walter Reyes'
+  Zara Adeyemi requested vote on 'Worker training grant by Walter Reyes'
+  Ulrich Reyes requested vote on 'Worker training grant by Walter Reyes'
+  Derek Chen requested vote on 'Infrastructure bond by Derek Chen'
+  Walter Walsh requested vote on 'Infrastructure bond by Derek Chen'
+  Beatrice Walsh requested vote on 'Expand public transit by Diana Grant'
+  Kevin Flores requested vote on 'Expand public transit by Diana Grant'
+  Diana Vargas requested vote on 'Police accountability board by Aaron Bauer'
+  Alicia Quinn requested vote on 'Police accountability board by Aaron Bauer'
+  Aaron Bauer requested vote on 'Police accountability board by Aaron Bauer'
+  Kevin Eriksen requested vote on 'Green energy mandate by Zara Laurent'
+  Zara Laurent requested vote on 'Green energy mandate by Zara Laurent'
+  Samuel Mercer requested vote on 'Raise minimum wage by Ivan Castillo'
+  Fatima Kim requested vote on 'Housing subsidy program by Julia Bauer'
+  Labor Front Candidate 51963 requested vote on 'Housing subsidy program by Chloe Ueda'
+  Reform Alliance Candidate 12913 requested vote on 'Infrastructure bond by Derek Chen'
+  Vote on 'Infrastructure bond by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Police accountability board by Aaron Bauer': PASSED (4Y/1N/0A)
+  Vote on 'Green energy mandate by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Housing subsidy program by Chloe Ueda': FAILED (2Y/10N/0A)
+  Vote on 'Climate resilience plan by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Worker training grant by Fatima Chen': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Walter Ibrahim': FAILED (0Y/5N/0A)
+  Vote on 'Small business loan program by Ethan Castillo': FAILED (1Y/4N/0A)
+  Vote on 'Family tax credit by Beatrice Grant': FAILED (1Y/4N/0A)
+  Vote on 'Education reform by Beatrice Amara': FAILED (1Y/4N/0A)
+  Vote on 'Public safety initiative by Derek Walsh': FAILED (2Y/3N/0A)
+  Vote on 'Infrastructure bond by Ulrich Reyes': PASSED (3Y/2N/0A)
+  Vote on 'Worker training grant by Walter Reyes': PASSED (4Y/1N/0A)
+  Vote on 'Expand public transit by Diana Grant': PASSED (3Y/2N/0A)
+  Vote on 'Raise minimum wage by Ivan Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Housing subsidy program by Julia Bauer': FAILED (1Y/4N/0A)
+=== Turn 7 ===
+  Policy pool: 'Police accountability board by Walter Brooks' by Walter Brooks
+  Policy pool: 'Climate resilience plan by Civic Democrats Candidate 27436' by Civic Democrats Candidate 27436
+  Policy pool: 'Worker training grant by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Climate resilience plan by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Prescription price cap by George Dalton' by George Dalton
+  Policy pool: 'Raise minimum wage by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Public safety initiative by Ethan Grant' by Ethan Grant
+  Policy pool: 'Deregulation package by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Deregulation package by Vera Osei' by Vera Osei
+  Policy pool: 'Small business loan program by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Infrastructure privatization by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Housing subsidy program by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Housing subsidy program by Derek Bauer' by Derek Bauer
+  Policy pool: 'Universal childcare pilot by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Social services expansion by Diana Park' by Diana Park
+  Policy pool: 'Universal childcare pilot by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Family tax credit by Fatima Chen' by Fatima Chen
+  Policy pool: 'Family tax credit by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Public safety initiative by Derek Santos' by Derek Santos
+  Policy pool: 'Infrastructure bond by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Social services expansion by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Family tax credit by Civic Democrats Candidate 74907' by Civic Democrats Candidate 74907
+  Policy pool: 'Charter school expansion by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Universal childcare pilot by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Housing subsidy program by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Expand public transit by Rosa Osei' by Rosa Osei
+  Policy pool: 'Social services expansion by Carlos Huang' by Carlos Huang
+  Policy pool: 'Charter school expansion by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Infrastructure bond by Oscar Chen' by Oscar Chen
+  Policy pool: 'Housing subsidy program by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Worker training grant by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Prescription price cap by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Universal childcare pilot by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Climate resilience plan by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Social services expansion by Vera Laurent' by Vera Laurent
+  Policy pool: 'Small business loan program by Derek Walsh' by Derek Walsh
+  Policy pool: 'Charter school expansion by Civic Democrats Candidate 14757' by Civic Democrats Candidate 14757
+  Policy pool: 'Cut business tax by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Social services expansion by George Vargas' by George Vargas
+  Policy pool: 'Green energy mandate by Zara Xu' by Zara Xu
+  Policy pool: 'Social services expansion by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Infrastructure bond by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Raise minimum wage by Walter Reyes' by Walter Reyes
+  Policy pool: 'Infrastructure bond by Chloe Park' by Chloe Park
+  Policy pool: 'Cut business tax by Derek Chen' by Derek Chen
+  Policy pool: 'Charter school expansion by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Police accountability board by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Education reform by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Green energy mandate by Diana Grant' by Diana Grant
+  Policy pool: 'Green energy mandate by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Universal childcare pilot by Vera Bauer' by Vera Bauer
+  Policy pool: 'Climate resilience plan by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Education reform by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Infrastructure bond by Ivan Huang' by Ivan Huang
+  Policy pool: 'Family tax credit by Tina Santos' by Tina Santos
+  Policy pool: 'Expand public transit by Zara Laurent' by Zara Laurent
+  Policy pool: 'Small business loan program by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Green energy mandate by Zara Chen' by Zara Chen
+  Policy pool: 'Police accountability board by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Climate resilience plan by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Social services expansion by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Small business loan program by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Infrastructure bond by Derek Flores' by Derek Flores
+  Policy pool: 'Expand public transit by Fatima Kim' by Fatima Kim
+  Policy pool: 'Cut business tax by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Small business loan program by Julia Bauer' by Julia Bauer
+  Chloe Park requested vote on 'Cut business tax by Derek Chen'
+  Derek Flores requested vote on 'Expand public transit by Fatima Kim'
+  Naomi Eriksen requested vote on 'Worker training grant by Naomi Eriksen'
+  Margaret Tillson requested vote on 'Deregulation package by Vera Osei'
+  Rosa Osei requested vote on 'Housing subsidy program by Brendan Navarro'
+  Naomi Ziegler requested vote on 'Cut business tax by Ivan Thornton'
+  Chloe Eriksen requested vote on 'Social services expansion by Chloe Eriksen'
+  Zara Adeyemi requested vote on 'Social services expansion by Chloe Eriksen'
+  Ulrich Reyes requested vote on 'Social services expansion by Chloe Eriksen'
+  Walter Reyes requested vote on 'Social services expansion by Chloe Eriksen'
+  Derek Chen requested vote on 'Cut business tax by Derek Chen'
+  Walter Walsh requested vote on 'Infrastructure bond by Chloe Park'
+  Ivan Adeyemi requested vote on 'Police accountability board by Kevin Castillo'
+  Beatrice Walsh requested vote on 'Police accountability board by Kevin Castillo'
+  Kevin Flores requested vote on 'Police accountability board by Kevin Castillo'
+  Diana Vargas requested vote on 'Education reform by Aaron Bauer'
+  Aaron Bauer requested vote on 'Infrastructure bond by Ivan Huang'
+  Samuel Ibrahim requested vote on 'Expand public transit by Zara Laurent'
+  Samuel Flores requested vote on 'Police accountability board by Ivan Castillo'
+  Alicia Yilmaz requested vote on 'Small business loan program by Julia Bauer'
+  Green Future Candidate 28012 requested vote on 'Police accountability board by Ivan Castillo'
+  Vote on 'Cut business tax by Derek Chen': PASSED (4Y/1N/0A)
+  Vote on 'Expand public transit by Fatima Kim': FAILED (0Y/5N/0A)
+  Vote on 'Worker training grant by Naomi Eriksen': FAILED (5Y/7N/0A)
+  Vote on 'Deregulation package by Vera Osei': FAILED (3Y/4N/0A)
+  Vote on 'Housing subsidy program by Brendan Navarro': PASSED (3Y/2N/0A)
+  Vote on 'Cut business tax by Ivan Thornton': FAILED (2Y/3N/0A)
+  Vote on 'Social services expansion by Chloe Eriksen': PASSED (5Y/0N/0A)
+  Vote on 'Infrastructure bond by Chloe Park': PASSED (4Y/1N/0A)
+  Vote on 'Police accountability board by Kevin Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Education reform by Aaron Bauer': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure bond by Ivan Huang': FAILED (2Y/3N/0A)
+  Vote on 'Expand public transit by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Police accountability board by Ivan Castillo': PASSED (3Y/2N/0A)
+  Vote on 'Small business loan program by Julia Bauer': FAILED (0Y/5N/0A)
+=== Turn 8 ===
+  Policy pool: 'Worker training grant by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure privatization by Civic Democrats Candidate 27436' by Civic Democrats Candidate 27436
+  Policy pool: 'Social services expansion by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Worker training grant by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Prescription price cap by George Dalton' by George Dalton
+  Policy pool: 'Charter school expansion by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Cut business tax by Ethan Grant' by Ethan Grant
+  Policy pool: 'Worker training grant by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Public safety initiative by Vera Osei' by Vera Osei
+  Policy pool: 'Charter school expansion by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Balanced budget reform by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Police accountability board by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Charter school expansion by Derek Bauer' by Derek Bauer
+  Policy pool: 'Police accountability board by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Housing subsidy program by Diana Park' by Diana Park
+  Policy pool: 'Expand public transit by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Prescription price cap by Fatima Chen' by Fatima Chen
+  Policy pool: 'Charter school expansion by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Infrastructure privatization by Derek Santos' by Derek Santos
+  Policy pool: 'Charter school expansion by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Police accountability board by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Education reform by Civic Democrats Candidate 74907' by Civic Democrats Candidate 74907
+  Policy pool: 'Charter school expansion by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Green energy mandate by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Raise minimum wage by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Education reform by Rosa Osei' by Rosa Osei
+  Policy pool: 'Infrastructure bond by Carlos Huang' by Carlos Huang
+  Policy pool: 'Education reform by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Cut business tax by Oscar Chen' by Oscar Chen
+  Policy pool: 'Education reform by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Worker training grant by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Universal childcare pilot by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Education reform by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Balanced budget reform by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Climate resilience plan by Vera Laurent' by Vera Laurent
+  Policy pool: 'Education reform by Derek Walsh' by Derek Walsh
+  Policy pool: 'Infrastructure bond by Civic Democrats Candidate 14757' by Civic Democrats Candidate 14757
+  Policy pool: 'Education reform by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Universal childcare pilot by George Vargas' by George Vargas
+  Policy pool: 'Education reform by Zara Xu' by Zara Xu
+  Policy pool: 'Raise minimum wage by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Worker training grant by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Infrastructure bond by Walter Reyes' by Walter Reyes
+  Policy pool: 'Public safety initiative by Chloe Park' by Chloe Park
+  Policy pool: 'Public safety initiative by Derek Chen' by Derek Chen
+  Policy pool: 'Small business loan program by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Public safety initiative by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Worker training grant by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Worker training grant by Diana Grant' by Diana Grant
+  Policy pool: 'Expand public transit by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Housing subsidy program by Vera Bauer' by Vera Bauer
+  Policy pool: 'Police accountability board by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Raise minimum wage by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Green energy mandate by Ivan Huang' by Ivan Huang
+  Policy pool: 'Housing subsidy program by Tina Santos' by Tina Santos
+  Policy pool: 'Green energy mandate by Zara Laurent' by Zara Laurent
+  Policy pool: 'Raise minimum wage by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Universal childcare pilot by Zara Chen' by Zara Chen
+  Policy pool: 'Expand public transit by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Worker training grant by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Raise minimum wage by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Family tax credit by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Balanced budget reform by Derek Flores' by Derek Flores
+  Policy pool: 'Balanced budget reform by Fatima Kim' by Fatima Kim
+  Policy pool: 'Small business loan program by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Infrastructure bond by Julia Bauer' by Julia Bauer
+  Chloe Park requested vote on 'Public safety initiative by Derek Chen'
+  Helena Donovan requested vote on 'Charter school expansion by Alicia Ziegler'
+  Leila Grant requested vote on 'Police accountability board by Carlos Ibrahim'
+  Ulrich Park requested vote on 'Charter school expansion by Derek Bauer'
+  Alicia Eriksen requested vote on 'Education reform by Ivan Donovan'
+  Chloe Eriksen requested vote on 'Raise minimum wage by Chloe Eriksen'
+  Zara Adeyemi requested vote on 'Infrastructure bond by Walter Reyes'
+  Derek Chen requested vote on 'Public safety initiative by Derek Chen'
+  Walter Walsh requested vote on 'Public safety initiative by Derek Chen'
+  Ulrich Adeyemi requested vote on 'Public safety initiative by Chloe Park'
+  Ivan Adeyemi requested vote on 'Worker training grant by Diana Grant'
+  Kevin Flores requested vote on 'Worker training grant by Diana Grant'
+  Diana Vargas requested vote on 'Raise minimum wage by Aaron Bauer'
+  Chloe Osei requested vote on 'Raise minimum wage by Aaron Bauer'
+  Aaron Bauer requested vote on 'Raise minimum wage by Aaron Bauer'
+  Zara Chen requested vote on 'Green energy mandate by Zara Laurent'
+  Samuel Flores requested vote on 'Raise minimum wage by Quinn Dalton'
+  Quinn Dalton requested vote on 'Expand public transit by Ivan Castillo'
+  Reform Alliance Candidate 12913 requested vote on 'Public safety initiative by Chloe Park'
+  Green Future Candidate 28012 requested vote on 'Raise minimum wage by Quinn Dalton'
+  Vote on 'Public safety initiative by Derek Chen': PASSED (4Y/1N/0A)
+  Vote on 'Charter school expansion by Alicia Ziegler': FAILED (4Y/5N/0A)
+  Vote on 'Police accountability board by Carlos Ibrahim': FAILED (0Y/7N/0A)
+  Vote on 'Charter school expansion by Derek Bauer': FAILED (4Y/5N/0A)
+  Vote on 'Education reform by Ivan Donovan': FAILED (0Y/5N/0A)
+  Vote on 'Raise minimum wage by Chloe Eriksen': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Walter Reyes': FAILED (2Y/3N/0A)
+  Vote on 'Public safety initiative by Chloe Park': PASSED (5Y/0N/0A)
+  Vote on 'Worker training grant by Diana Grant': PASSED (3Y/2N/0A)
+  Vote on 'Raise minimum wage by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Green energy mandate by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Raise minimum wage by Quinn Dalton': FAILED (0Y/5N/0A)
+  Vote on 'Expand public transit by Ivan Castillo': FAILED (2Y/3N/0A)
+=== Turn 9 ===
+  Policy pool: 'Raise minimum wage by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure privatization by Civic Democrats Candidate 27436' by Civic Democrats Candidate 27436
+  Policy pool: 'Housing subsidy program by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Worker training grant by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Universal childcare pilot by George Dalton' by George Dalton
+  Policy pool: 'Infrastructure bond by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Family tax credit by Ethan Grant' by Ethan Grant
+  Policy pool: 'Public safety initiative by Kevin Adeyemi' by Kevin Adeyemi
+  Policy pool: 'Infrastructure privatization by Vera Osei' by Vera Osei
+  Policy pool: 'Family tax credit by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Small business loan program by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Education reform by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Charter school expansion by Derek Bauer' by Derek Bauer
+  Policy pool: 'Police accountability board by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Worker training grant by Diana Park' by Diana Park
+  Policy pool: 'Expand public transit by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Expand public transit by Fatima Chen' by Fatima Chen
+  Policy pool: 'Public safety initiative by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Climate resilience plan by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Charter school expansion by Derek Santos' by Derek Santos
+  Policy pool: 'Infrastructure bond by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Expand public transit by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Education reform by Civic Democrats Candidate 74907' by Civic Democrats Candidate 74907
+  Policy pool: 'Balanced budget reform by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Public safety initiative by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Public safety initiative by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Charter school expansion by Rosa Osei' by Rosa Osei
+  Policy pool: 'Social services expansion by Carlos Huang' by Carlos Huang
+  Policy pool: 'Infrastructure bond by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Worker training grant by Civic Democrats Candidate 54758' by Civic Democrats Candidate 54758
+  Policy pool: 'Housing subsidy program by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Worker training grant by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Charter school expansion by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Social services expansion by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Education reform by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Education reform by Vera Laurent' by Vera Laurent
+  Policy pool: 'Balanced budget reform by Derek Walsh' by Derek Walsh
+  Policy pool: 'Worker training grant by Civic Democrats Candidate 14757' by Civic Democrats Candidate 14757
+  Policy pool: 'Cut business tax by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Social services expansion by George Vargas' by George Vargas
+  Policy pool: 'Worker training grant by Zara Xu' by Zara Xu
+  Policy pool: 'Expand public transit by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Infrastructure bond by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Worker training grant by Walter Reyes' by Walter Reyes
+  Policy pool: 'Balanced budget reform by Chloe Park' by Chloe Park
+  Policy pool: 'Family tax credit by Derek Chen' by Derek Chen
+  Policy pool: 'Expand public transit by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Raise minimum wage by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Worker training grant by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Education reform by Diana Grant' by Diana Grant
+  Policy pool: 'Climate resilience plan by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Housing subsidy program by Vera Bauer' by Vera Bauer
+  Policy pool: 'Infrastructure bond by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Police accountability board by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Universal childcare pilot by Ivan Huang' by Ivan Huang
+  Policy pool: 'Family tax credit by Tina Santos' by Tina Santos
+  Policy pool: 'Education reform by Zara Laurent' by Zara Laurent
+  Policy pool: 'Charter school expansion by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Expand public transit by Zara Chen' by Zara Chen
+  Policy pool: 'Green energy mandate by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Raise minimum wage by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Education reform by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Cut business tax by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Green energy mandate by Derek Flores' by Derek Flores
+  Policy pool: 'Police accountability board by Fatima Kim' by Fatima Kim
+  Policy pool: 'Small business loan program by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Prescription price cap by Julia Bauer' by Julia Bauer
+  Chloe Park requested vote on 'Family tax credit by Derek Chen'
+  Vera Bauer requested vote on 'Police accountability board by Aaron Bauer'
+  Ivan Castillo requested vote on 'Education reform by Quinn Dalton'
+  Chloe Ibrahim requested vote on 'Universal childcare pilot by George Dalton'
+  Derek Jensen requested vote on 'Universal childcare pilot by George Dalton'
+  Ulrich Park requested vote on 'Police accountability board by Jerome Nakamura'
+  Brendan Navarro requested vote on 'Public safety initiative by Brendan Navarro'
+  George Laurent requested vote on 'Expand public transit by Chloe Eriksen'
+  Chloe Eriksen requested vote on 'Expand public transit by Chloe Eriksen'
+  Zara Adeyemi requested vote on 'Worker training grant by Zara Xu'
+  Derek Chen requested vote on 'Family tax credit by Derek Chen'
+  Walter Walsh requested vote on 'Family tax credit by Derek Chen'
+  Beatrice Walsh requested vote on 'Climate resilience plan by Beatrice Walsh'
+  Kevin Brooks requested vote on 'Raise minimum wage by Kevin Castillo'
+  Kevin Flores requested vote on 'Climate resilience plan by Beatrice Walsh'
+  Ivan Huang requested vote on 'Police accountability board by Aaron Bauer'
+  Diana Vargas requested vote on 'Police accountability board by Aaron Bauer'
+  Alicia Quinn requested vote on 'Police accountability board by Aaron Bauer'
+  Chloe Osei requested vote on 'Police accountability board by Aaron Bauer'
+  Aaron Bauer requested vote on 'Police accountability board by Aaron Bauer'
+  Zara Chen requested vote on 'Education reform by Zara Laurent'
+  Labor Front Candidate 25216 requested vote on 'Public safety initiative by Walter Ibrahim'
+  Green Future Candidate 28012 requested vote on 'Education reform by Quinn Dalton'
+  Vote on 'Family tax credit by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Police accountability board by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Education reform by Quinn Dalton': FAILED (0Y/5N/0A)
+  Vote on 'Universal childcare pilot by George Dalton': FAILED (4Y/5N/0A)
+  Vote on 'Police accountability board by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Public safety initiative by Brendan Navarro': PASSED (3Y/2N/0A)
+  Vote on 'Expand public transit by Chloe Eriksen': PASSED (4Y/1N/0A)
+  Vote on 'Worker training grant by Zara Xu': PASSED (5Y/0N/0A)
+  Vote on 'Climate resilience plan by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Raise minimum wage by Kevin Castillo': FAILED (2Y/3N/0A)
+  Vote on 'Education reform by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Public safety initiative by Walter Ibrahim': FAILED (1Y/4N/0A)
+=== Turn 10 ===
+Election triggered for Cascadia Federation
+  Legislative election in Cascadia Federation:
+    Civic Democrats: 14.3% -> 2 seats
+    Labor Front: 32.6% -> 4 seats
+    Reform Alliance: 17.9% -> 2 seats
+    Green Future: 35.1% -> 4 seats
+Election triggered for Ironfield
+  Legislative election in Ironfield:
+    Labor Front: 34.3% -> 3 seats
+    Green Future: 14.2% -> 1 seats
+    Civic Democrats: 27.3% -> 3 seats
+    Reform Alliance: 24.1% -> 2 seats
+Election triggered for Verdana
+  Legislative election in Verdana:
+    Civic Democrats: 28.2% -> 2 seats
+    Labor Front: 21.0% -> 1 seats
+    Reform Alliance: 38.5% -> 3 seats
+    Green Future: 12.2% -> 1 seats
+Election triggered for Pacifica
+  Legislative election in Pacifica:
+    Green Future: 33.8% -> 3 seats
+    Labor Front: 22.5% -> 2 seats
+    Civic Democrats: 23.7% -> 2 seats
+    Reform Alliance: 20.0% -> 2 seats
+Election triggered for Steelburg
+  Legislative election in Steelburg:
+    Civic Democrats: 34.1% -> 2 seats
+    Labor Front: 37.8% -> 2 seats
+    Reform Alliance: 28.1% -> 1 seats
+Election triggered for Coalton
+  Legislative election in Coalton:
+    Labor Front: 43.1% -> 2 seats
+    Civic Democrats: 31.5% -> 2 seats
+    Reform Alliance: 25.4% -> 1 seats
+Election triggered for Millford
+  Legislative election in Millford:
+    Civic Democrats: 28.9% -> 1 seats
+    Labor Front: 30.7% -> 2 seats
+    Green Future: 14.1% -> 1 seats
+    Reform Alliance: 26.2% -> 1 seats
+Election triggered for Irondale
+  Legislative election in Irondale:
+    Civic Democrats: 33.6% -> 2 seats
+    Labor Front: 34.9% -> 2 seats
+    Reform Alliance: 31.5% -> 1 seats
+Election triggered for Farmington
+  Legislative election in Farmington:
+    Civic Democrats: 34.5% -> 2 seats
+    Labor Front: 20.5% -> 1 seats
+    Reform Alliance: 45.0% -> 2 seats
+Election triggered for Crestview
+  Legislative election in Crestview:
+    Civic Democrats: 34.8% -> 2 seats
+    Green Future: 16.1% -> 1 seats
+    Reform Alliance: 49.0% -> 2 seats
+Election triggered for Riverdale
+  Legislative election in Riverdale:
+    Labor Front: 36.3% -> 2 seats
+    Green Future: 24.2% -> 1 seats
+    Civic Democrats: 39.5% -> 2 seats
+Election triggered for Granville
+  Legislative election in Granville:
+    Civic Democrats: 44.3% -> 2 seats
+    Reform Alliance: 55.7% -> 3 seats
+Election triggered for Bayshore
+  Legislative election in Bayshore:
+    Civic Democrats: 27.9% -> 2 seats
+    Labor Front: 26.6% -> 1 seats
+    Green Future: 45.5% -> 2 seats
+Election triggered for Harborview
+  Legislative election in Harborview:
+    Civic Democrats: 33.5% -> 2 seats
+    Labor Front: 26.1% -> 1 seats
+    Green Future: 40.4% -> 2 seats
+Election triggered for Solana
+  Legislative election in Solana:
+    Green Future: 41.7% -> 2 seats
+    Civic Democrats: 20.0% -> 1 seats
+    Labor Front: 21.1% -> 1 seats
+    Reform Alliance: 17.3% -> 1 seats
+Election triggered for Crestwood
+  Legislative election in Crestwood:
+    Green Future: 42.9% -> 2 seats
+    Civic Democrats: 30.7% -> 2 seats
+    Reform Alliance: 26.4% -> 1 seats
+Election triggered for Waverly
+  Legislative election in Waverly:
+    Civic Democrats: 38.2% -> 2 seats
+    Green Future: 18.5% -> 1 seats
+    Reform Alliance: 43.3% -> 2 seats
+Party leadership election for Labor Front
+  [sol_0106] Zara Chen elected as Labor Front leader
+Party leadership election for Civic Democrats
+  [riv_0081] Zara Adeyemi elected as Civic Democrats leader
+Party leadership election for Reform Alliance
+  [gra_0085] Derek Chen elected as Reform Alliance leader
+Party leadership election for Green Future
+  [bay_0095] Kevin Flores elected as Green Future leader
+  Policy pool: 'Climate resilience plan by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure bond by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Family tax credit by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Family tax credit by Civic Democrats Candidate 62378' by Civic Democrats Candidate 62378
+  Policy pool: 'Prescription price cap by George Dalton' by George Dalton
+  Policy pool: 'Social services expansion by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Education reform by Ethan Grant' by Ethan Grant
+  Policy pool: 'Charter school expansion by Reform Alliance Candidate 47599' by Reform Alliance Candidate 47599
+  Policy pool: 'Family tax credit by Vera Osei' by Vera Osei
+  Policy pool: 'Education reform by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Education reform by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Climate resilience plan by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Infrastructure bond by Derek Bauer' by Derek Bauer
+  Policy pool: 'Raise minimum wage by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Expand public transit by Labor Front Candidate 79367' by Labor Front Candidate 79367
+  Policy pool: 'Climate resilience plan by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Small business loan program by Fatima Chen' by Fatima Chen
+  Policy pool: 'Social services expansion by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Universal childcare pilot by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Charter school expansion by Derek Santos' by Derek Santos
+  Policy pool: 'Police accountability board by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Education reform by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Raise minimum wage by Civic Democrats Candidate 90583' by Civic Democrats Candidate 90583
+  Policy pool: 'Public safety initiative by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Police accountability board by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Raise minimum wage by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Climate resilience plan by Rosa Osei' by Rosa Osei
+  Policy pool: 'Police accountability board by Carlos Huang' by Carlos Huang
+  Policy pool: 'Small business loan program by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Charter school expansion by Civic Democrats Candidate 83424' by Civic Democrats Candidate 83424
+  Policy pool: 'Prescription price cap by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Public safety initiative by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Public safety initiative by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Social services expansion by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Family tax credit by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Prescription price cap by Vera Laurent' by Vera Laurent
+  Policy pool: 'Public safety initiative by Derek Walsh' by Derek Walsh
+  Policy pool: 'Infrastructure bond by Civic Democrats Candidate 43442' by Civic Democrats Candidate 43442
+  Policy pool: 'Public safety initiative by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Expand public transit by George Vargas' by George Vargas
+  Policy pool: 'Prescription price cap by Zara Xu' by Zara Xu
+  Policy pool: 'Raise minimum wage by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Green energy mandate by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Expand public transit by Walter Reyes' by Walter Reyes
+  Policy pool: 'Balanced budget reform by Chloe Park' by Chloe Park
+  Policy pool: 'Small business loan program by Derek Chen' by Derek Chen
+  Policy pool: 'Small business loan program by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Social services expansion by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Public safety initiative by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Worker training grant by Kevin Flores' by Kevin Flores
+  Policy pool: 'Universal childcare pilot by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Charter school expansion by Vera Bauer' by Vera Bauer
+  Policy pool: 'Worker training grant by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Universal childcare pilot by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Public safety initiative by Ivan Huang' by Ivan Huang
+  Policy pool: 'Green energy mandate by Tina Santos' by Tina Santos
+  Policy pool: 'Housing subsidy program by Zara Laurent' by Zara Laurent
+  Policy pool: 'Expand public transit by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Social services expansion by Zara Chen' by Zara Chen
+  Policy pool: 'Worker training grant by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Worker training grant by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Prescription price cap by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Green energy mandate by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Small business loan program by Derek Flores' by Derek Flores
+  Policy pool: 'Cut business tax by Fatima Kim' by Fatima Kim
+  Policy pool: 'Family tax credit by Reform Alliance Candidate 79457' by Reform Alliance Candidate 79457
+  Policy pool: 'Housing subsidy program by Green Future Candidate 99170' by Green Future Candidate 99170
+  Chloe Park requested vote on 'Balanced budget reform by Chloe Park'
+  Rosa Osei requested vote on 'Police accountability board by Carlos Huang'
+  Marco Castillo requested vote on 'Family tax credit by Beatrice Grant'
+  George Laurent requested vote on 'Prescription price cap by Zara Xu'
+  Chloe Eriksen requested vote on 'Prescription price cap by Zara Xu'
+  Ulrich Reyes requested vote on 'Raise minimum wage by Chloe Eriksen'
+  Derek Chen requested vote on 'Balanced budget reform by Chloe Park'
+  Walter Walsh requested vote on 'Small business loan program by Derek Chen'
+  Rosa Xu requested vote on 'Small business loan program by Derek Chen'
+  Ulrich Adeyemi requested vote on 'Balanced budget reform by Chloe Park'
+  Ivan Adeyemi requested vote on 'Worker training grant by Kevin Flores'
+  Kevin Brooks requested vote on 'Universal childcare pilot by Beatrice Walsh'
+  Diana Vargas requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Chloe Osei requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Aaron Bauer requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Quinn Dalton requested vote on 'Green energy mandate by Chloe Bauer'
+  Civic Democrats Candidate 27436 requested vote on 'Infrastructure bond by Naomi Eriksen'
+  Reform Alliance Candidate 69286 requested vote on 'Charter school expansion by Reform Alliance Candidate 47599'
+  Reform Alliance Candidate 12913 requested vote on 'Balanced budget reform by Chloe Park'
+  Vote on 'Balanced budget reform by Chloe Park': PASSED (5Y/0N/0A)
+  Vote on 'Police accountability board by Carlos Huang': FAILED (1Y/4N/0A)
+  Vote on 'Family tax credit by Beatrice Grant': FAILED (0Y/5N/0A)
+  Vote on 'Prescription price cap by Zara Xu': PASSED (5Y/0N/0A)
+  Vote on 'Raise minimum wage by Chloe Eriksen': PASSED (5Y/0N/0A)
+  Vote on 'Small business loan program by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Worker training grant by Kevin Flores': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Aaron Bauer': PASSED (4Y/1N/0A)
+  Vote on 'Green energy mandate by Chloe Bauer': FAILED (0Y/5N/0A)
+  Vote on 'Infrastructure bond by Naomi Eriksen': FAILED (5Y/7N/0A)
+  Vote on 'Charter school expansion by Reform Alliance Candidate 47599': FAILED (2Y/7N/0A)
+=== Turn 11 ===
+  Policy pool: 'Prescription price cap by Walter Brooks' by Walter Brooks
+  Policy pool: 'Infrastructure bond by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Expand public transit by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Social services expansion by Civic Democrats Candidate 62378' by Civic Democrats Candidate 62378
+  Policy pool: 'Green energy mandate by George Dalton' by George Dalton
+  Policy pool: 'Green energy mandate by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Charter school expansion by Ethan Grant' by Ethan Grant
+  Policy pool: 'Balanced budget reform by Reform Alliance Candidate 47599' by Reform Alliance Candidate 47599
+  Policy pool: 'Cut business tax by Vera Osei' by Vera Osei
+  Policy pool: 'Education reform by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Public safety initiative by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Social services expansion by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Family tax credit by Derek Bauer' by Derek Bauer
+  Policy pool: 'Family tax credit by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Housing subsidy program by Labor Front Candidate 79367' by Labor Front Candidate 79367
+  Policy pool: 'Green energy mandate by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Worker training grant by Fatima Chen' by Fatima Chen
+  Policy pool: 'Charter school expansion by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Housing subsidy program by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Infrastructure bond by Derek Santos' by Derek Santos
+  Policy pool: 'Family tax credit by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Universal childcare pilot by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Expand public transit by Civic Democrats Candidate 90583' by Civic Democrats Candidate 90583
+  Policy pool: 'Infrastructure privatization by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Universal childcare pilot by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Family tax credit by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Balanced budget reform by Rosa Osei' by Rosa Osei
+  Policy pool: 'Expand public transit by Carlos Huang' by Carlos Huang
+  Policy pool: 'Prescription price cap by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Worker training grant by Civic Democrats Candidate 83424' by Civic Democrats Candidate 83424
+  Policy pool: 'Social services expansion by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Balanced budget reform by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Green energy mandate by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Climate resilience plan by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Infrastructure bond by Beatrice Grant' by Beatrice Grant
+  Policy pool: 'Universal childcare pilot by Vera Laurent' by Vera Laurent
+  Policy pool: 'Deregulation package by Derek Walsh' by Derek Walsh
+  Policy pool: 'Small business loan program by Civic Democrats Candidate 43442' by Civic Democrats Candidate 43442
+  Policy pool: 'Charter school expansion by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Social services expansion by George Vargas' by George Vargas
+  Policy pool: 'Raise minimum wage by Zara Xu' by Zara Xu
+  Policy pool: 'Worker training grant by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Public safety initiative by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Education reform by Walter Reyes' by Walter Reyes
+  Policy pool: 'Education reform by Chloe Park' by Chloe Park
+  Policy pool: 'Family tax credit by Derek Chen' by Derek Chen
+  Policy pool: 'Green energy mandate by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Climate resilience plan by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Universal childcare pilot by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Climate resilience plan by Kevin Flores' by Kevin Flores
+  Policy pool: 'Prescription price cap by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Balanced budget reform by Vera Bauer' by Vera Bauer
+  Policy pool: 'Expand public transit by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Universal childcare pilot by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Charter school expansion by Ivan Huang' by Ivan Huang
+  Policy pool: 'Housing subsidy program by Tina Santos' by Tina Santos
+  Policy pool: 'Housing subsidy program by Zara Laurent' by Zara Laurent
+  Policy pool: 'Cut business tax by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Universal childcare pilot by Zara Chen' by Zara Chen
+  Policy pool: 'Climate resilience plan by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Balanced budget reform by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Family tax credit by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Infrastructure privatization by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Family tax credit by Derek Flores' by Derek Flores
+  Policy pool: 'Infrastructure bond by Fatima Kim' by Fatima Kim
+  Policy pool: 'Infrastructure bond by Reform Alliance Candidate 79457' by Reform Alliance Candidate 79457
+  Policy pool: 'Police accountability board by Green Future Candidate 99170' by Green Future Candidate 99170
+  Walter Ibrahim requested vote on 'Family tax credit by Brendan Navarro'
+  Chloe Park requested vote on 'Education reform by Chloe Park'
+  Vera Bauer requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Ivan Castillo requested vote on 'Infrastructure privatization by Chloe Bauer'
+  Rosa Quinn requested vote on 'Family tax credit by Derek Bauer'
+  Samuel Walsh requested vote on 'Worker training grant by Fatima Chen'
+  Ivan Thornton requested vote on 'Deregulation package by Derek Walsh'
+  Walter Walsh requested vote on 'Family tax credit by Derek Chen'
+  Ivan Adeyemi requested vote on 'Climate resilience plan by Kevin Castillo'
+  Kevin Brooks requested vote on 'Climate resilience plan by Kevin Castillo'
+  Ivan Huang requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Diana Vargas requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Chloe Osei requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Aaron Bauer requested vote on 'Universal childcare pilot by Aaron Bauer'
+  Aaron Ueda requested vote on 'Cut business tax by Kevin Eriksen'
+  Kevin Eriksen requested vote on 'Housing subsidy program by Zara Laurent'
+  Fatima Kim requested vote on 'Family tax credit by Derek Flores'
+  Vote on 'Family tax credit by Brendan Navarro': PASSED (3Y/2N/0A)
+  Vote on 'Education reform by Chloe Park': PASSED (5Y/0N/0A)
+  Vote on 'Universal childcare pilot by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Infrastructure privatization by Chloe Bauer': FAILED (0Y/5N/0A)
+  Vote on 'Family tax credit by Derek Bauer': FAILED (4Y/5N/0A)
+  Vote on 'Worker training grant by Fatima Chen': PASSED (3Y/2N/0A)
+  Vote on 'Deregulation package by Derek Walsh': FAILED (2Y/3N/0A)
+  Vote on 'Family tax credit by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Climate resilience plan by Kevin Castillo': FAILED (2Y/3N/0A)
+  Vote on 'Cut business tax by Kevin Eriksen': FAILED (0Y/5N/0A)
+  Vote on 'Housing subsidy program by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Derek Flores': FAILED (1Y/4N/0A)
+=== Turn 12 ===
+  Policy pool: 'Balanced budget reform by Walter Brooks' by Walter Brooks
+  Policy pool: 'Housing subsidy program by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Universal childcare pilot by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Charter school expansion by Civic Democrats Candidate 62378' by Civic Democrats Candidate 62378
+  Policy pool: 'Police accountability board by George Dalton' by George Dalton
+  Policy pool: 'Worker training grant by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Prescription price cap by Ethan Grant' by Ethan Grant
+  Policy pool: 'Infrastructure bond by Reform Alliance Candidate 47599' by Reform Alliance Candidate 47599
+  Policy pool: 'Cut business tax by Vera Osei' by Vera Osei
+  Policy pool: 'Charter school expansion by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Expand public transit by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Infrastructure privatization by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Worker training grant by Derek Bauer' by Derek Bauer
+  Policy pool: 'Social services expansion by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Social services expansion by Labor Front Candidate 79367' by Labor Front Candidate 79367
+  Policy pool: 'Infrastructure bond by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Social services expansion by Fatima Chen' by Fatima Chen
+  Policy pool: 'Worker training grant by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Green energy mandate by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Deregulation package by Derek Santos' by Derek Santos
+  Policy pool: 'Social services expansion by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Universal childcare pilot by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Housing subsidy program by Civic Democrats Candidate 90583' by Civic Democrats Candidate 90583
+  Policy pool: 'Balanced budget reform by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Balanced budget reform by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Universal childcare pilot by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Infrastructure bond by Rosa Osei' by Rosa Osei
+  Policy pool: 'Family tax credit by Carlos Huang' by Carlos Huang
+  Policy pool: 'Charter school expansion by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Charter school expansion by Civic Democrats Candidate 83424' by Civic Democrats Candidate 83424
+  Policy pool: 'Raise minimum wage by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Public safety initiative by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Education reform by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Climate resilience plan by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Infrastructure privatization by Reform Alliance Candidate 71566' by Reform Alliance Candidate 71566
+  Policy pool: 'Small business loan program by Vera Laurent' by Vera Laurent
+  Policy pool: 'Deregulation package by Derek Walsh' by Derek Walsh
+  Policy pool: 'Education reform by Civic Democrats Candidate 43442' by Civic Democrats Candidate 43442
+  Policy pool: 'Small business loan program by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Expand public transit by George Vargas' by George Vargas
+  Policy pool: 'Education reform by Zara Xu' by Zara Xu
+  Policy pool: 'Social services expansion by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Climate resilience plan by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Raise minimum wage by Walter Reyes' by Walter Reyes
+  Policy pool: 'Deregulation package by Chloe Park' by Chloe Park
+  Policy pool: 'Balanced budget reform by Derek Chen' by Derek Chen
+  Policy pool: 'Raise minimum wage by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Raise minimum wage by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Family tax credit by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Expand public transit by Kevin Flores' by Kevin Flores
+  Policy pool: 'Infrastructure bond by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Police accountability board by Vera Bauer' by Vera Bauer
+  Policy pool: 'Expand public transit by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Expand public transit by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Worker training grant by Ivan Huang' by Ivan Huang
+  Policy pool: 'Climate resilience plan by Tina Santos' by Tina Santos
+  Policy pool: 'Climate resilience plan by Zara Laurent' by Zara Laurent
+  Policy pool: 'Charter school expansion by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Universal childcare pilot by Zara Chen' by Zara Chen
+  Policy pool: 'Education reform by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Housing subsidy program by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Universal childcare pilot by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Family tax credit by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Family tax credit by Derek Flores' by Derek Flores
+  Policy pool: 'Expand public transit by Fatima Kim' by Fatima Kim
+  Policy pool: 'Climate resilience plan by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Climate resilience plan by Green Future Candidate 99170' by Green Future Candidate 99170
+  Chloe Park requested vote on 'Deregulation package by Chloe Park'
+  Tina Santos requested vote on 'Climate resilience plan by Zara Laurent'
+  Ivan Castillo requested vote on 'Family tax credit by Chloe Bauer'
+  Marco Castillo requested vote on 'Small business loan program by Vera Laurent'
+  George Laurent requested vote on 'Social services expansion by Chloe Eriksen'
+  Chloe Eriksen requested vote on 'Social services expansion by Chloe Eriksen'
+  Derek Chen requested vote on 'Balanced budget reform by Derek Chen'
+  Walter Walsh requested vote on 'Deregulation package by Chloe Park'
+  Ulrich Adeyemi requested vote on 'Deregulation package by Chloe Park'
+  Beatrice Walsh requested vote on 'Raise minimum wage by Kevin Castillo'
+  Kevin Flores requested vote on 'Family tax credit by Kevin Brooks'
+  Ivan Huang requested vote on 'Expand public transit by Aaron Bauer'
+  Diana Vargas requested vote on 'Expand public transit by Aaron Bauer'
+  Kevin Eriksen requested vote on 'Climate resilience plan by Zara Laurent'
+  Samuel Mercer requested vote on 'Education reform by Ivan Castillo'
+  Quinn Dalton requested vote on 'Education reform by Ivan Castillo'
+  Chloe Bauer requested vote on 'Education reform by Ivan Castillo'
+  Reform Alliance Candidate 12913 requested vote on 'Balanced budget reform by Derek Chen'
+  Vote on 'Deregulation package by Chloe Park': PASSED (5Y/0N/0A)
+  Vote on 'Climate resilience plan by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Family tax credit by Chloe Bauer': FAILED (1Y/4N/0A)
+  Vote on 'Small business loan program by Vera Laurent': FAILED (0Y/5N/0A)
+  Vote on 'Social services expansion by Chloe Eriksen': PASSED (5Y/0N/0A)
+  Vote on 'Balanced budget reform by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Raise minimum wage by Kevin Castillo': FAILED (2Y/3N/0A)
+  Vote on 'Family tax credit by Kevin Brooks': FAILED (0Y/5N/0A)
+  Vote on 'Expand public transit by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Education reform by Ivan Castillo': PASSED (3Y/2N/0A)
+=== Turn 13 ===
+  Policy pool: 'Universal childcare pilot by Walter Brooks' by Walter Brooks
+  Policy pool: 'Prescription price cap by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Climate resilience plan by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Small business loan program by Civic Democrats Candidate 62378' by Civic Democrats Candidate 62378
+  Policy pool: 'Green energy mandate by George Dalton' by George Dalton
+  Policy pool: 'Expand public transit by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Charter school expansion by Ethan Grant' by Ethan Grant
+  Policy pool: 'Deregulation package by Reform Alliance Candidate 47599' by Reform Alliance Candidate 47599
+  Policy pool: 'Small business loan program by Vera Osei' by Vera Osei
+  Policy pool: 'Cut business tax by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Expand public transit by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Prescription price cap by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Prescription price cap by Derek Bauer' by Derek Bauer
+  Policy pool: 'Green energy mandate by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Worker training grant by Labor Front Candidate 79367' by Labor Front Candidate 79367
+  Policy pool: 'Infrastructure bond by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Infrastructure bond by Fatima Chen' by Fatima Chen
+  Policy pool: 'Green energy mandate by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Social services expansion by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Small business loan program by Derek Santos' by Derek Santos
+  Policy pool: 'Public safety initiative by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Infrastructure bond by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Small business loan program by Civic Democrats Candidate 90583' by Civic Democrats Candidate 90583
+  Policy pool: 'Family tax credit by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Worker training grant by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Universal childcare pilot by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Public safety initiative by Rosa Osei' by Rosa Osei
+  Policy pool: 'Green energy mandate by Carlos Huang' by Carlos Huang
+  Policy pool: 'Housing subsidy program by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Small business loan program by Civic Democrats Candidate 83424' by Civic Democrats Candidate 83424
+  Policy pool: 'Universal childcare pilot by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Expand public transit by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Public safety initiative by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Small business loan program by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Public safety initiative by Reform Alliance Candidate 71566' by Reform Alliance Candidate 71566
+  Policy pool: 'Raise minimum wage by Vera Laurent' by Vera Laurent
+  Policy pool: 'Infrastructure bond by Derek Walsh' by Derek Walsh
+  Policy pool: 'Expand public transit by Civic Democrats Candidate 43442' by Civic Democrats Candidate 43442
+  Policy pool: 'Cut business tax by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Housing subsidy program by George Vargas' by George Vargas
+  Policy pool: 'Police accountability board by Zara Xu' by Zara Xu
+  Policy pool: 'Universal childcare pilot by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Social services expansion by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Universal childcare pilot by Walter Reyes' by Walter Reyes
+  Policy pool: 'Infrastructure privatization by Chloe Park' by Chloe Park
+  Policy pool: 'Cut business tax by Derek Chen' by Derek Chen
+  Policy pool: 'Climate resilience plan by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Charter school expansion by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Small business loan program by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Climate resilience plan by Kevin Flores' by Kevin Flores
+  Policy pool: 'Housing subsidy program by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Small business loan program by Vera Bauer' by Vera Bauer
+  Policy pool: 'Raise minimum wage by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Social services expansion by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Social services expansion by Ivan Huang' by Ivan Huang
+  Policy pool: 'Universal childcare pilot by Tina Santos' by Tina Santos
+  Policy pool: 'Housing subsidy program by Zara Laurent' by Zara Laurent
+  Policy pool: 'Social services expansion by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Expand public transit by Zara Chen' by Zara Chen
+  Policy pool: 'Expand public transit by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Social services expansion by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Education reform by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Public safety initiative by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Charter school expansion by Derek Flores' by Derek Flores
+  Policy pool: 'Infrastructure bond by Fatima Kim' by Fatima Kim
+  Policy pool: 'Worker training grant by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Housing subsidy program by Green Future Candidate 99170' by Green Future Candidate 99170
+  Chloe Park requested vote on 'Cut business tax by Derek Chen'
+  Vera Bauer requested vote on 'Social services expansion by Aaron Bauer'
+  Margaret Tillson requested vote on 'Small business loan program by Vera Osei'
+  Ulrich Park requested vote on 'Prescription price cap by Derek Bauer'
+  Beatrice Grant requested vote on 'Public safety initiative by Marco Eriksen'
+  George Laurent requested vote on 'Universal childcare pilot by Chloe Eriksen'
+  Chloe Eriksen requested vote on 'Universal childcare pilot by Chloe Eriksen'
+  Walter Walsh requested vote on 'Infrastructure privatization by Chloe Park'
+  Rosa Xu requested vote on 'Cut business tax by Derek Chen'
+  Ulrich Adeyemi requested vote on 'Cut business tax by Derek Chen'
+  Beatrice Walsh requested vote on 'Charter school expansion by Kevin Castillo'
+  Alicia Quinn requested vote on 'Social services expansion by Aaron Bauer'
+  Chloe Osei requested vote on 'Social services expansion by Aaron Bauer'
+  Samuel Ibrahim requested vote on 'Housing subsidy program by Zara Laurent'
+  Zara Chen requested vote on 'Housing subsidy program by Zara Laurent'
+  Zara Laurent requested vote on 'Housing subsidy program by Zara Laurent'
+  Samuel Flores requested vote on 'Education reform by Quinn Dalton'
+  Alicia Yilmaz requested vote on 'Housing subsidy program by Green Future Candidate 99170'
+  Civic Democrats Candidate 48247 requested vote on 'Expand public transit by Alicia Ziegler'
+  Labor Front Candidate 97981 requested vote on 'Infrastructure bond by Fatima Chen'
+  Vote on 'Cut business tax by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Social services expansion by Aaron Bauer': PASSED (5Y/0N/0A)
+  Vote on 'Small business loan program by Vera Osei': FAILED (3Y/4N/0A)
+  Vote on 'Prescription price cap by Derek Bauer': FAILED (4Y/5N/0A)
+  Vote on 'Public safety initiative by Marco Eriksen': PASSED (3Y/2N/0A)
+  Vote on 'Universal childcare pilot by Chloe Eriksen': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure privatization by Chloe Park': PASSED (3Y/2N/0A)
+  Vote on 'Charter school expansion by Kevin Castillo': FAILED (2Y/3N/0A)
+  Vote on 'Housing subsidy program by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Education reform by Quinn Dalton': FAILED (1Y/4N/0A)
+  Vote on 'Housing subsidy program by Green Future Candidate 99170': FAILED (1Y/3N/1A)
+  Vote on 'Expand public transit by Alicia Ziegler': FAILED (4Y/5N/0A)
+  Vote on 'Infrastructure bond by Fatima Chen': PASSED (3Y/2N/0A)
+=== Turn 14 ===
+  Removed [fed_0011] Walter Brooks from simulation (stale L2)
+  Removed [iro_0016] George Dalton from simulation (stale L2)
+  Removed [ver_0027] Vera Osei from simulation (stale L2)
+  Removed [pac_0033] Derek Bauer from simulation (stale L2)
+  Removed [ste_0045] Fatima Chen from simulation (stale L2)
+  Removed [coa_0053] Fatima Ueda from simulation (stale L2)
+  Removed [iro_0064] Ivan Donovan from simulation (stale L2)
+  Removed [far_0069] Marco Eriksen from simulation (stale L2)
+  Removed [cre_0074] Derek Walsh from simulation (stale L2)
+  Removed [riv_0080] Zara Xu from simulation (stale L2)
+  Removed [bay_0091] Kevin Castillo from simulation (stale L2)
+  Policy pool: 'Charter school expansion by Walter Brooks' by Walter Brooks
+  Policy pool: 'Education reform by Naomi Eriksen' by Naomi Eriksen
+  Policy pool: 'Charter school expansion by Chloe Ueda' by Chloe Ueda
+  Policy pool: 'Universal childcare pilot by Civic Democrats Candidate 62378' by Civic Democrats Candidate 62378
+  Policy pool: 'Housing subsidy program by George Dalton' by George Dalton
+  Policy pool: 'Small business loan program by Alicia Ziegler' by Alicia Ziegler
+  Policy pool: 'Green energy mandate by Ethan Grant' by Ethan Grant
+  Policy pool: 'Deregulation package by Reform Alliance Candidate 47599' by Reform Alliance Candidate 47599
+  Policy pool: 'Balanced budget reform by Vera Osei' by Vera Osei
+  Policy pool: 'Small business loan program by Margaret Tillson' by Margaret Tillson
+  Policy pool: 'Raise minimum wage by Oscar Navarro' by Oscar Navarro
+  Policy pool: 'Education reform by Carlos Ibrahim' by Carlos Ibrahim
+  Policy pool: 'Police accountability board by Derek Bauer' by Derek Bauer
+  Policy pool: 'Worker training grant by Jerome Nakamura' by Jerome Nakamura
+  Policy pool: 'Small business loan program by Labor Front Candidate 79367' by Labor Front Candidate 79367
+  Policy pool: 'Expand public transit by Rosa Quinn' by Rosa Quinn
+  Policy pool: 'Climate resilience plan by Fatima Chen' by Fatima Chen
+  Policy pool: 'Infrastructure bond by Samuel Walsh' by Samuel Walsh
+  Policy pool: 'Prescription price cap by Beatrice Navarro' by Beatrice Navarro
+  Policy pool: 'Infrastructure bond by Derek Santos' by Derek Santos
+  Policy pool: 'Housing subsidy program by Fatima Ueda' by Fatima Ueda
+  Policy pool: 'Climate resilience plan by Chloe Brooks' by Chloe Brooks
+  Policy pool: 'Universal childcare pilot by Civic Democrats Candidate 90583' by Civic Democrats Candidate 90583
+  Policy pool: 'Public safety initiative by Oscar Quinn' by Oscar Quinn
+  Policy pool: 'Expand public transit by Walter Ibrahim' by Walter Ibrahim
+  Policy pool: 'Green energy mandate by Brendan Navarro' by Brendan Navarro
+  Policy pool: 'Balanced budget reform by Rosa Osei' by Rosa Osei
+  Policy pool: 'Housing subsidy program by Carlos Huang' by Carlos Huang
+  Policy pool: 'Green energy mandate by Ivan Donovan' by Ivan Donovan
+  Policy pool: 'Charter school expansion by Civic Democrats Candidate 83424' by Civic Democrats Candidate 83424
+  Policy pool: 'Police accountability board by Leila Eriksen' by Leila Eriksen
+  Policy pool: 'Small business loan program by Ethan Castillo' by Ethan Castillo
+  Policy pool: 'Cut business tax by Marco Eriksen' by Marco Eriksen
+  Policy pool: 'Prescription price cap by Beatrice Amara' by Beatrice Amara
+  Policy pool: 'Housing subsidy program by Reform Alliance Candidate 71566' by Reform Alliance Candidate 71566
+  Policy pool: 'Public safety initiative by Vera Laurent' by Vera Laurent
+  Policy pool: 'Charter school expansion by Derek Walsh' by Derek Walsh
+  Policy pool: 'Housing subsidy program by Civic Democrats Candidate 43442' by Civic Democrats Candidate 43442
+  Policy pool: 'Family tax credit by Ivan Thornton' by Ivan Thornton
+  Policy pool: 'Worker training grant by George Vargas' by George Vargas
+  Policy pool: 'Prescription price cap by Zara Xu' by Zara Xu
+  Policy pool: 'Charter school expansion by Chloe Eriksen' by Chloe Eriksen
+  Policy pool: 'Infrastructure bond by Ulrich Reyes' by Ulrich Reyes
+  Policy pool: 'Universal childcare pilot by Walter Reyes' by Walter Reyes
+  Policy pool: 'Balanced budget reform by Chloe Park' by Chloe Park
+  Policy pool: 'Balanced budget reform by Derek Chen' by Derek Chen
+  Policy pool: 'Expand public transit by Ulrich Adeyemi' by Ulrich Adeyemi
+  Policy pool: 'Public safety initiative by Kevin Castillo' by Kevin Castillo
+  Policy pool: 'Family tax credit by Kevin Brooks' by Kevin Brooks
+  Policy pool: 'Housing subsidy program by Kevin Flores' by Kevin Flores
+  Policy pool: 'Expand public transit by Beatrice Walsh' by Beatrice Walsh
+  Policy pool: 'Green energy mandate by Vera Bauer' by Vera Bauer
+  Policy pool: 'Worker training grant by Alicia Quinn' by Alicia Quinn
+  Policy pool: 'Worker training grant by Aaron Bauer' by Aaron Bauer
+  Policy pool: 'Infrastructure bond by Ivan Huang' by Ivan Huang
+  Policy pool: 'Education reform by Tina Santos' by Tina Santos
+  Policy pool: 'Expand public transit by Zara Laurent' by Zara Laurent
+  Policy pool: 'Raise minimum wage by Kevin Eriksen' by Kevin Eriksen
+  Policy pool: 'Expand public transit by Zara Chen' by Zara Chen
+  Policy pool: 'Social services expansion by Ivan Castillo' by Ivan Castillo
+  Policy pool: 'Police accountability board by Green Future Candidate 28012' by Green Future Candidate 28012
+  Policy pool: 'Small business loan program by Quinn Dalton' by Quinn Dalton
+  Policy pool: 'Education reform by Chloe Bauer' by Chloe Bauer
+  Policy pool: 'Deregulation package by Derek Flores' by Derek Flores
+  Policy pool: 'Charter school expansion by Fatima Kim' by Fatima Kim
+  Policy pool: 'Education reform by Alicia Yilmaz' by Alicia Yilmaz
+  Policy pool: 'Social services expansion by Green Future Candidate 99170' by Green Future Candidate 99170
+  Chloe Park requested vote on 'Balanced budget reform by Chloe Park'
+  Tina Santos requested vote on 'Expand public transit by Zara Laurent'
+  Ulrich Park requested vote on 'Police accountability board by Derek Bauer'
+  Rosa Quinn requested vote on 'Worker training grant by Jerome Nakamura'
+  Rosa Osei requested vote on 'Green energy mandate by Brendan Navarro'
+  Alicia Eriksen requested vote on 'Green energy mandate by Ivan Donovan'
+  George Laurent requested vote on 'Prescription price cap by Zara Xu'
+  Chloe Eriksen requested vote on 'Charter school expansion by Chloe Eriksen'
+  Zara Adeyemi requested vote on 'Infrastructure bond by Ulrich Reyes'
+  Derek Chen requested vote on 'Balanced budget reform by Chloe Park'
+  Walter Walsh requested vote on 'Balanced budget reform by Derek Chen'
+  Rosa Xu requested vote on 'Balanced budget reform by Derek Chen'
+  Ulrich Adeyemi requested vote on 'Balanced budget reform by Derek Chen'
+  Diana Grant requested vote on 'Expand public transit by Beatrice Walsh'
+  Alicia Quinn requested vote on 'Worker training grant by Aaron Bauer'
+  Aaron Bauer requested vote on 'Infrastructure bond by Ivan Huang'
+  Samuel Ibrahim requested vote on 'Expand public transit by Zara Chen'
+  Zara Laurent requested vote on 'Expand public transit by Zara Laurent'
+  Vote on 'Balanced budget reform by Chloe Park': PASSED (5Y/0N/0A)
+  Vote on 'Expand public transit by Zara Laurent': PASSED (3Y/2N/0A)
+  Vote on 'Police accountability board by Derek Bauer': FAILED (3Y/6N/0A)
+  Vote on 'Worker training grant by Jerome Nakamura': FAILED (4Y/5N/0A)
+  Vote on 'Green energy mandate by Brendan Navarro': FAILED (2Y/3N/0A)
+  Vote on 'Green energy mandate by Ivan Donovan': FAILED (1Y/4N/0A)
+  Vote on 'Prescription price cap by Zara Xu': PASSED (3Y/2N/0A)
+  Vote on 'Charter school expansion by Chloe Eriksen': PASSED (4Y/1N/0A)
+  Vote on 'Infrastructure bond by Ulrich Reyes': PASSED (3Y/2N/0A)
+  Vote on 'Balanced budget reform by Derek Chen': PASSED (5Y/0N/0A)
+  Vote on 'Expand public transit by Beatrice Walsh': PASSED (3Y/2N/0A)
+  Vote on 'Worker training grant by Aaron Bauer': PASSED (3Y/2N/0A)
+  Vote on 'Infrastructure bond by Ivan Huang': PASSED (4Y/1N/0A)
+  Vote on 'Expand public transit by Zara Chen': FAILED (2Y/3N/0A)
+
+===========================================================================
+FINAL STATE
+===========================================================================
+
+--- Federal ---
+  [FEDERAL] Cascadia Federation
+    Executive: Walter Brooks (Civic Democrats)
+    Legislature (12 seats): Lab: 4, Gre: 4, Civ: 2, Ref: 2
+
+--- Ironfield ---
+  [STATE] Ironfield
+    Executive: George Dalton (Labor Front)
+    Legislature (9 seats): Lab: 3, Civ: 3, Ref: 2, Gre: 1
+    [MUNICIPALITY] Steelburg
+      Executive: Fatima Chen (Labor Front)
+      Legislature (5 seats): Civ: 2, Lab: 2, Ref: 1
+    [MUNICIPALITY] Coalton
+      Executive: Fatima Ueda (Labor Front)
+      Legislature (5 seats): Lab: 2, Civ: 2, Ref: 1
+    [MUNICIPALITY] Millford
+      Executive: Walter Ibrahim (Civic Democrats)
+      Legislature (5 seats): Lab: 2, Civ: 1, Gre: 1, Ref: 1
+    [MUNICIPALITY] Irondale
+      Executive: Ivan Donovan (Civic Democrats)
+      Legislature (5 seats): Civ: 2, Lab: 2, Ref: 1
+
+--- Verdana ---
+  [STATE] Verdana
+    Executive: Vera Osei (Reform Alliance)
+    Legislature (7 seats): Ref: 3, Civ: 2, Lab: 1, Gre: 1
+    [MUNICIPALITY] Farmington
+      Executive: Marco Eriksen (Reform Alliance)
+      Legislature (5 seats): Civ: 2, Ref: 2, Lab: 1
+    [MUNICIPALITY] Crestview
+      Executive: Derek Walsh (Reform Alliance)
+      Legislature (5 seats): Civ: 2, Ref: 2, Gre: 1
+    [MUNICIPALITY] Riverdale
+      Executive: Zara Xu (Labor Front)
+      Legislature (5 seats): Lab: 2, Civ: 2, Gre: 1
+    [MUNICIPALITY] Granville
+      Executive: Chloe Park (Reform Alliance)
+      Legislature (5 seats): Ref: 3, Civ: 2
+
+--- Pacifica ---
+  [STATE] Pacifica
+    Executive: Derek Bauer (Green Future)
+    Legislature (9 seats): Gre: 3, Lab: 2, Civ: 2, Ref: 2
+    [MUNICIPALITY] Bayshore
+      Executive: Kevin Castillo (Green Future)
+      Legislature (5 seats): Civ: 2, Gre: 2, Lab: 1
+    [MUNICIPALITY] Harborview
+      Executive: Vera Bauer (Civic Democrats)
+      Legislature (5 seats): Civ: 2, Gre: 2, Lab: 1
+    [MUNICIPALITY] Solana
+      Executive: Tina Santos (Green Future)
+      Legislature (5 seats): Gre: 2, Civ: 1, Lab: 1, Ref: 1
+    [MUNICIPALITY] Crestwood
+      Executive: Ivan Castillo (Green Future)
+      Legislature (5 seats): Gre: 2, Civ: 2, Ref: 1
+    [MUNICIPALITY] Waverly
+      Executive: Derek Flores (Reform Alliance)
+      Legislature (5 seats): Civ: 2, Ref: 2, Gre: 1
+
+--- Interest Group Satisfaction by State ---
+  IG                                   Ironfield  Verdana    Pacifica 
+  Industrial Workers Union                  0.73       0.80       0.74
+  Chamber of Commerce                       0.58       0.85       0.65
+  Agricultural Producers Guild              0.50       0.85       0.50
+  Youth & Students Alliance                 0.62       0.77       0.86
+  Cascadia Environment Network              0.50       0.50       0.94
+  Veterans & Public Safety League           0.49       0.81       0.50
+
+--- Party Leadership ---
+  Labor Front         Leader: Zara Chen (Solana)                   Whip: none
+  Civic Democrats     Leader: Zara Adeyemi (Riverdale)             Whip: Kevin Brooks (Bayshore)
+  Reform Alliance     Leader: Derek Chen (Granville)               Whip: Walter Walsh (Granville)
+  Green Future        Leader: Kevin Flores (Bayshore)              Whip: Diana Grant (Bayshore)
+
+--- Party Seat Totals (all levels) ---
+  Party                   FEDER    STATE    MUNIC  TOTAL
+  Labor Front                 4        6       14     24
+  Civic Democrats             2        7       24     33
+  Reform Alliance             2        7       15     24
+  Green Future                4        5       12     21
+
+--- Simulation Summary ---
+  Elections held:    68
+  Votes passed:      123
+  Votes failed:      132
+  Total actions:     3166
+  Total events:      2170
