@@ -58,15 +58,19 @@ labor = Party(
     id=PartyId("labor"),
     name="Labor Alliance",
     ideology=Ideology.create(economic=-0.6, social=0.4),
+    directive_threshold=-0.2,
+    campaign_budget=5,
+    leadership_interval=5,
     base_constituency={workers: 0.8, youth: 0.5},
-    attributes={"directive_threshold": -0.2, "campaign_budget": 5, "leadership_interval": 20},
 )
 civic = Party(
     id=PartyId("civic"),
     name="Civic Progress",
     ideology=Ideology.create(economic=0.3, social=0.1),
+    directive_threshold=-0.15,
+    campaign_budget=5,
+    leadership_interval=5,
     base_constituency={business: 0.7, youth: 0.3},
-    attributes={"directive_threshold": -0.15, "campaign_budget": 5, "leadership_interval": 20},
 )
 
 # ---------------------------------------------------------------------------
@@ -191,9 +195,9 @@ world.add_government(gov)
 # ---------------------------------------------------------------------------
 
 # Assign unique utility weights to each agent.
-weight_rng = random.Random(123)
+rng = random.Random(42)
 for agent in world.politicians.values():
-    agent.attributes["utility_weights"] = perturb_weights(weight_rng)
+    agent.attributes["utility_weights"] = perturb_weights(rng)
 
 initialize_local_variables(world)
 
@@ -218,7 +222,6 @@ print("\n" + "=" * 60)
 print("Running 10 turns (verbose log → simulation.log)...")
 print("=" * 60 + "\n")
 
-rng = random.Random(42)
 reports = run_simulation(world, num_turns=10, rng=rng, debug=True)
 
 print(f"\n=== Final State (Turn {world.turn}) ===")

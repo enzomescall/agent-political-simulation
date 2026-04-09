@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import random as _random
 from typing import TYPE_CHECKING
 
 from src.models.types import Archetype
@@ -43,7 +44,7 @@ def _ig_pressure_score(agent: Agent, policy: Policy) -> float:
 
 
 def _directive_threshold(agent: Agent) -> float:
-    raw_threshold = agent.party.attributes.get("directive_threshold", _DEFAULT_DIRECTIVE_THRESHOLD)
+    raw_threshold = agent.party.directive_threshold
     return min(max(abs(raw_threshold), 0.0), 0.95)
 
 
@@ -152,6 +153,30 @@ ARCHETYPE_WEIGHTS: dict[Archetype, dict[str, float]] = {
 }
 
 
+def default_vote_weights(archetype: Archetype) -> dict[str, float]:
+    return dict(ARCHETYPE_WEIGHTS[archetype])
+
+
+def perturb_vote_weights(archetype: Archetype, rng: _random.Random) -> dict[str, float]:
+    """Sample per-agent vote coefficients around the archetype baseline."""
+    baseline = ARCHETYPE_WEIGHTS[archetype]
+    weights = {key: value * rng.uniform(0.8, 1.2) for key, value in baseline.items()}
+    total = sum(weights.values())
+    return {key: value / total for key, value in weights.items()}
+
+
+def get_vote_weights(agent: Agent) -> dict[str, float]:
+    weights = agent.attributes.get("vote_weights")
+    if weights is not None:
+        return weights
+
+    # Agents created mid-simulation still get individualized vote weights.
+    seeded_rng = _random.Random(str(agent.id))
+    generated = perturb_vote_weights(agent.archetype, seeded_rng)
+    agent.attributes["vote_weights"] = generated
+    return generated
+
+
 def compute_vote_disposition(
     agent: Agent,
     policy: Policy,
@@ -159,7 +184,7 @@ def compute_vote_disposition(
     proposer: Agent | None = None,
 ) -> float:
     """Return a score in [-1, 1] for how inclined the agent is to vote yes."""
-    w = ARCHETYPE_WEIGHTS[agent.archetype]
+    w = get_vote_weights(agent)
     components = {
         "ideology": _ideology_score(agent, policy),
         "party_directive": _party_directive_score(agent, policy, world),
@@ -199,7 +224,7 @@ def resolve_vote(
         else:
             # Gray zone: abstain only if the agent personally leans No but
             # the party directive pulls Yes. Otherwise vote No.
-            w = ARCHETYPE_WEIGHTS[member.archetype]
+            w = get_vote_weights(member)
             party_lean = compute_directive_pressure(member, policy)
             personal_lean = disposition - w["party_directive"] * party_lean
             if personal_lean < 0 and party_lean > 0:

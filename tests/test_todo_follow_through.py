@@ -2,9 +2,16 @@ from __future__ import annotations
 
 import random
 import unittest
+from unittest.mock import patch
 
 from src.actions.base import VoteResult
-from src.actions.voting import compute_directive_pressure, compute_vote_disposition, _expulsion_risk_score
+from src.actions.decision import _estimate_request_vote_utility
+from src.actions.voting import (
+    compute_directive_pressure,
+    compute_vote_disposition,
+    get_vote_weights,
+    _expulsion_risk_score,
+)
 from src.models import (
     Agent,
     AgentId,
@@ -28,6 +35,7 @@ from src.models import (
 )
 from src.simulation.consequences import apply_vote_consequences
 from src.simulation.elections import _diluted_turnout_share, run_party_election
+from src.simulation.setup import initialize_local_variables
 
 
 def make_policy(name: str, support_by_party: dict[Party, float]) -> Policy:
@@ -58,8 +66,8 @@ class TodoFollowThroughTests(unittest.TestCase):
             id=PartyId("major"),
             name="Major Party",
             ideology=Ideology.create(economic=0.1, social=0.0),
+            directive_threshold=0.3,
             base_constituency={self.workers: 0.6},
-            attributes={"directive_threshold": 0.3},
         )
         self.alt_party = Party(
             id=PartyId("alt"),
@@ -120,6 +128,41 @@ class TodoFollowThroughTests(unittest.TestCase):
         apply_vote_consequences(strong_result, self.world)
         self.assertLess(self.agent.party_standing, 0.2)
         self.assertGreater(self.agent.attributes.get("recent_defiance", 0.0), 0.0)
+
+    def test_request_vote_utility_uses_precomputed_prediction(self) -> None:
+        policy = Policy(
+            name="Cached Vote",
+            interest_group_impacts={self.workers: 0.4},
+            ideology_alignment={"economic": 0.3},
+            attributes={
+                "party_support": {self.major_party: 0.8},
+                "predicted_vote": {
+                    "pass_probability": 0.75,
+                    "predicted_yes": 4,
+                    "predicted_no": 1,
+                },
+            },
+        )
+        self.agent.allegiances = {self.workers: 0.7}
+        self.agent.attributes["utility_weights"] = {
+            "popularity": 0.3,
+            "party_standing": 0.25,
+            "ig_appeal": 0.2,
+            "relationships": 0.15,
+        }
+
+        with patch("src.actions.decision._predict_vote_outcome", side_effect=AssertionError("should not recompute")):
+            utility = _estimate_request_vote_utility(self.agent, policy, self.agent, self.world)
+
+        self.assertNotEqual(utility, 0.0)
+
+    def test_initialize_local_variables_seeds_per_agent_vote_weights(self) -> None:
+        initialize_local_variables(self.world)
+
+        vote_weights = get_vote_weights(self.agent)
+        self.assertIn("party_directive", vote_weights)
+        self.assertIn("vote_weights", self.agent.attributes)
+        self.assertAlmostEqual(sum(vote_weights.values()), 1.0)
 
     def test_expulsion_risk_accounts_for_alternatives_and_popularity(self) -> None:
         policy = make_policy("Party Priority", {self.major_party: 0.9})

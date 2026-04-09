@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from .ideology import Ideology
 from .types import PartyId, PartyRole
@@ -18,6 +18,11 @@ class Party:
     id: PartyId
     name: str
     ideology: Ideology = field(default_factory=Ideology)
+    directive_threshold: float = 0.15
+    campaign_budget: int = 3
+    nomination_threshold: float = 0.3
+    leadership_interval: int = 20
+    last_leadership_turn: int = 0
 
     # Interest-group affinity: group → strength of connection [0, 1].
     base_constituency: dict[InterestGroup, float] = field(
@@ -26,8 +31,6 @@ class Party:
 
     # Internal roster: agent → role.
     members: dict[Agent, PartyRole] = field(default_factory=dict, repr=False)
-
-    attributes: dict[str, Any] = field(default_factory=dict)
 
     # ------------------------------------------------------------------
     # Roster management

@@ -60,8 +60,8 @@ def check_party_elections(world: World) -> list[Party]:
         if party.get_leader() is None:
             due.append(party)
             continue
-        interval = party.attributes.get("leadership_interval", 20)
-        last = party.attributes.get("last_leadership_turn", 0)
+        interval = party.leadership_interval
+        last = party.last_leadership_turn
         if world.turn > 0 and (world.turn - last) >= interval:
             due.append(party)
     return due
@@ -117,13 +117,13 @@ def nominate_executive_candidates(gov: Government, world: World) -> dict[Party, 
     nominations: dict[Party, Agent | None] = {}
 
     for party in parties_present:
-        budget = party.attributes.get("campaign_budget", 3)
+        budget = party.campaign_budget
         if budget <= 0:
             nominations[party] = None
             _log.debug("  %s declined to run (no campaign budget)", party.name)
             continue
 
-        threshold = party.attributes.get("nomination_threshold", 0.3)
+        threshold = party.nomination_threshold
         eligible = [
             a for a in world.politicians_in_place(place)
             if a.party is party and not _is_term_limited_exec(a)
@@ -136,7 +136,7 @@ def nominate_executive_candidates(gov: Government, world: World) -> dict[Party, 
         best = scored[0]
         if _nomination_score(best, party) >= threshold:
             nominations[party] = best
-            party.attributes["campaign_budget"] = budget - 1
+            party.campaign_budget = budget - 1
             _log.debug("  %s nominates %s for executive", party.name, fmt(best))
         else:
             nominations[party] = None
@@ -497,7 +497,7 @@ def run_party_election(party: Party, world: World, rng: _random.Random) -> list[
         winner.party_standing = min(1.0, winner.party_standing + 0.05)
         whip.party_standing = min(1.0, whip.party_standing + 0.03)
 
-    party.attributes["last_leadership_turn"] = world.turn
+    party.last_leadership_turn = world.turn
 
     events = [f"{fmt(winner)} elected as {party.name} leader"]
     _log.info("  %s elected as %s leader", fmt(winner), party.name)

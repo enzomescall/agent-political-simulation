@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 from src.models.ideology import Ideology
 from src.models.policy import Policy
+from src.actions.voting import compute_vote_disposition
 
 if TYPE_CHECKING:
     from typing import Any
@@ -153,6 +154,43 @@ def _choose_template(ideology: Ideology, rng: _random.Random) -> PolicyTemplate:
     return rng.choices(_POLICY_TEMPLATES, weights=weights, k=1)[0]
 
 
+def _predict_vote_outcome(
+    proposer: Agent,
+    policy: Policy,
+    world: World,
+) -> tuple[float, int, int]:
+    """Predict how the legislature would vote on a policy once per policy generation."""
+    gov = world.governments.get(proposer.place.id)
+    if gov is None or gov.legislature is None:
+        return 0.0, 0, 0
+
+    yes, no = 0, 0
+    for member in gov.legislature.members:
+        disposition = compute_vote_disposition(member, policy, world, proposer=proposer)
+        if disposition > 0.1:
+            yes += 1
+        elif disposition < -0.1:
+            no += 1
+
+    total = len(gov.legislature.members)
+    if total == 0:
+        return 0.0, 0, 0
+
+    passed = yes > total / 2
+    margin = abs(yes - total / 2) / total
+    prob = min(1.0, 0.5 + margin * 2) if passed else max(0.0, 0.5 - margin * 2)
+    return prob, yes, no
+
+
+def _annotate_predicted_vote(policy: Policy, proposer: Agent, world: World) -> None:
+    prob, yes, no = _predict_vote_outcome(proposer, policy, world)
+    policy.attributes["predicted_vote"] = {
+        "pass_probability": prob,
+        "predicted_yes": yes,
+        "predicted_no": no,
+    }
+
+
 def generate_policy(
     agent: Agent,
     world: World,
@@ -226,6 +264,7 @@ def generate_policy_pool(
     # Executive proposal.
     if gov.executive.holder is not None:
         policy = generate_policy(gov.executive.holder, world, rng)
+        _annotate_predicted_vote(policy, gov.executive.holder, world)
         pool.append((policy, gov.executive.holder))
         _log.debug("Pool: executive %s generated '%s'", gov.executive.holder.name, policy.name)
 
@@ -243,6 +282,7 @@ def generate_policy_pool(
         # Highest party_standing legislator proposes.
         champion = max(party_members[party], key=lambda a: a.party_standing)
         policy = generate_policy(champion, world, rng)
+        _annotate_predicted_vote(policy, champion, world)
         pool.append((policy, champion))
         _log.debug("Pool: %s (%s) generated '%s'", champion.name, party.name, policy.name)
 

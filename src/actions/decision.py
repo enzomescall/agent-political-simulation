@@ -57,8 +57,11 @@ def _estimate_request_vote_utility(
 ) -> float:
     """Estimate utility delta from requesting a vote on a policy."""
     w = get_weights(agent)
-    # TODO: cache the predicted vote outcome so we don't keep recalculating it for the same policy in the same legislature in the same turn
-    prob, _, _ = _predict_vote_outcome(agent, policy, world)
+    predicted_vote = policy.attributes.get("predicted_vote")
+    if predicted_vote is not None:
+        prob = predicted_vote.get("pass_probability", 0.0)
+    else:
+        prob, _, _ = _predict_vote_outcome(proposer, policy, world)
 
     # Utility if the policy passes.
     pass_utility = 0.0

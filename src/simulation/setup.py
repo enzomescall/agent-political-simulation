@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import random as _random
 from typing import TYPE_CHECKING
+
+from src.actions.voting import perturb_vote_weights
 
 if TYPE_CHECKING:
     from src.models.world import World
@@ -12,6 +15,7 @@ def initialize_local_variables(world: World) -> None:
     Call this right before starting the simulation. For each place that
     has interest-group presence defined, this populates the group's
     ``electorate_share`` and (if not already set) ``satisfaction``.
+    It also seeds per-agent vote weights from their archetype profile.
     """
     for place in world.places.values():
         for ig, share in place.interest_group_presence.items():
@@ -20,3 +24,8 @@ def initialize_local_variables(world: World) -> None:
             # Default satisfaction to 0.5 (neutral) if not already set.
             if place not in ig.satisfaction:
                 ig.satisfaction[place] = 0.5
+
+    for agent in world.politicians.values():
+        if "vote_weights" not in agent.attributes:
+            rng = _random.Random(str(agent.id))
+            agent.attributes["vote_weights"] = perturb_vote_weights(agent.archetype, rng)

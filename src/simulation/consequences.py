@@ -113,6 +113,7 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
     agent = action.actor
 
     if action.action_type is ActionType.TAKE_POSITION:
+        impact_lines: list[str] = []
         for ig in agent.place.interest_group_presence:
             if ig not in agent.popularity:
                 continue
@@ -120,9 +121,19 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
             delta = allegiance * 0.05 - (1.0 - allegiance) * 0.03
             old = agent.popularity[ig]
             agent.popularity[ig] = _clamp(old + delta, 0.0, 1.0)
-            _log.debug("  %s popularity[%s]: %.3f -> %.3f (take_position, delta=%.3f)",
-                       fmt(agent), ig.name, old, agent.popularity[ig], delta)
-        events.append(f"{fmt(agent)} took a public position")
+            impact_lines.append(
+                f"{ig.name}:{old:.2f}->{agent.popularity[ig]:.2f} "
+                f"(allegiance={allegiance:.2f}, delta={delta:+.3f})"
+            )
+            _log.debug(
+                "  %s take_position on %s: popularity %.3f -> %.3f "
+                "(allegiance=%.3f, delta=%.3f)",
+                fmt(agent), ig.name, old, agent.popularity[ig], allegiance, delta,
+            )
+        events.append(
+            f"{fmt(agent)} took a public position "
+            f"[{'; '.join(impact_lines)}]"
+        )
 
     elif action.action_type is ActionType.BUILD_RELATIONSHIP:
         if action.target is not None:
@@ -130,32 +141,62 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
             new_val = _clamp(old + 0.05)
             agent.relationships[action.target] = new_val
             old_rev = action.target.relationships.get(agent, 0.0)
-            action.target.relationships[agent] = _clamp(old_rev + 0.03)
+            new_rev = _clamp(old_rev + 0.03)
+            action.target.relationships[agent] = new_rev
             if action.target.party is not agent.party:
                 old_standing = agent.party_standing
                 agent.party_standing = _clamp(agent.party_standing - 0.02, 0.0, 1.0)
-                _log.debug("  %s party_standing: %.3f -> %.3f (cross-party relationship)",
-                           fmt(agent), old_standing, agent.party_standing)
+                _log.debug(
+                    "  %s build_relationship with %s: rel %.3f -> %.3f, reverse %.3f -> %.3f, "
+                    "party_standing %.3f -> %.3f (cross-party)",
+                    fmt(agent), fmt(action.target), old, new_val, old_rev, new_rev,
+                    old_standing, agent.party_standing,
+                )
+            else:
+                _log.debug(
+                    "  %s build_relationship with %s: rel %.3f -> %.3f, reverse %.3f -> %.3f",
+                    fmt(agent), fmt(action.target), old, new_val, old_rev, new_rev,
+                )
             events.append(
                 f"{fmt(agent)} built relationship with {fmt(action.target)} "
-                f"(rel: {old:+.2f} → {new_val:+.2f})"
+                f"(rel: {old:+.2f} → {new_val:+.2f}, reverse: {old_rev:+.2f} → {new_rev:+.2f})"
             )
 
     elif action.action_type is ActionType.CAMPAIGN:
         ig = action.params.get("interest_group")
         if ig is not None and ig in agent.popularity:
-            agent.popularity[ig] = _clamp(agent.popularity[ig] + 0.08, 0.0, 1.0)
+            campaign_old_pop = agent.popularity[ig]
+            new_pop = _clamp(campaign_old_pop + 0.08, 0.0, 1.0)
+            agent.popularity[ig] = new_pop
             old_standing = agent.party_standing
-            agent.party_standing = _clamp(agent.party_standing - 0.02, 0.0, 1.0)
-            _log.debug("  %s party_standing: %.3f -> %.3f (campaign cost)",
-                       fmt(agent), old_standing, agent.party_standing)
+            new_standing = _clamp(agent.party_standing - 0.02, 0.0, 1.0)
+            agent.party_standing = new_standing
+            _log.debug(
+                "  %s campaign towards %s: popularity %.3f -> %.3f, party_standing %.3f -> %.3f",
+                fmt(agent), ig.name, campaign_old_pop, new_pop, old_standing, new_standing,
+            )
+            neglect_lines: list[str] = []
             for other_ig in agent.place.interest_group_presence:
                 if other_ig is not ig and other_ig in agent.popularity:
-                    old_pop = agent.popularity[other_ig]
-                    agent.popularity[other_ig] = _clamp(old_pop - 0.02, 0.0, 1.0)
-                    _log.debug("  %s popularity[%s]: %.3f -> %.3f (campaign neglect)",
-                               fmt(agent), other_ig.name, old_pop, agent.popularity[other_ig])
-            events.append(f"{fmt(agent)} campaigned towards {ig.name}")
+                    other_old_pop = agent.popularity[other_ig]
+                    new_other_pop = _clamp(other_old_pop - 0.02, 0.0, 1.0)
+                    agent.popularity[other_ig] = new_other_pop
+                    neglect_lines.append(
+                        f"{other_ig.name}:{other_old_pop:.2f}->{new_other_pop:.2f}"
+                    )
+                    _log.debug(
+                        "  %s campaign neglect on %s: popularity %.3f -> %.3f",
+                        fmt(agent), other_ig.name, other_old_pop, new_other_pop,
+                    )
+            event = (
+                f"{fmt(agent)} campaigned towards {ig.name} "
+                f"(popularity: {campaign_old_pop:.2f} -> {new_pop:.2f}, "
+                f"party_standing: {old_standing:.2f} -> {new_standing:.2f}"
+            )
+            if neglect_lines:
+                event += f", neglect: [{'; '.join(neglect_lines)}]"
+            event += ")"
+            events.append(event)
 
     elif action.action_type is ActionType.ENFORCE_DISCIPLINE:
         if action.target is not None:
