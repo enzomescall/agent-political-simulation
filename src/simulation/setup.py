@@ -3,6 +3,7 @@ from __future__ import annotations
 import random as _random
 from typing import TYPE_CHECKING
 
+from src.actions.utility import perturb_weights
 from src.actions.voting import perturb_vote_weights
 
 if TYPE_CHECKING:
@@ -26,6 +27,9 @@ def initialize_local_variables(world: World) -> None:
                 ig.satisfaction[place] = 0.5
 
     for agent in world.politicians.values():
+        if "utility_weights" not in agent.attributes:
+            rng = _random.Random(f"{agent.id}:utility")
+            agent.attributes["utility_weights"] = perturb_weights(rng)
         if "vote_weights" not in agent.attributes:
-            rng = _random.Random(str(agent.id))
+            rng = _random.Random(f"{agent.id}:vote")
             agent.attributes["vote_weights"] = perturb_vote_weights(agent.archetype, rng)
