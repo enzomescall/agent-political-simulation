@@ -12,6 +12,11 @@ from src.simulation import (
     print_world_summary,
     run_simulation,
 )
+from src.simulation.visualization import (
+    run_simulation_for_viz,
+    generate_visualizations,
+    VISUALIZATION_NAMES,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -24,7 +29,9 @@ def build_parser() -> argparse.ArgumentParser:
         "from-config",
         help="Load a world from a JSON/TOML file or config directory.",
     )
-    from_config.add_argument("--config", type=Path, required=True, help="Path to a config file or directory.")
+    from_config.add_argument(
+        "--config", type=Path, required=True, help="Path to a config file or directory."
+    )
     _add_common_run_args(from_config)
 
     generate = subparsers.add_parser(
@@ -51,18 +58,36 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _add_common_run_args(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--turns", type=int, default=10, help="Number of turns to simulate.")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed for generation/simulation.")
-    parser.add_argument("--debug", action="store_true", help="Write verbose simulation logs to simulation.log.")
+    parser.add_argument(
+        "--turns", type=int, default=10, help="Number of turns to simulate."
+    )
+    parser.add_argument(
+        "--seed", type=int, default=42, help="Random seed for generation/simulation."
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Write verbose simulation logs to simulation.log.",
+    )
     parser.add_argument(
         "--summary",
         choices=("short", "full"),
         default="full",
         help="How much world state to print before and after simulation.",
     )
+    parser.add_argument(
+        "-v",
+        "--visualize",
+        nargs="?",
+        const="all",
+        metavar="NUM",
+        help="Generate visualizations after simulation. Use -v to generate all, or -v NUM for specific visualization (1-21).",
+    )
 
 
-def _validate_generate_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+def _validate_generate_args(
+    args: argparse.Namespace, parser: argparse.ArgumentParser
+) -> None:
     local_only = ("council_seats",)
     federated_only = (
         "num_states",
@@ -100,11 +125,7 @@ def _build_generate_kwargs(args: argparse.Namespace) -> dict[str, int]:
         "party_election_interval",
         "election_interval",
     )
-    return {
-        key: value
-        for key in keys
-        if (value := getattr(args, key)) is not None
-    }
+    return {key: value for key in keys if (value := getattr(args, key)) is not None}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -123,6 +144,22 @@ def main(argv: list[str] | None = None) -> int:
 
     print_world_summary(world, summary=args.summary)
 
+    viz_numbers = None
+    if args.visualize is not None:
+        if args.visualize == "all":
+            viz_numbers = None
+        else:
+            try:
+                viz_num = int(args.visualize)
+                if viz_num < 1 or viz_num > 21:
+                    parser.error("Visualization number must be between 1 and 21")
+                viz_numbers = [viz_num]
+                print(
+                    f"Will generate visualization {viz_num}: {VISUALIZATION_NAMES.get(viz_num, 'unknown')}"
+                )
+            except ValueError:
+                parser.error(f"Invalid visualization number: {args.visualize}")
+
     if args.turns > 0:
         print(f"\nRunning {args.turns} turn(s)...\n")
         sim_rng = random.Random(args.seed)
@@ -131,6 +168,16 @@ def main(argv: list[str] | None = None) -> int:
         print("\nSkipping simulation because --turns was set to 0.")
 
     print_final_summary(world, summary=args.summary, debug=args.debug)
+
+    if args.visualize is not None:
+        print("\nGenerating visualizations...")
+        config_name = args.config.name if hasattr(args.config, "name") else "config"
+        viz_data = run_simulation_for_viz(world, args.turns, args.seed)
+        output_dir = generate_visualizations(
+            world, viz_data, viz_numbers=viz_numbers, config_name=config_name
+        )
+        print(f"Visualizations saved to {output_dir}")
+
     return 0
 
 

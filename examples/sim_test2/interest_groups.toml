@@ -1,0 +1,24 @@
+[[interest_groups]]
+id = "workers"
+name = "Industrial Workers Union"
+fears = ["privatisation", "automation", "job_cuts"]
+
+[[interest_groups]]
+id = "business"
+name = "Chamber of Commerce"
+fears = ["price_controls", "heavy_regulation", "tax_hikes"]
+
+[[interest_groups]]
+id = "farmers"
+name = "Agricultural Producers Guild"
+fears = ["trade_deals", "subsidy_cuts"]
+
+[[interest_groups]]
+id = "youth"
+name = "Youth & Students Alliance"
+fears = ["austerity", "housing_costs"]
+
+[[interest_groups]]
+id = "enviro"
+name = "Cascadia Environment Network"
+fears = ["deregulation", "fossil_fuel_expansion"]

@@ -1,0 +1,43 @@
+[[parties]]
+id = "labor"
+name = "Labor Front"
+directive_threshold = -0.20
+campaign_budget = 10
+nomination_threshold = 0.20
+leadership_interval = 10
+[parties.ideology]
+economic = -0.70
+social = 0.45
+
+[[parties]]
+id = "civic"
+name = "Civic Democrats"
+directive_threshold = -0.10
+campaign_budget = 10
+nomination_threshold = 0.20
+leadership_interval = 10
+[parties.ideology]
+economic = -0.10
+social = 0.20
+
+[[parties]]
+id = "reform"
+name = "Reform Alliance"
+directive_threshold = -0.20
+campaign_budget = 10
+nomination_threshold = 0.20
+leadership_interval = 10
+[parties.ideology]
+economic = 0.65
+social = -0.35
+
+[[parties]]
+id = "green"
+name = "Green Future"
+directive_threshold = -0.15
+campaign_budget = 8
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = -0.40
+social = 0.80

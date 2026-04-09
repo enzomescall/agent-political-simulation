@@ -1,0 +1,337 @@
+[[places]]
+id = "federation"
+name = "Meridian Republic"
+tier = "FEDERAL"
+
+[[places]]
+id = "ironfield"
+name = "Ironfield"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+workers = 0.4
+business = 0.2
+veterans = 0.15
+youth = 0.1
+urban_prof = 0.1
+rural_comm = 0.05
+
+[[places]]
+id = "verdana"
+name = "Verdana"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+farmers = 0.4
+rural_comm = 0.25
+business = 0.15
+veterans = 0.15
+workers = 0.05
+
+[[places]]
+id = "pacifica"
+name = "Pacifica"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+youth = 0.25
+enviro = 0.25
+business = 0.2
+urban_prof = 0.2
+workers = 0.1
+
+[[places]]
+id = "northwood"
+name = "Northwood"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+rural_comm = 0.4
+veterans = 0.3
+farmers = 0.25
+workers = 0.05
+
+[[places]]
+id = "suncoast"
+name = "Suncoast"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+business = 0.35
+urban_prof = 0.3
+veterans = 0.2
+workers = 0.1
+youth = 0.05
+
+[[places]]
+id = "riverlands"
+name = "Riverlands"
+tier = "STATE"
+parent_id = "federation"
+[places.interest_group_presence]
+workers = 0.25
+farmers = 0.25
+rural_comm = 0.25
+youth = 0.15
+enviro = 0.1
+
+[[places]]
+id = "steelburg"
+name = "Steelburg"
+tier = "MUNICIPALITY"
+parent_id = "ironfield"
+[places.interest_group_presence]
+workers = 0.55
+business = 0.2
+veterans = 0.15
+youth = 0.1
+
+[[places]]
+id = "coalton"
+name = "Coalton"
+tier = "MUNICIPALITY"
+parent_id = "ironfield"
+[places.interest_group_presence]
+workers = 0.65
+veterans = 0.2
+business = 0.1
+rural_comm = 0.05
+
+[[places]]
+id = "millford"
+name = "Millford"
+tier = "MUNICIPALITY"
+parent_id = "ironfield"
+[places.interest_group_presence]
+workers = 0.4
+business = 0.3
+veterans = 0.2
+youth = 0.1
+
+[[places]]
+id = "irondale"
+name = "Irondale"
+tier = "MUNICIPALITY"
+parent_id = "ironfield"
+[places.interest_group_presence]
+business = 0.4
+workers = 0.3
+youth = 0.2
+urban_prof = 0.1
+
+[[places]]
+id = "farmington"
+name = "Farmington"
+tier = "MUNICIPALITY"
+parent_id = "verdana"
+[places.interest_group_presence]
+farmers = 0.65
+rural_comm = 0.2
+business = 0.1
+veterans = 0.05
+
+[[places]]
+id = "crestview"
+name = "Crestview"
+tier = "MUNICIPALITY"
+parent_id = "verdana"
+[places.interest_group_presence]
+farmers = 0.5
+rural_comm = 0.25
+veterans = 0.15
+business = 0.1
+
+[[places]]
+id = "riverdale"
+name = "Riverdale"
+tier = "MUNICIPALITY"
+parent_id = "verdana"
+[places.interest_group_presence]
+farmers = 0.4
+workers = 0.25
+rural_comm = 0.2
+youth = 0.15
+
+[[places]]
+id = "granville"
+name = "Granville"
+tier = "MUNICIPALITY"
+parent_id = "verdana"
+[places.interest_group_presence]
+business = 0.35
+farmers = 0.3
+veterans = 0.2
+rural_comm = 0.15
+
+[[places]]
+id = "bayshore"
+name = "Bayshore"
+tier = "MUNICIPALITY"
+parent_id = "pacifica"
+[places.interest_group_presence]
+youth = 0.4
+enviro = 0.35
+business = 0.15
+workers = 0.1
+
+[[places]]
+id = "harborview"
+name = "Harborview"
+tier = "MUNICIPALITY"
+parent_id = "pacifica"
+[places.interest_group_presence]
+business = 0.35
+urban_prof = 0.3
+youth = 0.25
+enviro = 0.1
+
+[[places]]
+id = "solana"
+name = "Solana"
+tier = "MUNICIPALITY"
+parent_id = "pacifica"
+[places.interest_group_presence]
+enviro = 0.5
+youth = 0.35
+urban_prof = 0.1
+business = 0.05
+
+[[places]]
+id = "waverly"
+name = "Waverly"
+tier = "MUNICIPALITY"
+parent_id = "pacifica"
+[places.interest_group_presence]
+business = 0.4
+urban_prof = 0.3
+workers = 0.2
+youth = 0.1
+
+[[places]]
+id = "pineridge"
+name = "Pineridge"
+tier = "MUNICIPALITY"
+parent_id = "northwood"
+[places.interest_group_presence]
+rural_comm = 0.5
+veterans = 0.3
+farmers = 0.2
+
+[[places]]
+id = "coldbrook"
+name = "Coldbrook"
+tier = "MUNICIPALITY"
+parent_id = "northwood"
+[places.interest_group_presence]
+veterans = 0.4
+rural_comm = 0.35
+farmers = 0.25
+
+[[places]]
+id = "hartfield"
+name = "Hartfield"
+tier = "MUNICIPALITY"
+parent_id = "northwood"
+[places.interest_group_presence]
+farmers = 0.45
+rural_comm = 0.3
+veterans = 0.25
+
+[[places]]
+id = "maplewood"
+name = "Maplewood"
+tier = "MUNICIPALITY"
+parent_id = "northwood"
+[places.interest_group_presence]
+rural_comm = 0.4
+farmers = 0.35
+veterans = 0.2
+workers = 0.05
+
+[[places]]
+id = "brighton"
+name = "Brighton"
+tier = "MUNICIPALITY"
+parent_id = "suncoast"
+[places.interest_group_presence]
+business = 0.45
+urban_prof = 0.3
+veterans = 0.15
+workers = 0.1
+
+[[places]]
+id = "sunnyvale"
+name = "Sunnyvale"
+tier = "MUNICIPALITY"
+parent_id = "suncoast"
+[places.interest_group_presence]
+business = 0.4
+urban_prof = 0.35
+workers = 0.15
+youth = 0.1
+
+[[places]]
+id = "palmer"
+name = "Palmer"
+tier = "MUNICIPALITY"
+parent_id = "suncoast"
+[places.interest_group_presence]
+business = 0.35
+veterans = 0.3
+urban_prof = 0.25
+workers = 0.1
+
+[[places]]
+id = "sandycreek"
+name = "Sandy Creek"
+tier = "MUNICIPALITY"
+parent_id = "suncoast"
+[places.interest_group_presence]
+business = 0.3
+urban_prof = 0.3
+workers = 0.25
+youth = 0.15
+
+[[places]]
+id = "redfield"
+name = "Redfield"
+tier = "MUNICIPALITY"
+parent_id = "riverlands"
+[places.interest_group_presence]
+workers = 0.35
+farmers = 0.3
+rural_comm = 0.2
+youth = 0.15
+
+[[places]]
+id = "blueridge"
+name = "Blue Ridge"
+tier = "MUNICIPALITY"
+parent_id = "riverlands"
+[places.interest_group_presence]
+farmers = 0.35
+workers = 0.3
+rural_comm = 0.2
+enviro = 0.15
+
+[[places]]
+id = "greenfield"
+name = "Greenfield"
+tier = "MUNICIPALITY"
+parent_id = "riverlands"
+[places.interest_group_presence]
+workers = 0.3
+rural_comm = 0.3
+youth = 0.25
+enviro = 0.15
+
+[[places]]
+id = "silverton"
+name = "Silverton"
+tier = "MUNICIPALITY"
+parent_id = "riverlands"
+[places.interest_group_presence]
+farmers = 0.3
+workers = 0.25
+rural_comm = 0.25
+youth = 0.2

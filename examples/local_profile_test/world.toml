@@ -1,0 +1,5 @@
+[world]
+turn = 0
+
+[world.attributes]
+description = "Local profile: single municipality"

@@ -1,0 +1,70 @@
+# Explicit agents - these will be loaded directly
+# The remaining agents will be procedurally generated
+
+[[agents]]
+id = "fed_president"
+name = "Eleanor Marsh"
+party_id = "civic"
+place_id = "federal"
+office = "PRESIDENT"
+party_role = "LEADER"
+party_standing = 0.85
+ambition = 0.65
+archetype = "LOYALIST"
+detail_level = "L0"
+[agents.ideology]
+economic = -0.05
+social = 0.30
+[agents.allegiances]
+workers = 0.4
+business = 0.5
+youth = 0.35
+veterans = 0.4
+[agents.popularity]
+workers = 0.45
+business = 0.55
+youth = 0.4
+veterans = 0.42
+
+[[agents]]
+id = "state1_gov"
+name = "Bernard Holloway"
+party_id = "labor"
+place_id = "state_1"
+office = "GOVERNOR"
+party_role = "LEADER"
+party_standing = 0.80
+ambition = 0.55
+archetype = "IDEOLOGUE"
+detail_level = "L0"
+[agents.ideology]
+economic = -0.65
+social = 0.40
+[agents.allegiances]
+workers = 0.85
+youth = 0.4
+[agents.popularity]
+workers = 0.8
+youth = 0.45
+business = 0.2
+
+[[agents]]
+id = "state1_mayor_explicit"
+name = "Marcus Chen"
+party_id = "reform"
+place_id = "state_1_city_1"
+office = "MAYOR"
+party_role = "MEMBER"
+party_standing = 0.75
+ambition = 0.6
+archetype = "POPULIST"
+detail_level = "L0"
+[agents.ideology]
+economic = 0.55
+social = -0.2
+[agents.allegiances]
+business = 0.7
+workers = 0.3
+[agents.popularity]
+business = 0.68
+workers = 0.35

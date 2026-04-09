@@ -1,0 +1,108 @@
+[[parties]]
+id = "vanguard"
+name = "Workers Vanguard"
+directive_threshold = -0.25
+campaign_budget = 8
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = -0.88
+social = 0.6
+[parties.base_constituency]
+workers = 0.9
+youth = 0.5
+rural_comm = 0.3
+
+[[parties]]
+id = "labor"
+name = "Labor Front"
+directive_threshold = -0.2
+campaign_budget = 10
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = -0.55
+social = 0.35
+[parties.base_constituency]
+workers = 0.75
+youth = 0.4
+farmers = 0.25
+rural_comm = 0.2
+
+[[parties]]
+id = "green"
+name = "Green Future"
+directive_threshold = -0.15
+campaign_budget = 8
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = -0.35
+social = 0.85
+[parties.base_constituency]
+enviro = 0.9
+youth = 0.7
+urban_prof = 0.35
+
+[[parties]]
+id = "civic"
+name = "Civic Democrats"
+directive_threshold = -0.1
+campaign_budget = 12
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = -0.05
+social = 0.1
+[parties.base_constituency]
+workers = 0.35
+business = 0.4
+youth = 0.35
+farmers = 0.3
+veterans = 0.35
+urban_prof = 0.3
+
+[[parties]]
+id = "reform"
+name = "Reform Alliance"
+directive_threshold = -0.2
+campaign_budget = 10
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = 0.55
+social = -0.3
+[parties.base_constituency]
+business = 0.75
+farmers = 0.5
+veterans = 0.55
+urban_prof = 0.25
+
+[[parties]]
+id = "nationalist"
+name = "National Conservative"
+directive_threshold = -0.25
+campaign_budget = 9
+nomination_threshold = 0.18
+leadership_interval = 10
+[parties.ideology]
+economic = 0.25
+social = -0.8
+[parties.base_constituency]
+veterans = 0.75
+rural_comm = 0.8
+farmers = 0.45
+
+[[parties]]
+id = "liberty"
+name = "Liberty Party"
+directive_threshold = -0.15
+campaign_budget = 9
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = 0.88
+social = 0.5
+[parties.base_constituency]
+business = 0.7
+urban_prof = 0.75

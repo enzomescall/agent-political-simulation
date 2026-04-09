@@ -1,0 +1,13 @@
+[[parties]]
+id = "labor"
+name = "Labor Party"
+[parties.ideology]
+economic = -0.5
+social = 0.3
+
+[[parties]]
+id = "civic"
+name = "Civic Party"
+[parties.ideology]
+economic = 0.0
+social = 0.0

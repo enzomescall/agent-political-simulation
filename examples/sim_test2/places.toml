@@ -1,0 +1,37 @@
+[[places]]
+id = "cascadia"
+name = "State of Cascadia"
+tier = "STATE"
+
+[[places]]
+id = "riverport"
+name = "Riverport"
+tier = "MUNICIPALITY"
+parent_id = "cascadia"
+[places.interest_group_presence]
+workers = 0.5
+business = 0.25
+youth = 0.15
+enviro = 0.1
+
+[[places]]
+id = "millhaven"
+name = "Millhaven"
+tier = "MUNICIPALITY"
+parent_id = "cascadia"
+[places.interest_group_presence]
+farmers = 0.45
+business = 0.3
+workers = 0.15
+youth = 0.1
+
+[[places]]
+id = "seaside"
+name = "Seaside Cove"
+tier = "MUNICIPALITY"
+parent_id = "cascadia"
+[places.interest_group_presence]
+youth = 0.35
+enviro = 0.3
+business = 0.25
+workers = 0.1

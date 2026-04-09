@@ -1,0 +1,30 @@
+# 6 interest groups
+[[interest_groups]]
+id = "workers"
+name = "Industrial Workers Union"
+fears = ["privatisation", "automation"]
+
+[[interest_groups]]
+id = "business"
+name = "Chamber of Commerce"
+fears = ["tax_hikes", "heavy_regulation"]
+
+[[interest_groups]]
+id = "farmers"
+name = "Agricultural Producers Guild"
+fears = ["trade_deals", "subsidy_cuts"]
+
+[[interest_groups]]
+id = "youth"
+name = "Youth & Students Alliance"
+fears = ["austerity", "housing_costs"]
+
+[[interest_groups]]
+id = "enviro"
+name = "Environment Network"
+fears = ["deregulation", "fossil_fuel"]
+
+[[interest_groups]]
+id = "veterans"
+name = "Veterans & Public Safety League"
+fears = ["military_cuts", "police_defunding"]

@@ -1,0 +1,68 @@
+[[places]]
+id = "federal"
+name = "Cascadia Federation"
+tier = "FEDERAL"
+[places.interest_group_presence]
+workers = 0.20
+business = 0.25
+farmers = 0.15
+youth = 0.20
+enviro = 0.10
+veterans = 0.10
+
+[[places]]
+id = "state_1"
+name = "Ironfield"
+tier = "STATE"
+parent_id = "federal"
+[places.interest_group_presence]
+workers = 0.45
+business = 0.25
+veterans = 0.15
+farmers = 0.10
+youth = 0.05
+
+[[places]]
+id = "state_2"
+name = "Verdana"
+tier = "STATE"
+parent_id = "federal"
+[places.interest_group_presence]
+farmers = 0.50
+business = 0.20
+veterans = 0.15
+workers = 0.10
+youth = 0.05
+
+[[places]]
+id = "state_1_city_1"
+name = "Steelburg"
+tier = "MUNICIPALITY"
+parent_id = "state_1"
+[places.interest_group_presence]
+workers = 0.55
+business = 0.20
+veterans = 0.15
+youth = 0.10
+
+[[places]]
+id = "state_1_city_2"
+name = "Coalton"
+tier = "MUNICIPALITY"
+parent_id = "state_1"
+[places.interest_group_presence]
+workers = 0.60
+veterans = 0.20
+business = 0.15
+youth = 0.05
+
+[[places]]
+id = "state_2_city_1"
+name = "Farmington"
+tier = "MUNICIPALITY"
+parent_id = "state_2"
+[places.interest_group_presence]
+farmers = 0.60
+business = 0.20
+veterans = 0.15
+youth = 0.05

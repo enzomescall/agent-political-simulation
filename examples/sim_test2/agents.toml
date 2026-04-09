@@ -1,0 +1,534 @@
+[[agents]]
+id = "rp_mayor"
+name = "Harriet Voss"
+party_id = "labor"
+place_id = "riverport"
+office = "MAYOR"
+party_role = "LEADER"
+party_standing = 0.85
+ambition = 0.55
+archetype = "LOYALIST"
+detail_level = "L0"
+[agents.ideology]
+economic = -0.8
+social = 0.6
+[agents.allegiances]
+workers = 0.9
+youth = 0.4
+[agents.popularity]
+workers = 0.8
+youth = 0.6
+business = 0.25
+enviro = 0.4
+
+[[agents]]
+id = "rp_c1"
+name = "Morris Tanaka"
+party_id = "labor"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.8
+ambition = 0.5
+archetype = "LOYALIST"
+[agents.ideology]
+economic = -0.65
+social = 0.4
+[agents.allegiances]
+workers = 0.8
+[agents.popularity]
+workers = 0.72
+youth = 0.45
+
+[[agents]]
+id = "rp_c2"
+name = "Petra Okafor"
+party_id = "labor"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.65
+ambition = 0.7
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.55
+social = 0.55
+[agents.allegiances]
+workers = 0.6
+youth = 0.5
+[agents.popularity]
+workers = 0.6
+youth = 0.65
+enviro = 0.4
+
+[[agents]]
+id = "rp_c3"
+name = "Jae-won Lim"
+party_id = "labor"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.55
+ambition = 0.4
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.7
+social = 0.35
+[agents.allegiances]
+workers = 0.75
+[agents.popularity]
+workers = 0.68
+business = 0.2
+
+[[agents]]
+id = "rp_c4"
+name = "Sandra Bretz"
+party_id = "civic"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.75
+ambition = 0.55
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.15
+social = 0.25
+[agents.allegiances]
+business = 0.5
+workers = 0.4
+[agents.popularity]
+business = 0.55
+workers = 0.5
+youth = 0.45
+
+[[agents]]
+id = "rp_c5"
+name = "Omar Fenton"
+party_id = "civic"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.7
+ambition = 0.45
+archetype = "LOYALIST"
+[agents.ideology]
+economic = -0.05
+social = 0.15
+[agents.allegiances]
+business = 0.55
+youth = 0.35
+[agents.popularity]
+business = 0.6
+youth = 0.4
+
+[[agents]]
+id = "rp_c6"
+name = "Vivian Schroeder"
+party_id = "reform"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.8
+ambition = 0.65
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = 0.6
+social = -0.25
+[agents.allegiances]
+business = 0.8
+[agents.popularity]
+business = 0.7
+workers = 0.2
+
+[[agents]]
+id = "rp_c7"
+name = "Douglas Ashby"
+party_id = "reform"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.72
+ambition = 0.6
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.7
+social = -0.4
+[agents.allegiances]
+business = 0.75
+farmers = 0.3
+[agents.popularity]
+business = 0.65
+farmers = 0.35
+
+[[agents]]
+id = "rp_c8"
+name = "Nadia Ferretti"
+party_id = "green"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.88
+ambition = 0.75
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.45
+social = 0.8
+[agents.allegiances]
+enviro = 0.9
+youth = 0.7
+[agents.popularity]
+enviro = 0.78
+youth = 0.72
+workers = 0.3
+
+[[agents]]
+id = "rp_c9"
+name = "Kwame Asante"
+party_id = "green"
+place_id = "riverport"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.7
+ambition = 0.65
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.35
+social = 0.75
+[agents.allegiances]
+enviro = 0.8
+youth = 0.6
+[agents.popularity]
+enviro = 0.7
+youth = 0.65
+
+[[agents]]
+id = "mh_mayor"
+name = "Roland Specter"
+party_id = "reform"
+place_id = "millhaven"
+office = "MAYOR"
+party_role = "LEADER"
+party_standing = 0.8
+ambition = 0.6
+archetype = "LOYALIST"
+detail_level = "L0"
+[agents.ideology]
+economic = 0.55
+social = -0.35
+[agents.allegiances]
+business = 0.75
+farmers = 0.7
+[agents.popularity]
+business = 0.72
+farmers = 0.68
+workers = 0.25
+youth = 0.3
+
+[[agents]]
+id = "mh_c1"
+name = "Cecilia Holt"
+party_id = "reform"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.85
+ambition = 0.5
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.6
+social = -0.3
+[agents.allegiances]
+business = 0.7
+farmers = 0.6
+[agents.popularity]
+business = 0.65
+farmers = 0.62
+
+[[agents]]
+id = "mh_c2"
+name = "Walter Gruber"
+party_id = "reform"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.7
+ambition = 0.55
+archetype = "POPULIST"
+[agents.ideology]
+economic = 0.5
+social = -0.2
+[agents.allegiances]
+farmers = 0.75
+business = 0.5
+[agents.popularity]
+farmers = 0.7
+business = 0.55
+
+[[agents]]
+id = "mh_c3"
+name = "Ines Carvalho"
+party_id = "civic"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.75
+ambition = 0.6
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.1
+social = 0.2
+[agents.allegiances]
+farmers = 0.5
+workers = 0.45
+[agents.popularity]
+farmers = 0.55
+workers = 0.5
+youth = 0.4
+
+[[agents]]
+id = "mh_c4"
+name = "Thomas Peel"
+party_id = "civic"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.65
+ambition = 0.45
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.05
+social = 0.1
+[agents.allegiances]
+business = 0.45
+farmers = 0.45
+[agents.popularity]
+business = 0.5
+farmers = 0.48
+
+[[agents]]
+id = "mh_c5"
+name = "Abena Darko"
+party_id = "labor"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.72
+ambition = 0.65
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.6
+social = 0.45
+[agents.allegiances]
+workers = 0.8
+youth = 0.4
+[agents.popularity]
+workers = 0.65
+youth = 0.5
+
+[[agents]]
+id = "mh_c6"
+name = "Luca Marchetti"
+party_id = "labor"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.6
+ambition = 0.5
+archetype = "LOYALIST"
+[agents.ideology]
+economic = -0.5
+social = 0.3
+[agents.allegiances]
+workers = 0.65
+farmers = 0.35
+[agents.popularity]
+workers = 0.6
+farmers = 0.4
+
+[[agents]]
+id = "mh_c7"
+name = "Simone Beaumont"
+party_id = "green"
+place_id = "millhaven"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.8
+ambition = 0.7
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.4
+social = 0.7
+[agents.allegiances]
+enviro = 0.85
+youth = 0.65
+farmers = 0.3
+[agents.popularity]
+enviro = 0.72
+youth = 0.68
+farmers = 0.35
+
+[[agents]]
+id = "sc_mayor"
+name = "Yuki Tanomura"
+party_id = "green"
+place_id = "seaside"
+office = "MAYOR"
+party_role = "LEADER"
+party_standing = 0.9
+ambition = 0.65
+archetype = "IDEOLOGUE"
+detail_level = "L0"
+[agents.ideology]
+economic = -0.35
+social = 0.85
+[agents.allegiances]
+enviro = 0.9
+youth = 0.75
+[agents.popularity]
+enviro = 0.82
+youth = 0.78
+business = 0.35
+workers = 0.25
+
+[[agents]]
+id = "sc_c1"
+name = "Felix Oduya"
+party_id = "green"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.85
+ambition = 0.55
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.45
+social = 0.8
+[agents.allegiances]
+enviro = 0.85
+youth = 0.65
+[agents.popularity]
+enviro = 0.78
+youth = 0.72
+
+[[agents]]
+id = "sc_c2"
+name = "Priya Sundaram"
+party_id = "green"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.75
+ambition = 0.6
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.3
+social = 0.75
+[agents.allegiances]
+enviro = 0.8
+youth = 0.7
+[agents.popularity]
+enviro = 0.72
+youth = 0.7
+business = 0.3
+
+[[agents]]
+id = "sc_c3"
+name = "Miles Corrigan"
+party_id = "civic"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.78
+ambition = 0.55
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.05
+social = 0.3
+[agents.allegiances]
+business = 0.5
+youth = 0.45
+[agents.popularity]
+business = 0.6
+youth = 0.55
+enviro = 0.4
+
+[[agents]]
+id = "sc_c4"
+name = "Rashida Osei"
+party_id = "civic"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.7
+ambition = 0.5
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.1
+social = 0.2
+[agents.allegiances]
+business = 0.6
+youth = 0.35
+[agents.popularity]
+business = 0.65
+youth = 0.45
+
+[[agents]]
+id = "sc_c5"
+name = "Henrik Strand"
+party_id = "reform"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.75
+ambition = 0.7
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = 0.65
+social = -0.15
+[agents.allegiances]
+business = 0.8
+[agents.popularity]
+business = 0.75
+youth = 0.3
+workers = 0.2
+
+[[agents]]
+id = "sc_c6"
+name = "Amara Nwosu"
+party_id = "reform"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.65
+ambition = 0.55
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.55
+social = -0.1
+[agents.allegiances]
+business = 0.7
+youth = 0.25
+[agents.popularity]
+business = 0.65
+youth = 0.35
+
+[[agents]]
+id = "sc_c7"
+name = "Theo Brandt"
+party_id = "labor"
+place_id = "seaside"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.65
+ambition = 0.6
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.55
+social = 0.5
+[agents.allegiances]
+workers = 0.75
+youth = 0.5
+[agents.popularity]
+workers = 0.6
+youth = 0.55
+enviro = 0.35

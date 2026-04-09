@@ -1,0 +1,38 @@
+[[governments]]
+place_id = "riverport"
+[governments.executive]
+office_type = "MAYOR"
+holder_id = "rp_mayor"
+[governments.legislature]
+seat_type = "COUNCILPERSON"
+total_seats = 9
+member_ids = ["rp_c1", "rp_c2", "rp_c3", "rp_c4", "rp_c5", "rp_c6", "rp_c7", "rp_c8", "rp_c9"]
+[governments.attributes]
+election_interval = 5
+last_election_turn = 0
+
+[[governments]]
+place_id = "millhaven"
+[governments.executive]
+office_type = "MAYOR"
+holder_id = "mh_mayor"
+[governments.legislature]
+seat_type = "COUNCILPERSON"
+total_seats = 7
+member_ids = ["mh_c1", "mh_c2", "mh_c3", "mh_c4", "mh_c5", "mh_c6", "mh_c7"]
+[governments.attributes]
+election_interval = 5
+last_election_turn = 0
+
+[[governments]]
+place_id = "seaside"
+[governments.executive]
+office_type = "MAYOR"
+holder_id = "sc_mayor"
+[governments.legislature]
+seat_type = "COUNCILPERSON"
+total_seats = 7
+member_ids = ["sc_c1", "sc_c2", "sc_c3", "sc_c4", "sc_c5", "sc_c6", "sc_c7"]
+[governments.attributes]
+election_interval = 5
+last_election_turn = 0

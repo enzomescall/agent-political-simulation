@@ -1,0 +1,28 @@
+# Explicit governments - these define the structure that generated agents fill into
+
+# Federal government - explicit president, congress will be generated
+[[governments]]
+place_id = "federal"
+[governments.executive]
+office_type = "PRESIDENT"
+holder_id = "fed_president"
+[governments.legislature]
+seat_type = "CONGRESSPERSON"
+total_seats = 12
+# member_ids will be filled by generation
+[governments.attributes]
+election_interval = 5
+last_election_turn = 0
+
+# State 1 government - explicit governor, assembly will be generated
+[[governments]]
+place_id = "state_1"
+[governments.executive]
+office_type = "GOVERNOR"
+holder_id = "state1_gov"
+[governments.legislature]
+seat_type = "STATE_ASSEMBLYPERSON"
+total_seats = 9
+[governments.attributes]
+election_interval = 5
+last_election_turn = 0

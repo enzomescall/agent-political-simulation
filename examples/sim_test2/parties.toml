@@ -1,0 +1,58 @@
+[[parties]]
+id = "labor"
+name = "Labor Front"
+directive_threshold = -0.25
+campaign_budget = 8
+nomination_threshold = 0.25
+leadership_interval = 10
+[parties.ideology]
+economic = -0.75
+social = 0.5
+[parties.base_constituency]
+workers = 0.85
+youth = 0.45
+farmers = 0.3
+
+[[parties]]
+id = "civic"
+name = "Civic Democrats"
+directive_threshold = -0.1
+campaign_budget = 8
+nomination_threshold = 0.25
+leadership_interval = 10
+[parties.ideology]
+economic = -0.1
+social = 0.2
+[parties.base_constituency]
+workers = 0.4
+business = 0.45
+youth = 0.4
+farmers = 0.35
+
+[[parties]]
+id = "reform"
+name = "Reform Alliance"
+directive_threshold = -0.2
+campaign_budget = 8
+nomination_threshold = 0.25
+leadership_interval = 10
+[parties.ideology]
+economic = 0.65
+social = -0.3
+[parties.base_constituency]
+business = 0.8
+farmers = 0.55
+
+[[parties]]
+id = "green"
+name = "Green Future"
+directive_threshold = -0.15
+campaign_budget = 6
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = -0.4
+social = 0.8
+[parties.base_constituency]
+enviro = 0.9
+youth = 0.7

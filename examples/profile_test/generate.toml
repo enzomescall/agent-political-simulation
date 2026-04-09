@@ -1,0 +1,17 @@
+# Profile-based generation: "federated"
+# This generates a complete federal structure:
+# Federal (President + Congress) -> 3 States (Governor + Assembly) -> 3 municipalities per state
+
+# Use the federated profile for quick setup
+profile = "federated"
+
+# Customize the structure
+num_states = 3
+municipalities_per_state = 3
+federal_legislature_seats = 12
+state_legislature_seats = 7
+municipal_legislature_seats = 5
+election_interval = 5
+
+# Random seed for reproducibility
+seed = 12345
