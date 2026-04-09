@@ -2,6 +2,89 @@
 
 A turn-based political simulation of a fictional federal democracy. The player is always a politician, starting at a low office and navigating upward through elections, coalition-building, and political consequence. The world simulates around them whether they act or not.
 
+## **CLI Usage**
+
+The main entrypoint is [`sim_test.py`](/home/enzo/Documents/Code/agent-political-simulation/sim_test.py). It can either load a world from config or generate one from parameters, then run the simulation.
+
+### **Load From Config**
+
+You can point the CLI at either:
+
+* A single `.json` or `.toml` file containing the full world spec
+* A config directory containing some or all of:
+  * `world.json` or `world.toml`
+  * `interest_groups.json` or `interest_groups.toml`
+  * `parties.json` or `parties.toml`
+  * `places.json` or `places.toml`
+  * `agents.json` or `agents.toml`
+  * `governments.json` or `governments.toml`
+
+Examples:
+
+```bash
+python sim_test.py from-config --config examples/world.json
+python sim_test.py from-config --config examples/demo_world --turns 25 --seed 7 --debug
+```
+
+### **Generate A World**
+
+Two built-in generation profiles are supported:
+
+* `local`: one municipality with a mayor and council
+* `federated`: one federal government, multiple states, and multiple municipalities per state
+
+Examples:
+
+```bash
+python sim_test.py generate --profile local --num-parties 3 --num-interest-groups 3 --council-seats 5
+python sim_test.py generate --profile federated --num-states 3 --municipalities-per-state 4 --num-parties 4 --num-interest-groups 3
+```
+
+### **Common Options**
+
+These options work with both `from-config` and `generate`:
+
+* `--turns N`: number of turns to simulate, default `10`
+* `--seed N`: random seed for generation and simulation, default `42`
+* `--debug`: writes verbose simulation logs to `simulation.log`
+* `--summary short|full`: controls how much state is printed before and after the run
+
+### **Profile Parameters**
+
+`local` supports:
+
+* `--num-parties`
+* `--num-interest-groups`
+* `--council-seats`
+* `--party-election-interval`
+* `--election-interval`
+
+`federated` supports:
+
+* `--num-states`
+* `--municipalities-per-state`
+* `--num-parties`
+* `--num-interest-groups`
+* `--federal-legislature-seats`
+* `--state-legislature-seats`
+* `--municipal-legislature-seats`
+* `--party-election-interval`
+* `--election-interval`
+
+### **Config Shape**
+
+Config files are ID-based on disk and linked into object references in memory.
+
+Supported sections:
+
+* `interest_groups`: `id`, `name`, `fears`
+* `parties`: `id`, `name`, ideology values, explicit party settings, `base_constituency`
+* `places`: `id`, `name`, `tier`, optional `parent_id`, `interest_group_presence`
+* `agents`: `id`, `name`, `party_id`, `place_id`, ideology, office/role/archetype/detail level, allegiances, popularity, relationships
+* `governments`: `place_id`, executive office, optional legislature, election attributes
+
+Enums should be written as uppercase names such as `MUNICIPALITY`, `LOYALIST`, and `COUNCILPERSON`.
+
 ## **The Country**
 
 A compressed federal republic with three tiers of government:
@@ -78,4 +161,3 @@ The simulation tracks three consequence dimensions:
 * **Party standing**: a continuous score that opens or closes internal party paths. Expulsion is possible and survivable but costly.
 
 Upward mobility emerges from these three systems rather than being a fixed progression.
-
