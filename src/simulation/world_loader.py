@@ -40,18 +40,69 @@ _SECTION_FILES = (
 
 # Name pools for procedural generation
 _FIRST_NAMES = [
-    "Aaron", "Beatrice", "Carlos", "Diana", "Ethan", "Fatima", "George",
-    "Helena", "Ivan", "Julia", "Kevin", "Leila", "Marco", "Naomi", "Oscar",
-    "Paula", "Quinn", "Rosa", "Samuel", "Tina", "Ulrich", "Vera", "Walter",
-    "Xena", "Yusuf", "Zara", "Alicia", "Brendan", "Chloe", "Derek",
+    "Aaron",
+    "Beatrice",
+    "Carlos",
+    "Diana",
+    "Ethan",
+    "Fatima",
+    "George",
+    "Helena",
+    "Ivan",
+    "Julia",
+    "Kevin",
+    "Leila",
+    "Marco",
+    "Naomi",
+    "Oscar",
+    "Paula",
+    "Quinn",
+    "Rosa",
+    "Samuel",
+    "Tina",
+    "Ulrich",
+    "Vera",
+    "Walter",
+    "Xena",
+    "Yusuf",
+    "Zara",
+    "Alicia",
+    "Brendan",
+    "Chloe",
+    "Derek",
 ]
 
 _LAST_NAMES = [
-    "Adeyemi", "Bauer", "Chen", "Dalton", "Eriksen", "Flores", "Grant",
-    "Huang", "Ibrahim", "Jensen", "Kim", "Laurent", "Mercer", "Navarro",
-    "Osei", "Park", "Quinn", "Reyes", "Santos", "Thornton", "Ueda",
-    "Vargas", "Walsh", "Xu", "Yilmaz", "Ziegler", "Amara", "Brooks",
-    "Castillo", "Donovan",
+    "Adeyemi",
+    "Bauer",
+    "Chen",
+    "Dalton",
+    "Eriksen",
+    "Flores",
+    "Grant",
+    "Huang",
+    "Ibrahim",
+    "Jensen",
+    "Kim",
+    "Laurent",
+    "Mercer",
+    "Navarro",
+    "Osei",
+    "Park",
+    "Quinn",
+    "Reyes",
+    "Santos",
+    "Thornton",
+    "Ueda",
+    "Vargas",
+    "Walsh",
+    "Xu",
+    "Yilmaz",
+    "Ziegler",
+    "Amara",
+    "Brooks",
+    "Castillo",
+    "Donovan",
 ]
 
 _used_names: set[str] = set()
@@ -92,7 +143,7 @@ def load_world_from_directory(path: Path) -> World:
             continue
         raw = _load_data_file(section_path)
         sections[section] = _extract_section_payload(raw, section)
-    
+
     # Also check for generate section in any TOML file
     generate_path = path / "generate.toml"
     if generate_path.exists():
@@ -109,7 +160,11 @@ def load_world_from_directory(path: Path) -> World:
 
 
 def _find_section_file(path: Path, section: str) -> Path | None:
-    matches = [candidate for candidate in (path / f"{section}.json", path / f"{section}.toml") if candidate.exists()]
+    matches = [
+        candidate
+        for candidate in (path / f"{section}.json", path / f"{section}.toml")
+        if candidate.exists()
+    ]
     if len(matches) > 1:
         raise ValueError(f"Multiple config files found for '{section}' in {path}")
     return matches[0] if matches else None
@@ -149,27 +204,33 @@ def _parse_enum(enum_cls, value: str | None, context: str):
         return enum_cls[str(value).upper()]
     except KeyError as exc:
         allowed = ", ".join(member.name for member in enum_cls)
-        raise ValueError(f"Invalid value '{value}' for {context}; expected one of: {allowed}") from exc
+        raise ValueError(
+            f"Invalid value '{value}' for {context}; expected one of: {allowed}"
+        ) from exc
 
 
 def _parse_ideology(raw: dict[str, Any]) -> Ideology:
     ideology_raw = raw.get("ideology")
     if ideology_raw is None:
         ideology_raw = {
-            key: value
-            for key, value in raw.items()
-            if key in {"economic", "social"}
+            key: value for key, value in raw.items() if key in {"economic", "social"}
         }
     if not isinstance(ideology_raw, dict):
         raise ValueError(f"Invalid ideology payload: {ideology_raw!r}")
-    return Ideology(axes={str(axis): float(value) for axis, value in ideology_raw.items()})
+    return Ideology(
+        axes={str(axis): float(value) for axis, value in ideology_raw.items()}
+    )
 
 
-def _require_reference(mapping: dict[str, Any], ref_id: str, section: str, field: str, owner: str) -> Any:
+def _require_reference(
+    mapping: dict[str, Any], ref_id: str, section: str, field: str, owner: str
+) -> Any:
     try:
         return mapping[ref_id]
     except KeyError as exc:
-        raise ValueError(f"Unknown {field} '{ref_id}' in {section} entry '{owner}'") from exc
+        raise ValueError(
+            f"Unknown {field} '{ref_id}' in {section} entry '{owner}'"
+        ) from exc
 
 
 def _resolve_weighted_map(
@@ -181,14 +242,16 @@ def _resolve_weighted_map(
 ) -> dict[Any, float]:
     result: dict[Any, float] = {}
     for ref_id, value in (raw_map or {}).items():
-        result[_require_reference(mapping, ref_id, section, field, owner)] = float(value)
+        result[_require_reference(mapping, ref_id, section, field, owner)] = float(
+            value
+        )
     return result
 
 
 def _build_world_from_sections(sections: dict[str, Any]) -> World:
     global _used_names
     _used_names = set()
-    
+
     world_data = sections.get("world") or {}
     if not isinstance(world_data, dict):
         raise ValueError("Section 'world' must be an object")
@@ -201,7 +264,9 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
         world.player_id = AgentId(str(world_data["player_id"]))
 
     groups_by_id: dict[str, InterestGroup] = {}
-    raw_interest_groups = _ensure_list(sections.get("interest_groups"), "interest_groups")
+    raw_interest_groups = _ensure_list(
+        sections.get("interest_groups"), "interest_groups"
+    )
     for entry in raw_interest_groups:
         group = InterestGroup(
             id=InterestGroupId(str(entry["id"])),
@@ -226,7 +291,11 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
             leadership_interval=int(entry.get("leadership_interval", 20)),
             last_leadership_turn=int(entry.get("last_leadership_turn", 0)),
             base_constituency=_resolve_weighted_map(
-                entry.get("base_constituency"), groups_by_id, "parties", "interest_group", party_id,
+                entry.get("base_constituency"),
+                groups_by_id,
+                "parties",
+                "interest_group",
+                party_id,
             ),
         )
         world.add_party(party)
@@ -249,9 +318,15 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
         place = places_by_id[place_id]
         parent_id = entry.get("parent_id")
         if parent_id is not None:
-            place.parent = _require_reference(places_by_id, str(parent_id), "places", "parent_id", place_id)
+            place.parent = _require_reference(
+                places_by_id, str(parent_id), "places", "parent_id", place_id
+            )
         place.interest_group_presence = _resolve_weighted_map(
-            entry.get("interest_group_presence"), groups_by_id, "places", "interest_group_presence", place_id,
+            entry.get("interest_group_presence"),
+            groups_by_id,
+            "places",
+            "interest_group_presence",
+            place_id,
         )
         world.add_place(place)
 
@@ -260,8 +335,12 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
     raw_agents = _ensure_list(sections.get("agents"), "agents")
     for entry in raw_agents:
         agent_id = str(entry["id"])
-        party = _require_reference(parties_by_id, str(entry["party_id"]), "agents", "party_id", agent_id)
-        place = _require_reference(places_by_id, str(entry["place_id"]), "agents", "place_id", agent_id)
+        party = _require_reference(
+            parties_by_id, str(entry["party_id"]), "agents", "party_id", agent_id
+        )
+        place = _require_reference(
+            places_by_id, str(entry["place_id"]), "agents", "place_id", agent_id
+        )
         office = entry.get("office")
         agent = Agent(
             id=AgentId(agent_id),
@@ -269,19 +348,39 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
             ideology=_parse_ideology(entry),
             party=party,
             place=place,
-            office=_parse_enum(OfficeType, office, f"agent '{agent_id}' office") if office else None,
-            party_role=_parse_enum(PartyRole, entry.get("party_role", "MEMBER"), f"agent '{agent_id}' party_role"),
+            office=_parse_enum(OfficeType, office, f"agent '{agent_id}' office")
+            if office
+            else None,
+            party_role=_parse_enum(
+                PartyRole,
+                entry.get("party_role", "MEMBER"),
+                f"agent '{agent_id}' party_role",
+            ),
             allegiances=_resolve_weighted_map(
-                entry.get("allegiances"), groups_by_id, "agents", "allegiances", agent_id,
+                entry.get("allegiances"),
+                groups_by_id,
+                "agents",
+                "allegiances",
+                agent_id,
             ),
             popularity=_resolve_weighted_map(
-                entry.get("popularity"), groups_by_id, "agents", "popularity", agent_id,
+                entry.get("popularity"),
+                groups_by_id,
+                "agents",
+                "popularity",
+                agent_id,
             ),
             party_standing=float(entry.get("party_standing", 0.5)),
             ambition=float(entry.get("ambition", 0.5)),
-            archetype=_parse_enum(Archetype, entry.get("archetype", "LOYALIST"), f"agent '{agent_id}' archetype"),
+            archetype=_parse_enum(
+                Archetype,
+                entry.get("archetype", "LOYALIST"),
+                f"agent '{agent_id}' archetype",
+            ),
             detail_level=_parse_enum(
-                DetailLevel, entry.get("detail_level", "L3"), f"agent '{agent_id}' detail_level",
+                DetailLevel,
+                entry.get("detail_level", "L3"),
+                f"agent '{agent_id}' detail_level",
             ),
             attributes=dict(entry.get("attributes", {})),
         )
@@ -293,17 +392,29 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
         agent_id = str(entry["id"])
         agent = agents_by_id[agent_id]
         agent.relationships = _resolve_weighted_map(
-            entry.get("relationships"), agents_by_id, "agents", "relationships", agent_id,
+            entry.get("relationships"),
+            agents_by_id,
+            "agents",
+            "relationships",
+            agent_id,
         )
 
     for entry in raw_interest_groups:
         group_id = str(entry["id"])
         group = groups_by_id[group_id]
         group.satisfaction = _resolve_weighted_map(
-            entry.get("satisfaction"), places_by_id, "interest_groups", "satisfaction", group_id,
+            entry.get("satisfaction"),
+            places_by_id,
+            "interest_groups",
+            "satisfaction",
+            group_id,
         )
         group.electorate_share = _resolve_weighted_map(
-            entry.get("electorate_share"), places_by_id, "interest_groups", "electorate_share", group_id,
+            entry.get("electorate_share"),
+            places_by_id,
+            "interest_groups",
+            "electorate_share",
+            group_id,
         )
 
     # Handle procedural generation BEFORE loading explicit governments
@@ -328,17 +439,27 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
     raw_governments = _ensure_list(sections.get("governments"), "governments")
     for entry in raw_governments:
         place_id = str(entry["place_id"])
-        place = _require_reference(places_by_id, place_id, "governments", "place_id", place_id)
+        place = _require_reference(
+            places_by_id, place_id, "governments", "place_id", place_id
+        )
         executive_raw = entry.get("executive")
         if not isinstance(executive_raw, dict):
             raise ValueError(f"Government '{place_id}' is missing an executive object")
         executive_holder = None
         if executive_raw.get("holder_id") is not None:
             executive_holder = _require_reference(
-                agents_by_id, str(executive_raw["holder_id"]), "governments", "executive.holder_id", place_id,
+                agents_by_id,
+                str(executive_raw["holder_id"]),
+                "governments",
+                "executive.holder_id",
+                place_id,
             )
         executive = Office(
-            office_type=_parse_enum(OfficeType, executive_raw.get("office_type"), f"government '{place_id}' executive"),
+            office_type=_parse_enum(
+                OfficeType,
+                executive_raw.get("office_type"),
+                f"government '{place_id}' executive",
+            ),
             place=place,
             holder=executive_holder,
             attributes=dict(executive_raw.get("attributes", {})),
@@ -348,24 +469,38 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
         legislature_raw = entry.get("legislature")
         if legislature_raw is not None:
             if not isinstance(legislature_raw, dict):
-                raise ValueError(f"Government '{place_id}' legislature must be an object")
+                raise ValueError(
+                    f"Government '{place_id}' legislature must be an object"
+                )
             # Try to get explicit members, but also include generated ones
             explicit_member_ids = legislature_raw.get("member_ids", [])
             members = [
-                _require_reference(agents_by_id, str(member_id), "governments", "legislature.member_ids", place_id)
+                _require_reference(
+                    agents_by_id,
+                    str(member_id),
+                    "governments",
+                    "legislature.member_ids",
+                    place_id,
+                )
                 for member_id in explicit_member_ids
             ]
             # Add generated agents for this place if not explicitly listed
             if not explicit_member_ids and generated_agents:
-                seat_type = _parse_enum(OfficeType, legislature_raw.get("seat_type"), f"government '{place_id}' legislature seat_type")
+                seat_type = _parse_enum(
+                    OfficeType,
+                    legislature_raw.get("seat_type"),
+                    f"government '{place_id}' legislature seat_type",
+                )
                 for agent in generated_agents:
                     if agent.place == place and agent.office == seat_type:
                         members.append(agent)
-            
+
             legislature = Legislature(
                 place=place,
                 seat_type=_parse_enum(
-                    OfficeType, legislature_raw.get("seat_type"), f"government '{place_id}' legislature seat_type",
+                    OfficeType,
+                    legislature_raw.get("seat_type"),
+                    f"government '{place_id}' legislature seat_type",
                 ),
                 total_seats=int(legislature_raw.get("total_seats", len(members))),
                 members=members,
@@ -377,24 +512,34 @@ def _build_world_from_sections(sections: dict[str, Any]) -> World:
             holder = None
             if office_raw.get("holder_id") is not None:
                 holder = _require_reference(
-                    agents_by_id, str(office_raw["holder_id"]), "governments", "cabinet.holder_id", place_id,
+                    agents_by_id,
+                    str(office_raw["holder_id"]),
+                    "governments",
+                    "cabinet.holder_id",
+                    place_id,
                 )
-            cabinet.append(Office(
-                office_type=_parse_enum(
-                    OfficeType, office_raw.get("office_type"), f"government '{place_id}' cabinet office_type",
-                ),
-                place=place,
-                holder=holder,
-                attributes=dict(office_raw.get("attributes", {})),
-            ))
+            cabinet.append(
+                Office(
+                    office_type=_parse_enum(
+                        OfficeType,
+                        office_raw.get("office_type"),
+                        f"government '{place_id}' cabinet office_type",
+                    ),
+                    place=place,
+                    holder=holder,
+                    attributes=dict(office_raw.get("attributes", {})),
+                )
+            )
 
-        world.add_government(Government(
-            place=place,
-            executive=executive,
-            cabinet=cabinet,
-            legislature=legislature,
-            attributes=dict(entry.get("attributes", {})),
-        ))
+        world.add_government(
+            Government(
+                place=place,
+                executive=executive,
+                cabinet=cabinet,
+                legislature=legislature,
+                attributes=dict(entry.get("attributes", {})),
+            )
+        )
 
     if world.player_id is not None and str(world.player_id) not in agents_by_id:
         raise ValueError(f"Unknown player_id '{world.player_id}' in world section")
@@ -415,6 +560,7 @@ def _ensure_list(value: Any, section: str) -> list[dict[str, Any]]:
 # Procedural Generation Functions
 # ---------------------------------------------------------------------------
 
+
 def _random_name(rng: _random.Random) -> str:
     """Generate a random name, avoiding duplicates."""
     global _used_names
@@ -426,10 +572,30 @@ def _random_name(rng: _random.Random) -> str:
     return f"Politician {len(_used_names)}"
 
 
+def _nearest_party(
+    econ: float, soc: float, parties: list[Party], rng: _random.Random
+) -> Party:
+    """Pick the nearest party based on ideology distance, with some jitter."""
+    jitter = 0.15
+    best_party = None
+    best_distance = float("inf")
+
+    for party in parties:
+        dist = (
+            (econ - party.ideology["economic"]) ** 2
+            + (soc - party.ideology["social"]) ** 2
+        ) ** 0.5
+        if dist < best_distance:
+            best_distance = dist
+            best_party = party
+
+    return best_party if best_party else rng.choice(parties)
+
+
 def _generate_agent(
     place: Place,
     office: OfficeType | None,
-    party: Party,
+    parties: list[Party],
     groups: list[InterestGroup],
     rng: _random.Random,
     detail_level: DetailLevel = DetailLevel.L1,
@@ -438,32 +604,42 @@ def _generate_agent(
     soc_override: float | None = None,
     name: str | None = None,
 ) -> Agent:
-    """Generate an agent ideologically near their party with some noise.
-    
-    Mirrors the _make_agent function from sim_test3.py.
+    """Generate an agent with random ideology across the political compass.
+
+    Agents are randomly distributed across the full ideological space (-1 to 1),
+    then assigned to the nearest party with some jitter.
     """
-    # Ideology: close to party's but with noise
-    econ = (econ_override if econ_override is not None
-            else max(-1.0, min(1.0, party.ideology["economic"] + rng.uniform(-0.25, 0.25))))
-    soc = (soc_override if soc_override is not None
-           else max(-1.0, min(1.0, party.ideology["social"] + rng.uniform(-0.25, 0.25))))
-    
+    # Ideology: random across full compass, then find nearest party
+    if econ_override is not None and soc_override is not None:
+        econ, soc = econ_override, soc_override
+    else:
+        econ = rng.uniform(-1.0, 1.0)
+        soc = rng.uniform(-1.0, 1.0)
+
+    # Add jitter, then find nearest party
+    jitter_econ = rng.uniform(-0.15, 0.15)
+    jitter_soc = rng.uniform(-0.15, 0.15)
+    party = _nearest_party(econ + jitter_econ, soc + jitter_soc, parties, rng)
+
     if name is None:
         name = _random_name(rng)
-    
-    # Allegiances: favour IGs that overlap between place presence and party constituency
+
+    # Use the assigned party's base constituency for allegiances
     allegiances: dict[InterestGroup, float] = {}
-    for ig, share in place.interest_group_presence.items():
-        affinity = party.base_constituency.get(ig, 0.0)
-        base = affinity * 0.6 + share * 0.2
-        allegiances[ig] = max(0.0, min(1.0, base + rng.uniform(-0.1, 0.1)))
-    
-    # Popularity: correlated with allegiances + some noise
+    for ig in groups:
+        if ig in place.interest_group_presence:
+            share = place.interest_group_presence[ig]
+            affinity = party.base_constituency.get(ig, 0.0)
+            base = affinity * 0.6 + share * 0.2
+            allegiances[ig] = max(0.0, min(1.0, base + rng.uniform(-0.1, 0.1)))
+
+    # Popularity: correlated with allegiances + noise
     popularity: dict[InterestGroup, float] = {}
-    for ig in place.interest_group_presence:
-        base = allegiances.get(ig, 0.0) * 0.7 + rng.uniform(0.0, 0.3)
-        popularity[ig] = max(0.0, min(1.0, base))
-    
+    for ig in groups:
+        if ig in place.interest_group_presence:
+            base = allegiances.get(ig, 0.0) * 0.7 + rng.uniform(0.0, 0.3)
+            popularity[ig] = max(0.0, min(1.0, base))
+
     return Agent(
         id=AgentId(f"{place.id}_gen_{rng.randint(10000, 99999)}"),
         name=name,
@@ -502,53 +678,58 @@ def _generate_agents_from_config(
     agents_by_id: dict[str, Agent],
 ) -> list[Agent]:
     """Generate agents based on the [generate] section configuration."""
-    
+
     generated_agents: list[Agent] = []
     rng = _random.Random(config.get("seed", 42))
-    
+
     parties = list(parties_by_id.values())
     groups = list(groups_by_id.values())
-    
+
     # Check for profile-based generation
     profile = config.get("profile")
     if profile:
-        generated_agents.extend(_generate_from_profile(
-            world=world,
-            profile=profile,
-            config=config,
-            parties=parties,
-            groups=groups,
-            places_by_id=places_by_id,
-            rng=rng,
-        ))
+        generated_agents.extend(
+            _generate_from_profile(
+                world=world,
+                profile=profile,
+                config=config,
+                parties=parties,
+                groups=groups,
+                places_by_id=places_by_id,
+                rng=rng,
+            )
+        )
         return generated_agents
-    
+
     # Handle explicit structure configuration
     # Federal level
     federal_config = config.get("federal", {})
     if federal_config:
-        federal_places = [p for p in places_by_id.values() if p.tier == PlaceTier.FEDERAL]
+        federal_places = [
+            p for p in places_by_id.values() if p.tier == PlaceTier.FEDERAL
+        ]
         if federal_places:
             federal_place = federal_places[0]
             num_congress = federal_config.get("num_congress", 0)
             if num_congress > 0:
-                generated_agents.extend(_generate_legislative_seats(
-                    place=federal_place,
-                    office_type=OfficeType.CONGRESSPERSON,
-                    num_seats=num_congress,
-                    parties=parties,
-                    groups=groups,
-                    rng=rng,
-                    election_interval=federal_config.get("election_interval", 5),
-                ))
-            
+                generated_agents.extend(
+                    _generate_legislative_seats(
+                        place=federal_place,
+                        office_type=OfficeType.CONGRESSPERSON,
+                        num_seats=num_congress,
+                        parties=parties,
+                        groups=groups,
+                        rng=rng,
+                        election_interval=federal_config.get("election_interval", 5),
+                    )
+                )
+
             # Generate President if not already defined
             if not any(a.office == OfficeType.PRESIDENT for a in agents_by_id.values()):
-                president_party = _party_for_place(federal_place, parties, rng)
                 pres = _generate_agent(
                     place=federal_place,
                     office=OfficeType.PRESIDENT,
-                    party=president_party,
+                    parties=parties,
                     groups=groups,
                     rng=rng,
                     detail_level=DetailLevel.L0,
@@ -556,7 +737,7 @@ def _generate_agents_from_config(
                 )
                 generated_agents.append(pres)
                 world.add_politician(pres)
-    
+
     # State level
     state_configs = config.get("states", [])
     if isinstance(state_configs, list):
@@ -564,19 +745,22 @@ def _generate_agents_from_config(
             state_id = state_cfg.get("state_id")
             if state_id and state_id in places_by_id:
                 place = places_by_id[state_id]
-                
+
                 # Governor
-                if not any(a.place == place and a.office == OfficeType.GOVERNOR for a in list(agents_by_id.values()) + generated_agents):
+                if not any(
+                    a.place == place and a.office == OfficeType.GOVERNOR
+                    for a in list(agents_by_id.values()) + generated_agents
+                ):
                     gov_party_id = state_cfg.get("governor_party")
                     if gov_party_id and gov_party_id in parties_by_id:
                         gov_party = parties_by_id[gov_party_id]
                     else:
                         gov_party = _party_for_place(place, parties, rng)
-                    
+
                     gov = _generate_agent(
                         place=place,
                         office=OfficeType.GOVERNOR,
-                        party=gov_party,
+                        parties=parties,
                         groups=groups,
                         rng=rng,
                         detail_level=DetailLevel.L0,
@@ -584,7 +768,7 @@ def _generate_agents_from_config(
                     )
                     generated_agents.append(gov)
                     world.add_politician(gov)
-                
+
                 # State assembly
                 assembly_seats = state_cfg.get("assembly_seats", 0)
                 if assembly_seats > 0:
@@ -601,7 +785,7 @@ def _generate_agents_from_config(
                     generated_agents.extend(assembly_agents)
                     for a in assembly_agents:
                         world.add_politician(a)
-    
+
     # City/municipality level
     city_configs = config.get("cities", [])
     if isinstance(city_configs, list):
@@ -610,22 +794,24 @@ def _generate_agents_from_config(
             if city_id and city_id in places_by_id:
                 place = places_by_id[city_id]
                 council_seats = city_cfg.get("council_seats", 0)
-                
+
                 if council_seats > 0:
                     # Generate mayor
-                    if not any(a.place == place and a.office == OfficeType.MAYOR for a in list(agents_by_id.values()) + generated_agents):
-                        mayor_party = _party_for_place(place, parties, rng)
+                    if not any(
+                        a.place == place and a.office == OfficeType.MAYOR
+                        for a in list(agents_by_id.values()) + generated_agents
+                    ):
                         mayor = _generate_agent(
                             place=place,
                             office=OfficeType.MAYOR,
-                            party=mayor_party,
+                            parties=parties,
                             groups=groups,
                             rng=rng,
                             detail_level=DetailLevel.L0,
                         )
                         generated_agents.append(mayor)
                         world.add_politician(mayor)
-                    
+
                     # Generate council
                     council_agents = _generate_council(
                         place=place,
@@ -637,10 +823,12 @@ def _generate_agents_from_config(
                     generated_agents.extend(council_agents)
                     for a in council_agents:
                         world.add_politician(a)
-    
+
     # Generate governments for all generated agents (only for places not already in governments)
-    _create_governments_for_generated_agents(world, generated_agents, places_by_id, config)
-    
+    _create_governments_for_generated_agents(
+        world, generated_agents, places_by_id, config
+    )
+
     return generated_agents
 
 
@@ -654,9 +842,9 @@ def _generate_from_profile(
     rng: _random.Random,
 ) -> list[Agent]:
     """Generate agents based on a predefined profile."""
-    
+
     generated_agents: list[Agent] = []
-    
+
     if profile == "federated":
         # Federated profile: Federal -> States -> Municipalities
         num_states = config.get("num_states", 3)
@@ -665,9 +853,11 @@ def _generate_from_profile(
         state_legislature_seats = config.get("state_legislature_seats", 7)
         municipal_legislature_seats = config.get("municipal_legislature_seats", 5)
         election_interval = config.get("election_interval", 5)
-        
+
         # Find or create federal place
-        federal_places = [p for p in places_by_id.values() if p.tier == PlaceTier.FEDERAL]
+        federal_places = [
+            p for p in places_by_id.values() if p.tier == PlaceTier.FEDERAL
+        ]
         if not federal_places:
             # Create federal place if not exists
             federal_place = Place(
@@ -680,13 +870,12 @@ def _generate_from_profile(
             places_by_id["federal"] = federal_place
         else:
             federal_place = federal_places[0]
-        
+
         # Generate federal executive (President)
-        president_party = _party_for_place(federal_place, parties, rng)
         president = _generate_agent(
             place=federal_place,
             office=OfficeType.PRESIDENT,
-            party=president_party,
+            parties=parties,
             groups=groups,
             rng=rng,
             detail_level=DetailLevel.L0,
@@ -694,7 +883,7 @@ def _generate_from_profile(
         )
         generated_agents.append(president)
         world.add_politician(president)
-        
+
         # Generate federal legislature
         if federal_legislature_seats > 0:
             federal_legislators = _generate_legislative_seats(
@@ -709,13 +898,17 @@ def _generate_from_profile(
             generated_agents.extend(federal_legislators)
             for a in federal_legislators:
                 world.add_politician(a)
-        
+
         # Generate states
         for state_index in range(num_states):
             state_id = f"state_{state_index + 1}"
-            
+
             # Find or create state place
-            state_places = [p for p in places_by_id.values() if p.tier == PlaceTier.STATE and str(p.id) == state_id]
+            state_places = [
+                p
+                for p in places_by_id.values()
+                if p.tier == PlaceTier.STATE and str(p.id) == state_id
+            ]
             if state_places:
                 state_place = state_places[0]
             else:
@@ -728,13 +921,12 @@ def _generate_from_profile(
                 )
                 world.add_place(state_place)
                 places_by_id[state_id] = state_place
-            
+
             # Generate governor
-            governor_party = _party_for_place(state_place, parties, rng)
             governor = _generate_agent(
                 place=state_place,
                 office=OfficeType.GOVERNOR,
-                party=governor_party,
+                parties=parties,
                 groups=groups,
                 rng=rng,
                 detail_level=DetailLevel.L0,
@@ -742,7 +934,7 @@ def _generate_from_profile(
             )
             generated_agents.append(governor)
             world.add_politician(governor)
-            
+
             # Generate state legislature
             if state_legislature_seats > 0:
                 state_legislators = _generate_legislative_seats(
@@ -757,11 +949,11 @@ def _generate_from_profile(
                 generated_agents.extend(state_legislators)
                 for a in state_legislators:
                     world.add_politician(a)
-            
+
             # Generate municipalities
             for muni_index in range(municipalities_per_state):
                 muni_id = f"{state_id}_municipality_{muni_index + 1}"
-                
+
                 # Find or create municipality place
                 muni_places = [p for p in places_by_id.values() if str(p.id) == muni_id]
                 if muni_places:
@@ -776,20 +968,19 @@ def _generate_from_profile(
                     )
                     world.add_place(muni_place)
                     places_by_id[muni_id] = muni_place
-                
+
                 # Generate mayor
-                mayor_party = _party_for_place(muni_place, parties, rng)
                 mayor = _generate_agent(
                     place=muni_place,
                     office=OfficeType.MAYOR,
-                    party=mayor_party,
+                    parties=parties,
                     groups=groups,
                     rng=rng,
                     detail_level=DetailLevel.L0,
                 )
                 generated_agents.append(mayor)
                 world.add_politician(mayor)
-                
+
                 # Generate council
                 if municipal_legislature_seats > 0:
                     council_members = _generate_council(
@@ -802,17 +993,21 @@ def _generate_from_profile(
                     generated_agents.extend(council_members)
                     for a in council_members:
                         world.add_politician(a)
-        
+
         # Create governments for all generated agents
-        _create_federated_governments(world, generated_agents, places_by_id, election_interval)
-    
+        _create_federated_governments(
+            world, generated_agents, places_by_id, election_interval
+        )
+
     elif profile == "local":
         # Local profile: single municipality
         municipal_legislature_seats = config.get("municipal_legislature_seats", 7)
         election_interval = config.get("election_interval", 5)
-        
+
         # Find or create a municipality place
-        muni_places = [p for p in places_by_id.values() if p.tier == PlaceTier.MUNICIPALITY]
+        muni_places = [
+            p for p in places_by_id.values() if p.tier == PlaceTier.MUNICIPALITY
+        ]
         if not muni_places:
             # Create one
             muni_place = Place(
@@ -825,13 +1020,12 @@ def _generate_from_profile(
             places_by_id["municipality_1"] = muni_place
         else:
             muni_place = muni_places[0]
-        
+
         # Generate mayor
-        mayor_party = _party_for_place(muni_place, parties, rng)
         mayor = _generate_agent(
             place=muni_place,
             office=OfficeType.MAYOR,
-            party=mayor_party,
+            parties=parties,
             groups=groups,
             rng=rng,
             detail_level=DetailLevel.L0,
@@ -839,7 +1033,7 @@ def _generate_from_profile(
         )
         generated_agents.append(mayor)
         world.add_politician(mayor)
-        
+
         # Generate council
         if municipal_legislature_seats > 0:
             council_members = _generate_council(
@@ -852,13 +1046,15 @@ def _generate_from_profile(
             generated_agents.extend(council_members)
             for a in council_members:
                 world.add_politician(a)
-        
+
         # Create government
-        _create_local_government(world, generated_agents, places_by_id, election_interval)
-    
+        _create_local_government(
+            world, generated_agents, places_by_id, election_interval
+        )
+
     else:
         raise ValueError(f"Unsupported generation profile '{profile}'")
-    
+
     return generated_agents
 
 
@@ -879,24 +1075,24 @@ def _generate_legislative_seats(
     election_interval: int = 5,
 ) -> list[Agent]:
     """Generate legislative seats with proportional party representation."""
-    
+
     # Distribute seats roughly equally among parties using round-robin
     legislators: list[Agent] = []
     party_index = 0
-    
+
     while len(legislators) < num_seats:
         party = parties[party_index % len(parties)]
         legislator = _generate_agent(
             place=place,
             office=office_type,
-            party=party,
+            parties=parties,
             groups=groups,
             rng=rng,
             detail_level=DetailLevel.L1,
         )
         legislators.append(legislator)
         party_index += 1
-    
+
     return legislators
 
 
@@ -909,9 +1105,9 @@ def _generate_state_assembly(
     rng: _random.Random,
 ) -> list[Agent]:
     """Generate state assembly with optional composition specification."""
-    
+
     legislators: list[Agent] = []
-    
+
     if composition:
         # Use explicitly specified composition
         for party_id_str, count in composition.items():
@@ -919,29 +1115,31 @@ def _generate_state_assembly(
                 # Find party by ID (could be name or ID)
                 party = None
                 for p in parties:
-                    if str(p.id) == party_id_str or p.name.lower() == party_id_str.lower():
+                    if (
+                        str(p.id) == party_id_str
+                        or p.name.lower() == party_id_str.lower()
+                    ):
                         party = p
                         break
                 if party is None:
                     party = rng.choice(parties)
-                
+
                 legislator = _generate_agent(
                     place=place,
                     office=OfficeType.STATE_ASSEMBLYPERSON,
-                    party=party,
+                    parties=parties,
                     groups=groups,
                     rng=rng,
                     detail_level=DetailLevel.L1,
                 )
                 legislators.append(legislator)
-        
+
         # Fill remaining seats with round-robin
         while len(legislators) < num_seats:
-            party = rng.choice(parties)
             legislator = _generate_agent(
                 place=place,
                 office=OfficeType.STATE_ASSEMBLYPERSON,
-                party=party,
+                parties=parties,
                 groups=groups,
                 rng=rng,
                 detail_level=DetailLevel.L1,
@@ -957,7 +1155,7 @@ def _generate_state_assembly(
             groups=groups,
             rng=rng,
         )
-    
+
     return legislators
 
 
@@ -969,7 +1167,7 @@ def _generate_council(
     rng: _random.Random,
 ) -> list[Agent]:
     """Generate city council members."""
-    
+
     return _generate_legislative_seats(
         place=place,
         office_type=OfficeType.COUNCILPERSON,
@@ -987,21 +1185,21 @@ def _create_governments_for_generated_agents(
     config: dict[str, Any],
 ) -> None:
     """Create governments for generated agents (only for places not already having governments)."""
-    
+
     election_interval = config.get("election_interval", 5)
-    
+
     # Group agents by place
     by_place: dict[Place, list[Agent]] = {}
     for agent in agents:
         if agent.place not in by_place:
             by_place[agent.place] = []
         by_place[agent.place].append(agent)
-    
+
     for place, place_agents in by_place.items():
         # Skip if government already exists
         if place in world.governments:
             continue
-        
+
         # Find executive
         if place.tier == PlaceTier.FEDERAL:
             executive_type = OfficeType.PRESIDENT
@@ -1009,9 +1207,11 @@ def _create_governments_for_generated_agents(
             executive_type = OfficeType.GOVERNOR
         else:
             executive_type = OfficeType.MAYOR
-        
-        executive_agent = next((a for a in place_agents if a.office == executive_type), None)
-        
+
+        executive_agent = next(
+            (a for a in place_agents if a.office == executive_type), None
+        )
+
         # Find legislature
         if place.tier == PlaceTier.FEDERAL:
             legislative_type = OfficeType.CONGRESSPERSON
@@ -1019,16 +1219,16 @@ def _create_governments_for_generated_agents(
             legislative_type = OfficeType.STATE_ASSEMBLYPERSON
         else:
             legislative_type = OfficeType.COUNCILPERSON
-        
+
         legislature_agents = [a for a in place_agents if a.office == legislative_type]
-        
+
         if executive_agent:
             executive = Office(
                 office_type=executive_type,
                 place=place,
                 holder=executive_agent,
             )
-            
+
             if legislature_agents:
                 legislature = Legislature(
                     place=place,
@@ -1038,13 +1238,18 @@ def _create_governments_for_generated_agents(
                 )
             else:
                 legislature = None
-            
-            world.add_government(Government(
-                place=place,
-                executive=executive,
-                legislature=legislature,
-                attributes={"election_interval": election_interval, "last_election_turn": 0},
-            ))
+
+            world.add_government(
+                Government(
+                    place=place,
+                    executive=executive,
+                    legislature=legislature,
+                    attributes={
+                        "election_interval": election_interval,
+                        "last_election_turn": 0,
+                    },
+                )
+            )
 
 
 def _create_federated_governments(
@@ -1054,19 +1259,19 @@ def _create_federated_governments(
     election_interval: int = 5,
 ) -> None:
     """Create governments for federated profile."""
-    
+
     # Group by place
     by_place: dict[Place, list[Agent]] = {}
     for agent in agents:
         if agent.place not in by_place:
             by_place[agent.place] = []
         by_place[agent.place].append(agent)
-    
+
     for place, place_agents in by_place.items():
         # Skip if government already exists
         if place in world.governments:
             continue
-        
+
         # Determine office types based on tier
         if place.tier == PlaceTier.FEDERAL:
             executive_type = OfficeType.PRESIDENT
@@ -1077,17 +1282,19 @@ def _create_federated_governments(
         else:
             executive_type = OfficeType.MAYOR
             legislative_type = OfficeType.COUNCILPERSON
-        
-        executive_agent = next((a for a in place_agents if a.office == executive_type), None)
+
+        executive_agent = next(
+            (a for a in place_agents if a.office == executive_type), None
+        )
         legislature_agents = [a for a in place_agents if a.office == legislative_type]
-        
+
         if executive_agent:
             executive = Office(
                 office_type=executive_type,
                 place=place,
                 holder=executive_agent,
             )
-            
+
             if legislature_agents:
                 legislature = Legislature(
                     place=place,
@@ -1097,13 +1304,18 @@ def _create_federated_governments(
                 )
             else:
                 legislature = None
-            
-            world.add_government(Government(
-                place=place,
-                executive=executive,
-                legislature=legislature,
-                attributes={"election_interval": election_interval, "last_election_turn": 0},
-            ))
+
+            world.add_government(
+                Government(
+                    place=place,
+                    executive=executive,
+                    legislature=legislature,
+                    attributes={
+                        "election_interval": election_interval,
+                        "last_election_turn": 0,
+                    },
+                )
+            )
 
 
 def _create_local_government(
@@ -1113,22 +1325,22 @@ def _create_local_government(
     election_interval: int = 5,
 ) -> None:
     """Create government for local profile."""
-    
+
     mayor = next((a for a in agents if a.office == OfficeType.MAYOR), None)
     council = [a for a in agents if a.office == OfficeType.COUNCILPERSON]
-    
+
     if mayor and mayor.place:
         place = mayor.place
-        
+
         if place in world.governments:
             return
-        
+
         executive = Office(
             office_type=OfficeType.MAYOR,
             place=place,
             holder=mayor,
         )
-        
+
         if council:
             legislature = Legislature(
                 place=place,
@@ -1138,10 +1350,15 @@ def _create_local_government(
             )
         else:
             legislature = None
-        
-        world.add_government(Government(
-            place=place,
-            executive=executive,
-            legislature=legislature,
-            attributes={"election_interval": election_interval, "last_election_turn": 0},
-        ))
+
+        world.add_government(
+            Government(
+                place=place,
+                executive=executive,
+                legislature=legislature,
+                attributes={
+                    "election_interval": election_interval,
+                    "last_election_turn": 0,
+                },
+            )
+        )

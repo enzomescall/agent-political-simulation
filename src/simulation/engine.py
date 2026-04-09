@@ -8,11 +8,18 @@ from typing import TYPE_CHECKING
 from src.actions.base import Action, ActionType, TurnReport
 from src.actions.decision import choose_action, choose_party_action
 from src.actions.voting import compute_vote_disposition, resolve_vote
-from src.simulation.consequences import apply_action_consequences, apply_vote_consequences
+from src.simulation.consequences import (
+    apply_action_consequences,
+    apply_vote_consequences,
+)
 from src.simulation.drift import apply_ideological_drift, apply_ig_radicalization
 from src.simulation.elections import (
-    check_elections, check_party_elections, cleanup_agents,
-    run_executive_election, run_legislative_election, run_party_election,
+    check_elections,
+    check_party_elections,
+    cleanup_agents,
+    run_executive_election,
+    run_legislative_election,
+    run_party_election,
 )
 from src.simulation.factions import check_splits
 from src.simulation.policy_gen import generate_policy_pool
@@ -79,7 +86,7 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
 
     for agent in agents:
         if agent.detail_level.value > 1:
-            continue # in future i'll just have three helper functions here for the LODs
+            continue  # in future i'll just have three helper functions here for the LODs
 
         # Get the policy pool for this agent's place.
         pool = policy_pools.get(agent.place.id, [])
@@ -126,8 +133,11 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
 
         executive = gov.executive.holder
         result = resolve_vote(
-            gov.legislature, policy, world,
-            proposer=proposer, executive=executive,
+            gov.legislature,
+            policy,
+            world,
+            proposer=proposer,
+            executive=executive,
         )
         report.vote_results.append(result)
 
@@ -157,7 +167,8 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
         seats = len(gov.legislature.members)
         override_threshold = math.ceil(frac * seats) + 1
         yes_count = sum(
-            1 for m in gov.legislature.members
+            1
+            for m in gov.legislature.members
             if compute_vote_disposition(m, result.policy, world, result.proposer) > 0.1
         )
         if yes_count >= override_threshold:
@@ -171,7 +182,9 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             )
             _log.info(
                 "  VETO OVERRIDE: '%s' passed on override (%d/%d)",
-                result.policy.name, yes_count, seats,
+                result.policy.name,
+                yes_count,
+                seats,
             )
         else:
             report.events.append(
@@ -180,7 +193,10 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             )
             _log.info(
                 "  VETO SUSTAINED: '%s' (%d/%d, needed %d)",
-                result.policy.name, yes_count, seats, override_threshold,
+                result.policy.name,
+                yes_count,
+                seats,
+                override_threshold,
             )
         report.veto_events.append(
             f"{'OVERRIDE' if result.veto_override else 'SUSTAINED'}: "
@@ -208,10 +224,22 @@ def run_simulation(
     num_turns: int,
     rng: _random.Random | None = None,
     debug: bool = False,
+    progress_every: int | None = None,
 ) -> list[TurnReport]:
-    """Run multiple turns and return all reports."""
+    """Run multiple turns and return all reports.
+
+    Args:
+        world: The world to simulate
+        num_turns: Number of turns to run
+        rng: Random number generator
+        debug: Enable verbose logging
+        progress_every: Print progress every N turns (default: num_turns/10, min 1)
+    """
     if rng is None:
         rng = _random.Random()
+
+    if progress_every is None:
+        progress_every = max(1, num_turns // 10)
 
     if debug:
         sim_logger = logging.getLogger("simulation")
@@ -229,6 +257,8 @@ def run_simulation(
             sim_logger.addHandler(sh)
 
     reports = []
-    for _ in range(num_turns):
+    for turn in range(num_turns):
         reports.append(run_turn(world, rng))
+        if (turn + 1) % progress_every == 0:
+            print(f"  Turn {turn + 1}/{num_turns} complete...")
     return reports

@@ -83,6 +83,12 @@ def _add_common_run_args(parser: argparse.ArgumentParser) -> None:
         metavar="NUM",
         help="Generate visualizations after simulation. Use -v to generate all, or -v NUM for specific visualization (1-21).",
     )
+    parser.add_argument(
+        "--progress-every",
+        type=int,
+        default=10,
+        help="Print progress every N turns (default: turns/10).",
+    )
 
 
 def _validate_generate_args(
@@ -163,7 +169,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.turns > 0:
         print(f"\nRunning {args.turns} turn(s)...\n")
         sim_rng = random.Random(args.seed)
-        run_simulation(world, num_turns=args.turns, rng=sim_rng, debug=args.debug)
+        run_simulation(
+            world,
+            num_turns=args.turns,
+            rng=sim_rng,
+            debug=args.debug,
+            progress_every=args.progress_every,
+        )
     else:
         print("\nSkipping simulation because --turns was set to 0.")
 
