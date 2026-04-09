@@ -264,6 +264,10 @@ def run_executive_election(gov: Government, world: World, rng: _random.Random) -
     party_of: dict[Agent, Party] = {a: a.party for a in candidates}
     vote_totals: dict[Agent, float] = {c: 0.0 for c in candidates}
 
+    # Population weight scales electoral impact of larger places.
+    pop = place.attributes.get("population", 100_000)
+    pop_weight = (pop / 100_000) ** 0.5  # sqrt scaling so large places don't completely dominate
+
     for ig, presence in place.interest_group_presence.items():
         share = ig.electorate_share.get(place, presence)
         scores = {c: _ig_vote_score(ig, c, place) for c in candidates}
@@ -286,7 +290,7 @@ def run_executive_election(gov: Government, world: World, rng: _random.Random) -
             continue
         effective_share = _diluted_turnout_share(scores, share)
         for c in candidates:
-            vote_totals[c] += effective_share * (adjusted[c] / total_adjusted)
+            vote_totals[c] += effective_share * (adjusted[c] / total_adjusted) * pop_weight
 
     for c in vote_totals:
         vote_totals[c] += rng.uniform(0.0, 0.01)
@@ -352,7 +356,9 @@ def run_legislative_election(gov: Government, world: World, rng: _random.Random)
     nominations = nominate_legislative_candidates(gov, world, rng)
     all_candidates = [a for nominees in nominations.values() for a in nominees]
 
-    # Party vote shares from IG support.
+    # Party vote shares from IG support (weighted by place population).
+    pop = place.attributes.get("population", 100_000)
+    pop_weight = (pop / 100_000) ** 0.5
     parties_in_place = list(nominations.keys())
     party_votes: dict[Party, float] = {p: 0.0 for p in parties_in_place}
     for ig, presence in place.interest_group_presence.items():
@@ -369,7 +375,7 @@ def run_legislative_election(gov: Government, world: World, rng: _random.Random)
 
         effective_share = _diluted_turnout_share(ig_party_scores, share)
         for party in parties_in_place:
-            party_votes[party] += effective_share * ig_party_scores[party]
+            party_votes[party] += effective_share * ig_party_scores[party] * pop_weight
 
     for p in party_votes:
         party_votes[p] += rng.uniform(0.0, 0.01)
