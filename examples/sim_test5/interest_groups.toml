@@ -1,0 +1,21 @@
+# Interest groups - limited to 3-4 major groups
+
+[[interest_groups]]
+id = "workers"
+name = "Industrial Workers Union"
+fears = ["privatisation", "automation", "austerity", "wage_stagnation"]
+
+[[interest_groups]]
+id = "business"
+name = "Chamber of Commerce"
+fears = ["tax_hikes", "heavy_regulation", "labor_mandates", "trade_barriers"]
+
+[[interest_groups]]
+id = "rural_comm"
+name = "Rural Communities Alliance"
+fears = ["infrastructure_cuts", "depopulation", "subsidy_cuts", "urban_growth"]
+
+[[interest_groups]]
+id = "enviro"
+name = "Environment Network"
+fears = ["deregulation", "fossil_fuel", "deforestation", "pollution_allowances"]

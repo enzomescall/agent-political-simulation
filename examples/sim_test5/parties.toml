@@ -1,0 +1,163 @@
+# Political parties across all quadrants of the political compass
+# Far-left, Center-left, Center, Center-right, Far-right
+
+# FAR-LEFT PARTIES
+[[parties]]
+id = "communist"
+name = "Communist Party"
+directive_threshold = -0.3
+campaign_budget = 6
+nomination_threshold = 0.12
+leadership_interval = 10
+[parties.ideology]
+economic = -1.0
+social = 0.2
+[parties.base_constituency]
+workers = 0.85
+rural_comm = 0.25
+
+[[parties]]
+id = "lib_soc"
+name = "Libertarian Socialists"
+directive_threshold = -0.25
+campaign_budget = 7
+nomination_threshold = 0.14
+leadership_interval = 10
+[parties.ideology]
+economic = -0.9
+social = -0.35
+[parties.base_constituency]
+workers = 0.7
+rural_comm = 0.2
+
+[[parties]]
+id = "soc_dem"
+name = "Social Democratic Party"
+directive_threshold = -0.2
+campaign_budget = 10
+nomination_threshold = 0.18
+leadership_interval = 10
+[parties.ideology]
+economic = -0.55
+social = 0.4
+[parties.base_constituency]
+workers = 0.75
+enviro = 0.35
+rural_comm = 0.3
+
+# CENTER-LEFT PARTIES
+[[parties]]
+id = "progressive"
+name = "Progressive Alliance"
+directive_threshold = -0.15
+campaign_budget = 11
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = -0.4
+social = 0.7
+[parties.base_constituency]
+enviro = 0.8
+workers = 0.3
+
+[[parties]]
+id = "labor_dem"
+name = "Labor Democrats"
+directive_threshold = -0.18
+campaign_budget = 9
+nomination_threshold = 0.16
+leadership_interval = 10
+[parties.ideology]
+economic = -0.45
+social = 0.15
+[parties.base_constituency]
+workers = 0.8
+rural_comm = 0.25
+
+# CENTER PARTIES
+[[parties]]
+id = "liberal"
+name = "Liberal Democratic Party"
+directive_threshold = -0.1
+campaign_budget = 12
+nomination_threshold = 0.22
+leadership_interval = 10
+[parties.ideology]
+economic = -0.05
+social = 0.1
+[parties.base_constituency]
+workers = 0.35
+business = 0.45
+
+# CENTER-RIGHT PARTIES
+[[parties]]
+id = "cons_liberal"
+name = "Conservative Liberal"
+directive_threshold = -0.15
+campaign_budget = 11
+nomination_threshold = 0.18
+leadership_interval = 10
+[parties.ideology]
+economic = 0.45
+social = -0.1
+[parties.base_constituency]
+business = 0.7
+rural_comm = 0.4
+
+[[parties]]
+id = "christ_dem"
+name = "Christian Democratic Union"
+directive_threshold = -0.2
+campaign_budget = 10
+nomination_threshold = 0.17
+leadership_interval = 10
+[parties.ideology]
+economic = 0.35
+social = -0.45
+[parties.base_constituency]
+rural_comm = 0.6
+workers = 0.25
+
+# FAR-RIGHT PARTIES
+[[parties]]
+id = "nat_cons"
+name = "National Conservative"
+directive_threshold = -0.25
+campaign_budget = 8
+nomination_threshold = 0.14
+leadership_interval = 10
+[parties.ideology]
+economic = 0.85
+social = -0.7
+[parties.base_constituency]
+rural_comm = 0.75
+business = 0.2
+
+[[parties]]
+id = "right_lib"
+name = "Right Libertarian Party"
+directive_threshold = -0.12
+campaign_budget = 9
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = 0.95
+social = 0.35
+[parties.base_constituency]
+business = 0.8
+workers = 0.15
+
+# IN-BETWEEN PARTY
+[[parties]]
+id = "agrarian"
+name = "Agrarian Popular Party"
+directive_threshold = -0.18
+campaign_budget = 8
+nomination_threshold = 0.15
+leadership_interval = 10
+[parties.ideology]
+economic = 0.1
+social = -0.25
+[parties.base_constituency]
+rural_comm = 0.7
+workers = 0.25

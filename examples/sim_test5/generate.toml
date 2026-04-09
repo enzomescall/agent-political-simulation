@@ -1,0 +1,16 @@
+# Profile-based generation: "federated"
+# This generates agents and governments for a federal structure
+# 1 Federal + 26 States + ~780 Municipalities (30 per state average)
+
+profile = "federated"
+
+# Customize the structure
+num_states = 26
+municipalities_per_state = 30
+federal_legislature_seats = 20
+state_legislature_seats = 10
+municipal_legislature_seats = 7
+election_interval = 5
+
+# Random seed for reproducibility
+seed = 54321
