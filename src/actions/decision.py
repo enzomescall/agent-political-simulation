@@ -235,3 +235,151 @@ def choose_action(
     )
 
     return best_action
+
+
+# ---------------------------------------------------------------------------
+# Party leader actions (separate action budget)
+# ---------------------------------------------------------------------------
+
+def _estimate_ideology_push_utility(agent: Agent, world: World) -> tuple[float, dict]:
+    """Estimate utility of pushing party ideology toward agent's own position."""
+    w = get_weights(agent)
+    # How far is the party from the leader's ideology?
+    dist = agent.party.ideology.distance(agent.ideology)
+    if dist < 0.05:
+        return 0.0, {}  # already aligned — not worth pushing
+
+    # Direction: toward agent's ideology
+    direction = {
+        ax: agent.ideology[ax]
+        for ax in agent.ideology.axes
+    }
+    # Utility from members who share agent's ideology direction
+    members = list(agent.party.members.keys())
+    if members:
+        avg_alignment = sum(
+            agent.party.ideology.alignment(m.ideology) for m in members
+        ) / len(members)
+        # Low alignment → high utility of pushing
+        score = w["ideology"] * dist * (1.0 - avg_alignment) * 2.0
+    else:
+        score = 0.0
+    return score, direction
+
+
+def _estimate_party_outreach_utility(agent: Agent, world: World) -> list[tuple[float, dict]]:
+    """Score PARTY_OUTREACH toward each other party and each IG."""
+    w = get_weights(agent)
+    options: list[tuple[float, dict]] = []
+
+    # Outreach to other parties
+    for other_party in world.parties.values():
+        if other_party is agent.party:
+            continue
+        current_rel = agent.party.relations.get(other_party, 0.0)
+        if current_rel >= 0.7:
+            continue  # already strong
+        ideological_proximity = agent.party.ideology.alignment(other_party.ideology)
+        score = w["relationships"] * ideological_proximity * (1.0 - current_rel) * 0.5
+        options.append((score, {"target_party": other_party}))
+
+    # Outreach to IGs
+    for ig in world.interest_groups.values():
+        current_rel = agent.party.ig_relations.get(ig, 0.0)
+        if current_rel >= 0.7:
+            continue
+        affinity = agent.party.base_constituency.get(ig, 0.0)
+        if affinity < 0.1:
+            continue  # not a natural constituency
+        score = w["ig_appeal"] * affinity * (1.0 - current_rel) * 0.5
+        options.append((score, {"target_ig": ig}))
+
+    return options
+
+
+def _estimate_party_merge_utility(agent: Agent, world: World) -> list[tuple[float, dict]]:
+    """Score PARTY_MERGE — very rare, only triggers in survival conditions."""
+    options: list[tuple[float, dict]] = []
+    # Count total seats held by this party across all legislatures
+    total_seats = sum(
+        sum(1 for m in gov.legislature.members if m.party is agent.party)
+        for gov in world.governments.values()
+        if gov.legislature
+    )
+    all_seats = sum(
+        len(gov.legislature.members)
+        for gov in world.governments.values()
+        if gov.legislature
+    )
+    if all_seats == 0:
+        return options
+    seat_share = total_seats / all_seats
+    if seat_share > 0.10:
+        return options  # party not threatened — no merge needed
+
+    # Find a friendly, larger party to absorb into (dominant absorbs)
+    for other_party in world.parties.values():
+        if other_party is agent.party:
+            continue
+        relation = agent.party.relations.get(other_party, 0.0)
+        if relation < 0.2:
+            continue  # not friendly enough
+        their_seats = sum(
+            sum(1 for m in gov.legislature.members if m.party is other_party)
+            for gov in world.governments.values()
+            if gov.legislature
+        )
+        if their_seats <= total_seats:
+            continue  # we're not smaller
+        score = 0.05 + relation * 0.1 + (0.10 - seat_share) * 0.5
+        options.append((score, {"target_party": other_party}))
+
+    return options
+
+
+def choose_party_action(
+    agent: Agent,
+    world: World,
+    rng: _random.Random | None = None,
+) -> Action | None:
+    """Choose a party-leader action (ideology push, outreach, or merge)."""
+    if rng is None:
+        rng = _random.Random()
+
+    candidates: list[tuple[float, Action]] = []
+
+    # IDEOLOGY_PUSH
+    score, direction = _estimate_ideology_push_utility(agent, world)
+    if score > 0 and direction:
+        candidates.append((score, Action(
+            action_type=ActionType.IDEOLOGY_PUSH,
+            actor=agent,
+            params={"direction": direction},
+        )))
+
+    # PARTY_OUTREACH
+    for score, params in _estimate_party_outreach_utility(agent, world):
+        candidates.append((score, Action(
+            action_type=ActionType.PARTY_OUTREACH,
+            actor=agent,
+            params=params,
+        )))
+
+    # PARTY_MERGE (emergency only)
+    for score, params in _estimate_party_merge_utility(agent, world):
+        candidates.append((score, Action(
+            action_type=ActionType.PARTY_MERGE,
+            actor=agent,
+            params=params,
+        )))
+
+    if not candidates:
+        return None
+
+    noisy = [(s + rng.gauss(0, agent.ambition * 0.01), a) for s, a in candidates]
+    noisy.sort(key=lambda x: x[0], reverse=True)
+    _log.debug(
+        "%s party action: %s (score=%.4f)",
+        fmt(agent), noisy[0][1].action_type.name, noisy[0][0],
+    )
+    return noisy[0][1]

@@ -32,6 +32,10 @@ class Party:
     # Internal roster: agent → role.
     members: dict[Agent, PartyRole] = field(default_factory=dict, repr=False)
 
+    # Party-to-party relations [-1, 1] and party-to-IG relations [0, 1].
+    relations: dict[Party, float] = field(default_factory=dict, repr=False)
+    ig_relations: dict[InterestGroup, float] = field(default_factory=dict, repr=False)
+
     # ------------------------------------------------------------------
     # Roster management
     # ------------------------------------------------------------------

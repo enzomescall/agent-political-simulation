@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
+from .ideology import Ideology
 from .types import InterestGroupId
 
 if TYPE_CHECKING:
@@ -17,6 +18,9 @@ class InterestGroup:
     name: str
 
     fears: list[str] = field(default_factory=list)
+
+    # Ideological position of this interest group's base (seeded from closest party).
+    ideology: Ideology = field(default_factory=Ideology)
 
     # Per-place scores — populated by the simulation initializer, not at construction.
     satisfaction: dict[Place, float] = field(default_factory=dict)

@@ -40,3 +40,7 @@ class Government:
     cabinet: list[Office] = field(default_factory=list)
     legislature: Legislature | None = None
     attributes: dict[str, Any] = field(default_factory=dict)
+    # Executive veto: disposition threshold below which the executive vetoes a passed bill.
+    veto_threshold: float = -0.3
+    # Fraction of seats required to override a veto (default 2/3).
+    veto_override_fraction: float = 2 / 3
