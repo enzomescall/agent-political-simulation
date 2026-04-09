@@ -5,12 +5,11 @@ Each run outputs into visualizations/{YYYYMMDD_HHMMSS}/.
 """
 from __future__ import annotations
 
-import copy
 import logging
 import os
 import random
-from collections import Counter, defaultdict
-from dataclasses import dataclass, field
+from collections import defaultdict
+from dataclasses import dataclass
 from datetime import datetime
 
 import matplotlib
@@ -18,14 +17,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
-
-try:
-    from PIL import Image as _PIL_Image
-    _HAS_PIL = True
-except ImportError:
-    _HAS_PIL = False
-
-plt.style.use("seaborn-v0_8-whitegrid")
 
 from src.models import (
     Agent, Government, Ideology, InterestGroup, Legislature,
@@ -35,6 +26,14 @@ from src.models import (
 )
 from src.actions.utility import perturb_weights
 from src.simulation import initialize_local_variables, run_turn
+
+try:
+    from PIL import Image as _PIL_Image
+    _HAS_PIL = True
+except ImportError:
+    _HAS_PIL = False
+
+plt.style.use("seaborn-v0_8-whitegrid")
 
 # Suppress simulation logging
 logging.getLogger("simulation").setLevel(logging.CRITICAL)

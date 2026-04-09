@@ -2,6 +2,16 @@
 
 A turn-based political simulation of a fictional federal democracy. The player is always a politician, starting at a low office and navigating upward through elections, coalition-building, and political consequence. The world simulates around them whether they act or not.
 
+## **UV Setup**
+
+This repo uses [`uv`](https://docs.astral.sh/uv/) for the local Python environment.
+
+```bash
+uv sync --extra dev
+uv run python visualize_sim3.py
+uv run python sim_test.py --help
+```
+
 ## **CLI Usage**
 
 The main entrypoint is [`sim_test.py`](/home/enzo/Documents/Code/agent-political-simulation/sim_test.py). It can either load a world from config or generate one from parameters, then run the simulation.

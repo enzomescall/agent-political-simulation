@@ -1,0 +1,126 @@
+[[agents]]
+id = "c1"
+name = "Ana Souza"
+party_id = "labor"
+place_id = "city"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.9
+ambition = 0.4
+archetype = "LOYALIST"
+detail_level = "L1"
+[agents.ideology]
+economic = -0.7
+social = 0.5
+[agents.allegiances]
+workers = 0.85
+[agents.popularity]
+workers = 0.75
+youth = 0.60
+
+[[agents]]
+id = "c2"
+name = "Bruno Melo"
+party_id = "labor"
+place_id = "city"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.6
+ambition = 0.7
+archetype = "POPULIST"
+detail_level = "L1"
+[agents.ideology]
+economic = -0.4
+social = 0.2
+[agents.allegiances]
+workers = 0.5
+youth = 0.4
+[agents.popularity]
+workers = 0.55
+youth = 0.50
+
+[[agents]]
+id = "c3"
+name = "Clara Faria"
+party_id = "civic"
+place_id = "city"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.8
+ambition = 0.5
+archetype = "IDEOLOGUE"
+detail_level = "L1"
+[agents.ideology]
+economic = 0.2
+social = 0.0
+[agents.allegiances]
+business = 0.6
+[agents.popularity]
+business = 0.65
+workers = 0.30
+
+[[agents]]
+id = "c4"
+name = "Diego Ramos"
+party_id = "civic"
+place_id = "city"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.7
+ambition = 0.6
+archetype = "LOYALIST"
+detail_level = "L1"
+[agents.ideology]
+economic = 0.5
+social = -0.3
+[agents.allegiances]
+business = 0.8
+[agents.popularity]
+business = 0.70
+workers = 0.20
+
+[[agents]]
+id = "c5"
+name = "Elisa Nunes"
+party_id = "labor"
+place_id = "city"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+party_standing = 0.5
+ambition = 0.8
+archetype = "POPULIST"
+detail_level = "L1"
+[agents.ideology]
+economic = -0.1
+social = 0.6
+[agents.allegiances]
+youth = 0.75
+[agents.popularity]
+youth = 0.80
+workers = 0.45
+
+[[agents]]
+id = "mayor"
+name = "Fernando Costa"
+party_id = "labor"
+place_id = "city"
+office = "MAYOR"
+party_role = "LEADER"
+party_standing = 0.75
+ambition = 0.6
+archetype = "POPULIST"
+detail_level = "L0"
+[agents.ideology]
+economic = -0.3
+social = 0.3
+[agents.allegiances]
+workers = 0.6
+youth = 0.5
+[agents.popularity]
+workers = 0.65
+youth = 0.55
+business = 0.35
+[agents.relationships]
+c1 = 0.8
+c2 = 0.5
+c5 = 0.6

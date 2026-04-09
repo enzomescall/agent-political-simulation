@@ -1,0 +1,14 @@
+[[interest_groups]]
+id = "workers"
+name = "Urban Workers Union"
+fears = ["privatisation", "job_cuts"]
+
+[[interest_groups]]
+id = "business"
+name = "Business Council"
+fears = ["price_controls", "heavy_regulation"]
+
+[[interest_groups]]
+id = "youth"
+name = "Youth Coalition"
+fears = ["austerity"]

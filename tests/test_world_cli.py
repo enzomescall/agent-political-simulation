@@ -8,7 +8,7 @@ import random
 import tempfile
 import unittest
 
-import sim_test
+import sim_test as sim_test
 from src.models import PlaceTier
 from src.simulation import generate_world, load_world_from_directory, load_world_from_file, run_simulation
 

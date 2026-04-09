@@ -1,0 +1,29 @@
+[[parties]]
+id = "labor"
+name = "Labor Alliance"
+directive_threshold = -0.2
+campaign_budget = 5
+nomination_threshold = 0.3
+leadership_interval = 5
+last_leadership_turn = 0
+[parties.ideology]
+economic = -0.6
+social = 0.4
+[parties.base_constituency]
+workers = 0.8
+youth = 0.5
+
+[[parties]]
+id = "civic"
+name = "Civic Progress"
+directive_threshold = -0.15
+campaign_budget = 5
+nomination_threshold = 0.3
+leadership_interval = 5
+last_leadership_turn = 0
+[parties.ideology]
+economic = 0.3
+social = 0.1
+[parties.base_constituency]
+business = 0.7
+youth = 0.3
