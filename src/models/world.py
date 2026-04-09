@@ -66,6 +66,11 @@ class World:
     def party_members(self, party: Party) -> list[Agent]:
         return [p for p in self.politicians.values() if p.party is party]
 
+    def remove_politician(self, agent: Agent) -> None:
+        self.politicians.pop(agent.id, None)
+        agent.party.members.pop(agent, None)
+        agent.office = None
+
     def siblings_of(self, place: Place) -> list[Place]:
         if place.parent is None:
             return []

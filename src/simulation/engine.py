@@ -8,11 +8,15 @@ from src.actions.base import Action, ActionType, TurnReport
 from src.actions.decision import choose_action
 from src.actions.voting import resolve_vote
 from src.simulation.consequences import apply_action_consequences, apply_vote_consequences
-from src.simulation.elections import check_elections, run_executive_election, run_legislative_election
+from src.simulation.elections import (
+    check_elections, check_party_elections, cleanup_agents,
+    run_executive_election, run_legislative_election, run_party_election,
+)
 from src.simulation.policy_gen import generate_policy_pool
 
 if TYPE_CHECKING:
     from src.models.world import World
+from collections import Counter
 
 _log = logging.getLogger("simulation")
 
@@ -37,6 +41,14 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
             report.events.extend(leg_result.events)
         gov.attributes["last_election_turn"] = world.turn
 
+    for party in check_party_elections(world):
+        _log.info("Party leadership election for %s", party.name)
+        party_events = run_party_election(party, world, rng)
+        report.events.extend(party_events)
+
+    cleanup_events = cleanup_agents(world)
+    report.events.extend(cleanup_events)
+
     # --- Phase 1: policy generation ---
     # For each government, generate a pool of candidate policies.
     policy_pools: dict[str, list[tuple]] = {}  # place_id -> [(Policy, Agent)]
@@ -46,18 +58,20 @@ def run_turn(world: World, rng: _random.Random | None = None) -> TurnReport:
         for policy, author in pool:
             _log.info("  Policy pool: '%s' by %s", policy.name, author.name)
 
-    # --- Phase 2: action selection (all agents, utility-scored) ---
+    # --- Phase 2: action selection (all agents, LOD-scored) ---
     agents = sorted(
         world.politicians.values(),
         key=lambda a: a.detail_level.value,
     )
+    lod_counts = Counter(a.detail_level for a in agents)
+    _log.debug("Agent LOD distribution: %s", dict(lod_counts))
 
     vote_requests: list[Action] = []
     non_vote_actions: list[Action] = []
 
     for agent in agents:
         if agent.detail_level.value > 1:
-            continue
+            continue # in future i'll just have three helper functions here for the LODs
 
         # Get the policy pool for this agent's place.
         pool = policy_pools.get(agent.place.id, [])

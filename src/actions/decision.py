@@ -5,6 +5,7 @@ import random as _random
 from typing import TYPE_CHECKING
 
 from src.models.types import PartyRole
+from src.log_utils import fmt
 
 from .availability import available_actions
 from .base import Action, ActionType
@@ -31,6 +32,7 @@ def _predict_vote_outcome(
 
     yes, no = 0, 0
     for member in gov.legislature.members:
+        # This is probably the one that we need to cache
         disposition = compute_vote_disposition(member, policy, world, proposer=agent)
         if disposition > 0.1:
             yes += 1
@@ -55,6 +57,7 @@ def _estimate_request_vote_utility(
 ) -> float:
     """Estimate utility delta from requesting a vote on a policy."""
     w = get_weights(agent)
+    # TODO: cache the predicted vote outcome so we don't keep recalculating it for the same policy in the same legislature in the same turn
     prob, _, _ = _predict_vote_outcome(agent, policy, world)
 
     # Utility if the policy passes.
@@ -123,7 +126,10 @@ def _estimate_take_position_utility(agent: Agent, world: World) -> float:
 def _estimate_enforce_discipline_utility(agent: Agent, target: Agent, world: World) -> float:
     """Estimate utility of enforcing discipline on a target."""
     w = get_weights(agent)
-    return w["party_standing"] * 0.1 if target.party_standing < 0.25 else 0.0
+    recent_defiance = target.attributes.get("recent_defiance", 0.0)
+    if recent_defiance <= 0.0 and target.party_standing >= 0.25:
+        return 0.0
+    return w["party_standing"] * (0.06 + 0.12 * recent_defiance + 0.05 * (1.0 - target.party_standing))
 
 
 def choose_action(
@@ -164,6 +170,7 @@ def choose_action(
 
     # BUILD_RELATIONSHIP: score each peer.
     if ActionType.BUILD_RELATIONSHIP in allowed:
+        # TODO: implement LODing here too
         peers = [a for a in world.politicians_in_place(agent.place) if a is not agent]
         for target in peers:
             score = _estimate_build_relationship_utility(agent, target, world)
@@ -186,7 +193,13 @@ def choose_action(
         PartyRole.LEADER, PartyRole.WHIP,
     ):
         for member, _role in agent.party.members.items():
-            if member is not agent and member.party_standing < 0.25:
+            if (
+                member is not agent
+                and (
+                    member.party_standing < 0.25
+                    or member.attributes.get("recent_defiance", 0.0) > 0.0
+                )
+            ):
                 score = _estimate_enforce_discipline_utility(agent, member, world)
                 candidates.append((score, Action(
                     action_type=ActionType.ENFORCE_DISCIPLINE,
@@ -195,7 +208,7 @@ def choose_action(
                 )))
 
     if not candidates:
-        _log.debug("%s: no viable actions", agent.name)
+        _log.debug("%s: no viable actions", fmt(agent))
         return None
 
     # Add ambition-scaled noise.
@@ -209,7 +222,7 @@ def choose_action(
 
     _log.debug(
         "%s: chose %s (score=%.4f) — top 3: [%s]",
-        agent.name,
+        fmt(agent),
         best_action.action_type.name,
         best_score,
         ", ".join(

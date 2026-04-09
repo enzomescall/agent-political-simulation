@@ -59,12 +59,14 @@ labor = Party(
     name="Labor Alliance",
     ideology=Ideology.create(economic=-0.6, social=0.4),
     base_constituency={workers: 0.8, youth: 0.5},
+    attributes={"directive_threshold": -0.2, "campaign_budget": 5, "leadership_interval": 20},
 )
 civic = Party(
     id=PartyId("civic"),
     name="Civic Progress",
     ideology=Ideology.create(economic=0.3, social=0.1),
     base_constituency={business: 0.7, youth: 0.3},
+    attributes={"directive_threshold": -0.15, "campaign_budget": 5, "leadership_interval": 20},
 )
 
 # ---------------------------------------------------------------------------

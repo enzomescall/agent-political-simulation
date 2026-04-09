@@ -4,6 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from src.models.types import Archetype
+from src.log_utils import fmt
 
 from .base import VoteResult
 
@@ -15,32 +16,7 @@ if TYPE_CHECKING:
 
 _log = logging.getLogger("simulation.voting")
 
-
-# Archetype weight profiles for vote disposition.
-# Keys: ideology, party_directive, ig_pressure, electoral, relationships
-ARCHETYPE_WEIGHTS: dict[Archetype, dict[str, float]] = {
-    Archetype.LOYALIST: {
-        "ideology": 0.20,
-        "party_directive": 0.40,
-        "ig_pressure": 0.15,
-        "electoral": 0.10,
-        "relationships": 0.15,
-    },
-    Archetype.POPULIST: {
-        "ideology": 0.15,
-        "party_directive": 0.10,
-        "ig_pressure": 0.40,
-        "electoral": 0.30,
-        "relationships": 0.05,
-    },
-    Archetype.IDEOLOGUE: {
-        "ideology": 0.50,
-        "party_directive": 0.10,
-        "ig_pressure": 0.15,
-        "electoral": 0.05,
-        "relationships": 0.20,
-    },
-}
+_DEFAULT_DIRECTIVE_THRESHOLD = 0.15
 
 
 def _ideology_score(agent: Agent, policy: Policy) -> float:
@@ -66,12 +42,34 @@ def _ig_pressure_score(agent: Agent, policy: Policy) -> float:
     return total / weight_sum if weight_sum > 0 else 0.0
 
 
+def _directive_threshold(agent: Agent) -> float:
+    raw_threshold = agent.party.attributes.get("directive_threshold", _DEFAULT_DIRECTIVE_THRESHOLD)
+    return min(max(abs(raw_threshold), 0.0), 0.95)
+
+
+def get_party_support(agent: Agent, policy: Policy) -> float | None:
+    """Return explicit party support for a policy, if available."""
+    return policy.attributes.get("party_support", {}).get(agent.party)
+
+
+def compute_directive_pressure(agent: Agent, policy: Policy) -> float:
+    """Return the party's directional pressure on the vote in [-1, 1]."""
+    party_support = get_party_support(agent, policy)
+    if party_support is None:
+        return 0.0
+
+    threshold = _directive_threshold(agent)
+    scale = max(1.0 - threshold, 1e-6)
+    if party_support > threshold:
+        return min((party_support - threshold) / scale, 1.0)
+    if party_support < -threshold:
+        return max((party_support + threshold) / scale, -1.0)
+    return 0.0
+
+
 def _party_directive_score(agent: Agent, policy: Policy, world: World) -> float:
     """How much the party line favours this policy [-1, 1]."""
-    return _ideology_score(agent.__class__(
-        id=agent.id, name="", ideology=agent.party.ideology,
-        party=agent.party, place=agent.place,
-    ), policy)
+    return compute_directive_pressure(agent, policy)
 
 
 def _electoral_score(agent: Agent, policy: Policy) -> float:
@@ -96,6 +94,64 @@ def _relationship_score(agent: Agent, policy: Policy, proposer: Agent | None) ->
     return agent.relationships.get(proposer, 0.0)
 
 
+def _expulsion_risk_score(agent: Agent, policy: Policy, world: World) -> float:
+    """How expulsion fear pulls the agent toward the directive [-1, 1]."""
+    directive_pressure = compute_directive_pressure(agent, policy)
+    if directive_pressure == 0.0:
+        return 0.0
+
+    electorate_total = 0.0
+    popularity_total = 0.0
+    for ig in agent.place.interest_group_presence:
+        share = ig.electorate_share.get(agent.place, agent.place.interest_group_presence.get(ig, 0.0))
+        electorate_total += share
+        popularity_total += share * agent.popularity.get(ig, 0.0)
+    popularity_survivability = popularity_total / electorate_total if electorate_total > 0 else 0.0
+
+    other_parties = [p for p in world.parties.values() if p is not agent.party]
+    if other_parties:
+        min_dist = min(p.ideology.distance(agent.ideology) for p in other_parties)
+        alternative_party_access = max(0.0, 1.0 - min(min_dist / 2.0, 1.0))
+    else:
+        alternative_party_access = 0.0
+
+    vulnerability = (
+        0.45 * (1.0 - agent.party_standing)
+        + 0.35 * (1.0 - popularity_survivability)
+        + 0.20 * (1.0 - alternative_party_access)
+    )
+    return directive_pressure * min(max(vulnerability, 0.0), 1.0)
+
+
+# Archetype weights now include expulsion_risk; rescale others slightly.
+ARCHETYPE_WEIGHTS: dict[Archetype, dict[str, float]] = {
+    Archetype.LOYALIST: {
+        "ideology": 0.18,
+        "party_directive": 0.36,
+        "ig_pressure": 0.14,
+        "electoral": 0.09,
+        "relationships": 0.13,
+        "expulsion_risk": 0.10,
+    },
+    Archetype.POPULIST: {
+        "ideology": 0.14,
+        "party_directive": 0.09,
+        "ig_pressure": 0.36,
+        "electoral": 0.27,
+        "relationships": 0.04,
+        "expulsion_risk": 0.10,
+    },
+    Archetype.IDEOLOGUE: {
+        "ideology": 0.45,
+        "party_directive": 0.09,
+        "ig_pressure": 0.14,
+        "electoral": 0.04,
+        "relationships": 0.18,
+        "expulsion_risk": 0.10,
+    },
+}
+
+
 def compute_vote_disposition(
     agent: Agent,
     policy: Policy,
@@ -110,12 +166,13 @@ def compute_vote_disposition(
         "ig_pressure": _ig_pressure_score(agent, policy),
         "electoral": _electoral_score(agent, policy),
         "relationships": _relationship_score(agent, policy, proposer),
+        "expulsion_risk": _expulsion_risk_score(agent, policy, world),
     }
     score = sum(w[k] * v for k, v in components.items())
     score = max(-1.0, min(1.0, score))
     _log.debug(
         "%s vote disposition on '%s': %.3f  [%s]",
-        agent.name, policy.name, score,
+        fmt(agent), policy.name, score,
         ", ".join(f"{k}={w[k]:.2f}*{v:+.3f}" for k, v in components.items()),
     )
     return score
@@ -140,7 +197,15 @@ def resolve_vote(
         elif disposition < -0.1:
             no.append(member)
         else:
-            abstain.append(member)
+            # Gray zone: abstain only if the agent personally leans No but
+            # the party directive pulls Yes. Otherwise vote No.
+            w = ARCHETYPE_WEIGHTS[member.archetype]
+            party_lean = compute_directive_pressure(member, policy)
+            personal_lean = disposition - w["party_directive"] * party_lean
+            if personal_lean < 0 and party_lean > 0:
+                abstain.append(member)
+            else:
+                no.append(member)
 
     passed = len(yes) > (len(legislature.members) / 2)
 
@@ -151,10 +216,10 @@ def resolve_vote(
         if exec_disposition > 0.0:
             passed = True
             _log.debug("  Executive %s broke tie in favour (disposition=%.3f)",
-                       executive.name, exec_disposition)
+                       fmt(executive), exec_disposition)
         else:
             _log.debug("  Executive %s broke tie against (disposition=%.3f)",
-                       executive.name, exec_disposition)
+                       fmt(executive), exec_disposition)
 
     _log.info(
         "  Vote on '%s': %s (%dY/%dN/%dA)",
