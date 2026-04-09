@@ -4,7 +4,7 @@ Full federal simulation: the Cascadia Federation.
 Structure
 ---------
   Federal   : President + 12-seat Congress
-  State ×3  : Governor + Assembly
+  State x3  : Governor + Assembly
     Ironfield (industrial):  9-seat Assembly, 4 cities
     Verdana   (agricultural):7-seat Assembly, 4 cities
     Pacifica  (coastal/tech): 9-seat Assembly, 5 cities
@@ -34,7 +34,7 @@ from __future__ import annotations
 
 import random
 from collections import Counter, defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from src.models import (
     Agent, Government, Ideology, InterestGroup, Legislature,
@@ -517,7 +517,7 @@ def print_gov_header(place: Place, gov: Government, indent: str = "") -> None:
 
 print("=" * 75)
 print("CASCADIA FEDERATION — FULL FEDERAL SIMULATION")
-print(f"  Tiers: Federal → 3 States → 13 Cities")
+print("  Tiers: Federal → 3 States → 13 Cities")
 print(f"  Parties: {', '.join(p.name for p in ALL_PARTIES)}")
 print(f"  Politicians: {total_agents}")
 print(f"  Turns: {NUM_TURNS} ({NUM_TURNS // ELECTION_INTERVAL} election epochs)")

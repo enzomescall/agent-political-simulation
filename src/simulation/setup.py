@@ -42,7 +42,8 @@ def initialize_local_variables(world: World, rng: _random.Random | None = None) 
         for ig, share in place.interest_group_presence.items():
             # Electorate share mirrors presence but weighted by population.
             pop = place.attributes.get("population", 100_000)
-            ig.electorate_share[place] = share
+            if place not in ig.electorate_share:
+                ig.electorate_share[place] = share
             # Store population-weighted share for election use.
             ig.attributes.setdefault("pop_share", {})[place] = share * pop
             # Default satisfaction to 0.5 (neutral) if not already set.

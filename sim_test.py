@@ -1,237 +1,138 @@
-"""
-Minimal simulation: one municipality, a 5-seat council, and a mayor.
-Runs 5 turns of the simulation loop.
+from __future__ import annotations
 
-Run with:  python sim_test.py
-"""
-
+import argparse
+from pathlib import Path
 import random
+import sys
 
-from src.models import (
-    Agent,
-    Government,
-    Ideology,
-    InterestGroup,
-    Legislature,
-    Office,
-    OfficeType,
-    Party,
-    Place,
-    World,
-    AgentId,
-    InterestGroupId,
-    PartyId,
-    PlaceId,
-    PlaceTier,
-    Archetype,
-    DetailLevel,
-    PartyRole,
-)
-from src.actions.utility import perturb_weights
-from src.simulation import initialize_local_variables, run_simulation
-
-# ---------------------------------------------------------------------------
-# 1. Interest groups (national-level, created first)
-# ---------------------------------------------------------------------------
-
-workers = InterestGroup(
-    id=InterestGroupId("workers"),
-    name="Urban Workers Union",
-    fears=["privatisation", "job_cuts"],
-)
-business = InterestGroup(
-    id=InterestGroupId("business"),
-    name="Business Council",
-    fears=["price_controls", "heavy_regulation"],
-)
-youth = InterestGroup(
-    id=InterestGroupId("youth"),
-    name="Youth Coalition",
-    fears=["austerity"],
+from src.simulation import (
+    generate_world,
+    load_world_from_path,
+    print_final_summary,
+    print_world_summary,
+    run_simulation,
 )
 
-# ---------------------------------------------------------------------------
-# 2. Parties (reference IG objects for constituency)
-# ---------------------------------------------------------------------------
 
-labor = Party(
-    id=PartyId("labor"),
-    name="Labor Alliance",
-    ideology=Ideology.create(economic=-0.6, social=0.4),
-    directive_threshold=-0.2,
-    campaign_budget=5,
-    leadership_interval=5,
-    base_constituency={workers: 0.8, youth: 0.5},
-)
-civic = Party(
-    id=PartyId("civic"),
-    name="Civic Progress",
-    ideology=Ideology.create(economic=0.3, social=0.1),
-    directive_threshold=-0.15,
-    campaign_budget=5,
-    leadership_interval=5,
-    base_constituency={business: 0.7, youth: 0.3},
-)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Build or load a political simulation world and run it.",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
-# ---------------------------------------------------------------------------
-# 3. Place (reference IG objects for presence)
-# ---------------------------------------------------------------------------
+    from_config = subparsers.add_parser(
+        "from-config",
+        help="Load a world from a JSON/TOML file or config directory.",
+    )
+    from_config.add_argument("--config", type=Path, required=True, help="Path to a config file or directory.")
+    _add_common_run_args(from_config)
 
-city = Place(
-    id=PlaceId("city"),
-    name="Capital City",
-    tier=PlaceTier.MUNICIPALITY,
-    interest_group_presence={workers: 0.55, business: 0.30, youth: 0.15},
-)
+    generate = subparsers.add_parser(
+        "generate",
+        help="Generate a world from CLI parameters.",
+    )
+    generate.add_argument("--profile", choices=("local", "federated"), required=True)
 
-# ---------------------------------------------------------------------------
-# 4. Agents — 5 councillors + 1 mayor (pass objects, not IDs)
-# ---------------------------------------------------------------------------
+    generate.add_argument("--num-parties", type=int)
+    generate.add_argument("--num-interest-groups", type=int)
+    generate.add_argument("--council-seats", type=int)
 
-councillors = [
-    Agent(
-        id=AgentId("c1"), name="Ana Souza",
-        ideology=Ideology.create(economic=-0.7, social=0.5),
-        party=labor, place=city,
-        office=OfficeType.COUNCILPERSON,
-        allegiances={workers: 0.85},
-        popularity={workers: 0.75, youth: 0.6},
-        party_standing=0.9, ambition=0.4, archetype=Archetype.LOYALIST,
-        detail_level=DetailLevel.L1,
-    ),
-    Agent(
-        id=AgentId("c2"), name="Bruno Melo",
-        ideology=Ideology.create(economic=-0.4, social=0.2),
-        party=labor, place=city,
-        office=OfficeType.COUNCILPERSON,
-        allegiances={workers: 0.5, youth: 0.4},
-        popularity={workers: 0.55, youth: 0.5},
-        party_standing=0.6, ambition=0.7, archetype=Archetype.POPULIST,
-        detail_level=DetailLevel.L1,
-    ),
-    Agent(
-        id=AgentId("c3"), name="Clara Faria",
-        ideology=Ideology.create(economic=0.2, social=0.0),
-        party=civic, place=city,
-        office=OfficeType.COUNCILPERSON,
-        allegiances={business: 0.6},
-        popularity={business: 0.65, workers: 0.3},
-        party_standing=0.8, ambition=0.5, archetype=Archetype.IDEOLOGUE,
-        detail_level=DetailLevel.L1,
-    ),
-    Agent(
-        id=AgentId("c4"), name="Diego Ramos",
-        ideology=Ideology.create(economic=0.5, social=-0.3),
-        party=civic, place=city,
-        office=OfficeType.COUNCILPERSON,
-        allegiances={business: 0.8},
-        popularity={business: 0.7, workers: 0.2},
-        party_standing=0.7, ambition=0.6, archetype=Archetype.LOYALIST,
-        detail_level=DetailLevel.L1,
-    ),
-    Agent(
-        id=AgentId("c5"), name="Elisa Nunes",
-        ideology=Ideology.create(economic=-0.1, social=0.6),
-        party=labor, place=city,
-        office=OfficeType.COUNCILPERSON,
-        allegiances={youth: 0.75},
-        popularity={youth: 0.8, workers: 0.45},
-        party_standing=0.5, ambition=0.8, archetype=Archetype.POPULIST,
-        detail_level=DetailLevel.L1,
-    ),
-]
+    generate.add_argument("--num-states", type=int)
+    generate.add_argument("--municipalities-per-state", type=int)
+    generate.add_argument("--federal-legislature-seats", type=int)
+    generate.add_argument("--state-legislature-seats", type=int)
+    generate.add_argument("--municipal-legislature-seats", type=int)
 
-mayor = Agent(
-    id=AgentId("mayor"), name="Fernando Costa",
-    ideology=Ideology.create(economic=-0.3, social=0.3),
-    party=labor, place=city,
-    office=OfficeType.MAYOR,
-    party_role=PartyRole.LEADER,
-    allegiances={workers: 0.6, youth: 0.5},
-    relationships={},
-    popularity={workers: 0.65, youth: 0.55, business: 0.35},
-    party_standing=0.75, ambition=0.6, archetype=Archetype.POPULIST,
-    detail_level=DetailLevel.L0,
-)
-# Seed some initial relationships.
-mayor.relationships = {councillors[0]: 0.8, councillors[1]: 0.5, councillors[4]: 0.6}
+    generate.add_argument("--party-election-interval", type=int)
+    generate.add_argument("--election-interval", type=int)
+    _add_common_run_args(generate)
 
-# ---------------------------------------------------------------------------
-# 5. Register everything in World
-# ---------------------------------------------------------------------------
+    return parser
 
-world = World()
-world.add_interest_group(workers)
-world.add_interest_group(business)
-world.add_interest_group(youth)
-world.add_party(labor)
-world.add_party(civic)
-world.add_place(city)
-for c in councillors:
-    world.add_politician(c)
-world.add_politician(mayor)
 
-# ---------------------------------------------------------------------------
-# 6. Government
-# ---------------------------------------------------------------------------
+def _add_common_run_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--turns", type=int, default=10, help="Number of turns to simulate.")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for generation/simulation.")
+    parser.add_argument("--debug", action="store_true", help="Write verbose simulation logs to simulation.log.")
+    parser.add_argument(
+        "--summary",
+        choices=("short", "full"),
+        default="full",
+        help="How much world state to print before and after simulation.",
+    )
 
-council = Legislature(
-    place=city,
-    seat_type=OfficeType.COUNCILPERSON,
-    total_seats=5,
-    members=list(councillors),
-)
-executive_office = Office(
-    office_type=OfficeType.MAYOR,
-    place=city,
-    holder=mayor,
-)
-gov = Government(place=city, executive=executive_office, legislature=council,
-                 attributes={"election_interval": 5, "last_election_turn": 0})
-world.add_government(gov)
 
-# ---------------------------------------------------------------------------
-# 7. Initialize dynamic variables + run simulation
-# ---------------------------------------------------------------------------
+def _validate_generate_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+    local_only = ("council_seats",)
+    federated_only = (
+        "num_states",
+        "municipalities_per_state",
+        "federal_legislature_seats",
+        "state_legislature_seats",
+        "municipal_legislature_seats",
+    )
+    if args.profile == "local":
+        invalid = [flag for flag in federated_only if getattr(args, flag) is not None]
+        if invalid:
+            parser.error(
+                "Profile 'local' does not accept: "
+                + ", ".join(f"--{flag.replace('_', '-')}" for flag in invalid)
+            )
+    if args.profile == "federated":
+        invalid = [flag for flag in local_only if getattr(args, flag) is not None]
+        if invalid:
+            parser.error(
+                "Profile 'federated' does not accept: "
+                + ", ".join(f"--{flag.replace('_', '-')}" for flag in invalid)
+            )
 
-# Assign unique utility weights to each agent.
-rng = random.Random(42)
-for agent in world.politicians.values():
-    agent.attributes["utility_weights"] = perturb_weights(rng)
 
-initialize_local_variables(world)
+def _build_generate_kwargs(args: argparse.Namespace) -> dict[str, int]:
+    keys = (
+        "num_parties",
+        "num_interest_groups",
+        "council_seats",
+        "num_states",
+        "municipalities_per_state",
+        "federal_legislature_seats",
+        "state_legislature_seats",
+        "municipal_legislature_seats",
+        "party_election_interval",
+        "election_interval",
+    )
+    return {
+        key: value
+        for key in keys
+        if (value := getattr(args, key)) is not None
+    }
 
-print(f"=== Initial State (Turn {world.turn}) ===")
-print(f"Place: {city.name} ({city.tier.name})")
-print(f"Mayor: {mayor.name} ({mayor.party.name}, {mayor.party_role.name})")
-print(f"  {mayor.name:15s}  {mayor.party.name:20s}  "
-          f"ideology=({mayor.ideology['economic']:+.1f}, {mayor.ideology['social']:+.1f})")
-print(f"Council ({council.total_seats} seats):")
-for c in councillors:
-    print(f"  {c.name:15s}  {c.party.name:20s}  "
-          f"ideology=({c.ideology['economic']:+.1f}, {c.ideology['social']:+.1f})")
-print()
-print("Interest group state:")
-for ig in [workers, business, youth]:
-    sat = ig.satisfaction.get(city, 0.0)
-    share = ig.electorate_share.get(city, 0.0)
-    pressure = ig.pressure_on(city)
-    print(f"  {ig.name:25s}  sat={sat:.2f}  share={share:.2f}  pressure={pressure:.2f}")
 
-print("\n" + "=" * 60)
-print("Running 10 turns (verbose log → simulation.log)...")
-print("=" * 60 + "\n")
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
 
-reports = run_simulation(world, num_turns=10, rng=rng, debug=True)
+    if args.command == "from-config":
+        world = load_world_from_path(args.config)
+    else:
+        _validate_generate_args(args, parser)
+        world = generate_world(
+            args.profile,
+            seed=args.seed,
+            **_build_generate_kwargs(args),
+        )
 
-print(f"\n=== Final State (Turn {world.turn}) ===")
-print("Interest group satisfaction:")
-for ig in [workers, business, youth]:
-    sat = ig.satisfaction.get(city, 0.0)
-    pressure = ig.pressure_on(city)
-    print(f"  {ig.name:25s}  sat={sat:.2f}  pressure={pressure:.2f}")
+    print_world_summary(world, summary=args.summary)
 
-print("\nAgent standings:")
-for agent in [mayor] + councillors:
-    office_str = agent.office.name if agent.office else "none"
-    print(f"  {agent.name:15s}  office={office_str:15s}  party_standing={agent.party_standing:.2f}")
+    if args.turns > 0:
+        print(f"\nRunning {args.turns} turn(s)...\n")
+        sim_rng = random.Random(args.seed)
+        run_simulation(world, num_turns=args.turns, rng=sim_rng, debug=args.debug)
+    else:
+        print("\nSkipping simulation because --turns was set to 0.")
+
+    print_final_summary(world, summary=args.summary, debug=args.debug)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
