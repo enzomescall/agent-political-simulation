@@ -148,7 +148,9 @@ def _generate_agent(party: Party, place: Place, world: World, rng: _random.Rando
     """Generate a placeholder agent for legislative seat filling."""
     from src.models.agent import Agent
 
-    agent_id = AgentId(f"gen_{rng.randint(10000, 99999)}")
+    counter = world.attributes.get("_gen_counter", 0) + 1
+    world.attributes["_gen_counter"] = counter
+    agent_id = AgentId(f"{place.id}_gen_{counter}")
     # Ideology close to party's but with noise.
     axes = {
         ax: max(-1.0, min(1.0, val + rng.uniform(-0.3, 0.3)))
@@ -457,29 +459,31 @@ def run_legislative_election(gov: Government, world: World, rng: _random.Random)
 
 def run_party_election(party: Party, world: World, rng: _random.Random) -> list[str]:
     """Run a party leadership election. Returns event strings."""
-    members = list(party.members.keys())
+    # Only active (L0/L1) members stand as candidates — L2 placeholders are
+    # temporary fill agents and should not participate in party leadership.
+    members = [
+        m for m in party.members.keys()
+        if m.detail_level is not DetailLevel.L2
+    ]
     if len(members) < 2:
         return []
 
-    # Each member votes for a candidate (not themselves).
-    vote_totals: dict[Agent, float] = {m: 0.0 for m in members}
-    for voter in members:
-        for candidate in members:
-            if candidate is voter:
-                continue
-            avg_pop = sum(candidate.popularity.values()) / max(len(candidate.popularity), 1)
-            office_bonus = 0.2 if candidate.office is not None else 0.0
-            # Ideology distance normalized to [0,1] — closer = higher score.
-            max_dist = len(voter.ideology.axes) ** 0.5
-            dist = voter.ideology.distance(candidate.ideology)
-            ideology_align = max(0.0, 1.0 - dist / max(max_dist, 1.0))
-            score = (
-                0.3 * voter.relationships.get(candidate, 0.0)
-                + 0.3 * avg_pop
-                + 0.2 * office_bonus
-                + 0.2 * ideology_align
-            )
-            vote_totals[candidate] += score
+    # Score each candidate directly (O(N)) rather than running an O(N²) voter matrix.
+    # Candidate score = popularity + office bonus + ideological alignment with party centroid.
+    max_dist = len(members[0].ideology.axes) ** 0.5
+    vote_totals: dict[Agent, float] = {}
+    for candidate in members:
+        avg_pop = sum(candidate.popularity.values()) / max(len(candidate.popularity), 1)
+        office_bonus = 0.2 if candidate.office is not None else 0.0
+        # How well the candidate represents the average party ideology.
+        dist = party.ideology.distance(candidate.ideology)
+        ideology_align = max(0.0, 1.0 - dist / max(max_dist, 1.0))
+        vote_totals[candidate] = (
+            0.3 * avg_pop
+            + 0.2 * office_bonus
+            + 0.2 * ideology_align
+            + 0.3 * candidate.party_standing
+        )
 
     winner = max(vote_totals, key=lambda c: vote_totals[c])
 

@@ -4,12 +4,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
+# Cap rows so the chart stays readable.
+_MAX_ROWS = 60
+_EXCLUDED_TIERS = {"MUNICIPALITY"}
+
 
 def viz_election_heatmap(all_reports, ALL_PARTIES, output_dir):
     leg_elections = []
     for report in all_reports:
         for er in report.election_results:
             if er.election_type == "legislative":
+                # Skip municipal elections to keep the chart readable.
+                tier = er.place.tier.name if hasattr(er.place, "tier") else ""
+                if tier in _EXCLUDED_TIERS:
+                    continue
                 leg_elections.append(
                     {
                         "turn": report.turn,
@@ -17,6 +25,9 @@ def viz_election_heatmap(all_reports, ALL_PARTIES, output_dir):
                         "vote_shares": er.vote_shares,
                     }
                 )
+
+    # If still too many, take the first _MAX_ROWS.
+    leg_elections = leg_elections[:_MAX_ROWS]
 
     if not leg_elections:
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -55,7 +66,7 @@ def viz_election_heatmap(all_reports, ALL_PARTIES, output_dir):
     ax.set_yticklabels(row_labels, fontsize=8)
 
     plt.colorbar(im, ax=ax, label="Vote Share (%)", shrink=0.6)
-    ax.set_title("Legislative Election Vote Shares", fontsize=12, fontweight="bold")
+    ax.set_title("Legislative Election Vote Shares (Federal & State)", fontsize=12, fontweight="bold")
     plt.tight_layout()
     plt.savefig(output_dir / "06_election_heatmap.png", dpi=150, bbox_inches="tight")
     plt.close()

@@ -168,23 +168,32 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.turns > 0:
         print(f"\nRunning {args.turns} turn(s)...\n")
-        sim_rng = random.Random(args.seed)
-        run_simulation(
-            world,
-            num_turns=args.turns,
-            rng=sim_rng,
-            debug=args.debug,
-            progress_every=args.progress_every,
-        )
+        if args.visualize is not None:
+            # Collect viz data during the single simulation run (avoids running twice).
+            viz_data = run_simulation_for_viz(
+                world, args.turns, args.seed, progress_every=args.progress_every
+            )
+        else:
+            sim_rng = random.Random(args.seed)
+            run_simulation(
+                world,
+                num_turns=args.turns,
+                rng=sim_rng,
+                debug=args.debug,
+                progress_every=args.progress_every,
+            )
+            viz_data = None
     else:
         print("\nSkipping simulation because --turns was set to 0.")
+        viz_data = None
 
     print_final_summary(world, summary=args.summary, debug=args.debug)
 
     if args.visualize is not None:
         print("\nGenerating visualizations...")
         config_name = args.config.name if hasattr(args.config, "name") else "config"
-        viz_data = run_simulation_for_viz(world, args.turns, args.seed)
+        if viz_data is None:
+            viz_data = run_simulation_for_viz(world, 0, args.seed)
         output_dir = generate_visualizations(
             world, viz_data, viz_numbers=viz_numbers, config_name=config_name
         )

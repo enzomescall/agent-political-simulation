@@ -607,19 +607,17 @@ def _generate_agent(
     """Generate an agent with random ideology across the political compass.
 
     Agents are randomly distributed across the full ideological space (-1 to 1),
-    then assigned to the nearest party with some jitter.
+    then assigned to the nearest party (no jitter for true uniform distribution).
     """
-    # Ideology: random across full compass, then find nearest party
+    # Ideology: truly random uniform distribution across full compass
     if econ_override is not None and soc_override is not None:
         econ, soc = econ_override, soc_override
     else:
         econ = rng.uniform(-1.0, 1.0)
         soc = rng.uniform(-1.0, 1.0)
 
-    # Add jitter, then find nearest party
-    jitter_econ = rng.uniform(-0.15, 0.15)
-    jitter_soc = rng.uniform(-0.15, 0.15)
-    party = _nearest_party(econ + jitter_econ, soc + jitter_soc, parties, rng)
+    # Find nearest party (no jitter - true uniform distribution)
+    party = _nearest_party(econ, soc, parties, rng)
 
     if name is None:
         name = _random_name(rng)

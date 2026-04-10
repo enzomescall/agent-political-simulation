@@ -7,12 +7,14 @@ from pathlib import Path
 def viz_veto_analysis(history_veto_counts, num_turns, election_interval, output_dir):
     vetoed = [v[0] for v in history_veto_counts]
     overrides = [v[1] for v in history_veto_counts]
+    # Sustained = vetoed but NOT overridden (overrides are a subset of vetoed)
+    sustained = [max(0, v - o) for v, o in zip(vetoed, overrides)]
 
     fig, ax = plt.subplots(figsize=(14, 7))
 
     x = range(len(vetoed))
-    ax.bar(x, vetoed, color="#E74C3C", label="Vetoed", alpha=0.85)
-    ax.bar(x, overrides, bottom=vetoed, color="#F39C12", label="Overrides", alpha=0.85)
+    ax.bar(x, sustained, color="#E74C3C", label="Vetoed (Sustained)", alpha=0.85)
+    ax.bar(x, overrides, bottom=sustained, color="#F39C12", label="Vetoed (Overridden)", alpha=0.85)
 
     for epoch_turn in range(election_interval, len(vetoed), election_interval):
         ax.axvline(epoch_turn, color="black", linewidth=1.5, linestyle=":", alpha=0.5)

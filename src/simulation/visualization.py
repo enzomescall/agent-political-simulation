@@ -27,6 +27,7 @@ from src.simulation.viz_data import avg_popularity, run_simulation_for_viz
 
 # Import viz functions from individual viz modules
 from src.simulation.viz.v01_ideological_landscape import viz_ideological_landscape
+from src.simulation.viz.v01b_ideological_epochs import viz_ideological_epochs
 from src.simulation.viz.v02_seat_evolution import viz_seat_evolution
 from src.simulation.viz.v03_vote_dynamics import viz_vote_dynamics
 from src.simulation.viz.v04_policy_success import viz_policy_success
@@ -41,7 +42,9 @@ from src.simulation.viz.v12_exec_timeline import viz_exec_timeline
 from src.simulation.viz.v13_party_popularity import viz_party_popularity
 from src.simulation.viz.v14_mobility import viz_mobility
 from src.simulation.viz.v15_party_seat_share import viz_party_seat_share
-from src.simulation.viz.v16_party_leadership_timeline import viz_party_leadership_timeline
+from src.simulation.viz.v16_party_leadership_timeline import (
+    viz_party_leadership_timeline,
+)
 from src.simulation.viz.v17_party_discipline_heatmap import viz_party_discipline_heatmap
 from src.simulation.viz.v18_party_ideology_drift import viz_party_ideology_drift
 from src.simulation.viz.v19_veto_analysis import viz_veto_analysis
@@ -137,6 +140,16 @@ def generate_visualizations(
         print("Generating viz 1/21: Ideological Landscape...")
         viz_ideological_landscape(
             initial_agents_data, ALL_PARTIES, output_dir, PARTY_COLORS
+        )
+        print("Generating viz 1b/21: Ideological Landscape GIF...")
+        viz_ideological_epochs(
+            history_agent_ideologies,
+            initial_agents_data,
+            ALL_PARTIES,
+            output_dir,
+            PARTY_COLORS,
+            election_interval,
+            num_turns,
         )
 
     if 2 in viz_numbers:
@@ -242,7 +255,8 @@ def generate_visualizations(
     if 17 in viz_numbers:
         print("Generating viz 17/21: Party Discipline Heatmap...")
         viz_party_discipline_heatmap(
-            history_agent_party_standing, history_agent_ideologies, output_dir
+            history_agent_party_standing, history_agent_ideologies, output_dir,
+            initial_agents_data=initial_agents_data,
         )
 
     if 18 in viz_numbers:
@@ -256,9 +270,7 @@ def generate_visualizations(
 
     if 19 in viz_numbers:
         print("Generating viz 19/21: Veto Analysis...")
-        viz_veto_analysis(
-            history_veto_counts, num_turns, election_interval, output_dir
-        )
+        viz_veto_analysis(history_veto_counts, num_turns, election_interval, output_dir)
 
     if 20 in viz_numbers:
         print("Generating viz 20/21: Ideology Drift Agents...")

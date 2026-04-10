@@ -39,7 +39,7 @@ def avg_popularity(agent: Agent) -> float:
     return sum(vals) / len(vals) if vals else 0.0
 
 
-def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42):
+def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42, progress_every: int | None = None):
     """Run simulation and collect history data for visualizations."""
     ELECTION_INTERVAL = 5
 
@@ -176,9 +176,14 @@ def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42):
     sim_rng = random.Random(seed)
     all_reports = []
 
+    if progress_every is None:
+        progress_every = max(1, num_turns // 10)
+
     for t in range(num_turns):
         report = run_turn(world, sim_rng)
         all_reports.append(report)
+        if (t + 1) % progress_every == 0:
+            print(f"  Turn {t + 1}/{num_turns} complete...")
 
         history_seats.append(snapshot_seats(world))
         history_ig_sat.append(snapshot_ig_satisfaction(world))

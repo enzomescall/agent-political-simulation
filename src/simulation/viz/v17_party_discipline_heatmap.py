@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 def viz_party_discipline_heatmap(
-    history_agent_party_standing, history_agent_ideologies, output_dir
+    history_agent_party_standing, history_agent_ideologies, output_dir,
+    initial_agents_data=None,
 ):
     agent_ids = list(history_agent_party_standing.keys())[:20]
 
@@ -38,11 +39,20 @@ def viz_party_discipline_heatmap(
         matrix.append(padded)
     matrix = np.array(matrix, dtype=float)
 
+    # Use agent names from initial_agents_data when available; fall back to IDs.
+    if initial_agents_data:
+        y_labels = [
+            initial_agents_data[aid]["name"] if aid in initial_agents_data else str(aid)
+            for aid in agent_ids
+        ]
+    else:
+        y_labels = [str(aid) for aid in agent_ids]
+
     fig, ax = plt.subplots(figsize=(12, max(4, len(agent_ids) * 0.3)))
     im = ax.imshow(matrix, cmap="RdYlGn", aspect="auto", vmin=0, vmax=1)
 
     ax.set_yticks(range(len(agent_ids)))
-    ax.set_yticklabels(agent_ids, fontsize=8)
+    ax.set_yticklabels(y_labels, fontsize=8)
     ax.set_xlabel("Turn", fontsize=11)
     ax.set_title("Party Discipline Heatmap", fontsize=13, fontweight="bold")
 

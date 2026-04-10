@@ -33,6 +33,11 @@ class World:
 
     attributes: dict[str, Any] = field(default_factory=dict)
 
+    # Place → agents index for O(1) lookups (not serialized, rebuilt on access)
+    _agents_by_place: dict[PlaceId, list[Agent]] = field(
+        default_factory=dict, repr=False, compare=False
+    )
+
     # ------------------------------------------------------------------
     # Registration helpers
     # ------------------------------------------------------------------
@@ -52,6 +57,11 @@ class World:
     def add_politician(self, agent: Agent) -> None:
         self.politicians[agent.id] = agent
         agent.party.add_member(agent, agent.party_role)
+        place_list = self._agents_by_place.get(agent.place.id)
+        if place_list is None:
+            self._agents_by_place[agent.place.id] = [agent]
+        else:
+            place_list.append(agent)
 
     def add_government(self, government: Government) -> None:
         self.governments[government.place.id] = government
@@ -61,7 +71,7 @@ class World:
     # ------------------------------------------------------------------
 
     def politicians_in_place(self, place: Place) -> list[Agent]:
-        return [p for p in self.politicians.values() if p.place is place]
+        return list(self._agents_by_place.get(place.id, []))
 
     def party_members(self, party: Party) -> list[Agent]:
         return [p for p in self.politicians.values() if p.party is party]
@@ -70,6 +80,12 @@ class World:
         self.politicians.pop(agent.id, None)
         agent.party.members.pop(agent, None)
         agent.office = None
+        place_list = self._agents_by_place.get(agent.place.id)
+        if place_list:
+            try:
+                place_list.remove(agent)
+            except ValueError:
+                pass
 
     def siblings_of(self, place: Place) -> list[Place]:
         if place.parent is None:

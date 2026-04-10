@@ -40,7 +40,6 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
         for ig_a, impact_a in policy.interest_group_impacts.items():
             if impact_a <= 0 or result.place not in ig_a.satisfaction:
                 continue
-            gained = ig_a.satisfaction[result.place] - ig_a.satisfaction.get(result.place, 0.5)
             for ig_b, impact_b in policy.interest_group_impacts.items():
                 if ig_b is ig_a or result.place not in ig_b.satisfaction:
                     continue
