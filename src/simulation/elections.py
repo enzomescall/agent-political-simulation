@@ -172,7 +172,7 @@ def _generate_agent(party: Party, place: Place, world: World, rng: _random.Rando
     for ig in place.interest_group_presence:
         affinity = party.base_constituency.get(ig, 0.0)
         agent.popularity[ig] = max(0.0, min(1.0, affinity * 0.5 + rng.uniform(-0.1, 0.1)))
-    world.add_politician(agent)
+    # Do NOT add to world yet — only winners will be registered after the election.
     _log.debug("  Generated placeholder agent %s for %s", fmt(agent), party.name)
     return agent
 
@@ -423,11 +423,14 @@ def run_legislative_election(gov: Government, world: World, rng: _random.Random)
             a.office = legislature.seat_type
             a.detail_level = DetailLevel.L1
             a.attributes["consecutive_terms_leg"] = a.attributes.get("consecutive_terms_leg", 0) + 1
+            # Register freshly generated winners into the world now.
+            if a.id not in world.politicians:
+                world.add_politician(a)
             new_members.append(a)
             winners.append(a)
         events.append(f"{party.name} won {seats} seat(s) in {place.name} legislature")
 
-    # Downgrade losers.
+    # Downgrade old members who lost their seat.
     new_set = set(new_members)
     for m in old_members:
         if m not in new_set:
@@ -435,13 +438,7 @@ def run_legislative_election(gov: Government, world: World, rng: _random.Random)
             m.detail_level = DetailLevel.L2
             m.attributes["turns_at_l2"] = 0
             losers.append(m)
-
-    # Unelected nominees who are new agents also go to L2.
-    for party in parties_in_place:
-        for a in nominations[party][floor_seats[party]:]:
-            if a not in old_members:
-                a.detail_level = DetailLevel.L2
-                a.attributes["turns_at_l2"] = 0
+    # Unelected generated candidates were never added to the world — nothing to clean up.
 
     legislature.members = new_members
     vote_shares = {p.name: party_share[p] for p in parties_in_place}

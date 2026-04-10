@@ -6,4 +6,3 @@ simulation.log
 .pytest_cache/
 .coverage
 *.egg-info/
-visualizations/

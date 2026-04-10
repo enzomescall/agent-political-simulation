@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.models import Archetype, OfficeType
 
-_MAX_AGENTS_PER_FRAME = 2000  # downsample above this to avoid OOM
+_MAX_AGENTS_PER_FRAME = 10000  # downsample above this to avoid OOM
 
 
 def viz_ideological_epochs(
