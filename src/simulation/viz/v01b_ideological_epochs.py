@@ -51,6 +51,7 @@ def viz_ideological_epochs(
         }
 
         # Get agents at this epoch
+        party_centroids = {}
         for archetype, marker in archetype_markers.items():
             for party in ALL_PARTIES:
                 color = PARTY_COLORS.get(party.name, "#888888")
@@ -75,6 +76,38 @@ def viz_ideological_epochs(
                                 linewidths=0.4,
                                 zorder=3,
                             )
+                            # Track for centroid
+                            if party.name not in party_centroids:
+                                party_centroids[party.name] = []
+                            party_centroids[party.name].append((econ, soc))
+
+        # Add party stars (centroids)
+        for party in ALL_PARTIES:
+            color = PARTY_COLORS.get(party.name, "#888888")
+            points = party_centroids.get(party.name, [])
+            if points:
+                cx = np.mean([p[0] for p in points])
+                cy = np.mean([p[1] for p in points])
+                ax.scatter(
+                    cx,
+                    cy,
+                    c=color,
+                    marker="*",
+                    s=400,
+                    edgecolors="black",
+                    linewidths=1.0,
+                    zorder=5,
+                )
+                ax.annotate(
+                    party.name,
+                    (cx, cy),
+                    textcoords="offset points",
+                    xytext=(6, 6),
+                    fontsize=8,
+                    fontweight="bold",
+                    color=color,
+                    bbox=dict(boxstyle="round,pad=0.2", fc="white", alpha=0.7),
+                )
 
         ax.set_xlim(-1.1, 1.1)
         ax.set_ylim(-1.1, 1.1)
