@@ -22,9 +22,9 @@ if TYPE_CHECKING:
 _log = logging.getLogger("simulation.factions")
 
 # Thresholds
-_SAT_THRESHOLD = 0.25          # party_satisfaction below this → disgruntled
+_SAT_THRESHOLD = 0.45          # party_satisfaction below this → disgruntled
 _INERTIA_NEEDED = 3            # consecutive turns below threshold before split
-_IDEOLOGICAL_GAP = 0.30        # must be this far from next-closest party to bother
+_IDEOLOGICAL_GAP = 0.10        # must be this far from next-closest party to bother
 _MIN_SPLINTER_SIZE = 2         # need at least 2 agents to form a new party
 _COOLDOWN = -5                 # inertia value set after splitting (prevents instant re-split)
 _BUDGET_START = 2              # starting campaign budget for splinter party
@@ -88,7 +88,7 @@ def check_splits(world: "World", rng: _random.Random) -> list[str]:
             agent.attributes["split_inertia"] = inertia + 1
             continue
 
-        if sat < _SAT_THRESHOLD and _no_close_alternative(agent, world):
+        if sat < _SAT_THRESHOLD:
             agent.attributes["split_inertia"] = inertia + 1
         else:
             # Satisfaction returned; reset inertia gradually

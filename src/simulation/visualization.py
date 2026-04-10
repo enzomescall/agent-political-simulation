@@ -50,6 +50,8 @@ from src.simulation.viz.v18_party_ideology_drift import viz_party_ideology_drift
 from src.simulation.viz.v19_veto_analysis import viz_veto_analysis
 from src.simulation.viz.v20_ideology_drift_agents import viz_ideology_drift_agents
 from src.simulation.viz.v21_ig_radicalization import viz_ig_radicalization
+from src.simulation.viz.v22_party_splits import viz_party_splits
+from src.simulation.viz.v23_party_swaps import viz_party_swaps
 
 
 VISUALIZATION_NAMES = {
@@ -74,6 +76,8 @@ VISUALIZATION_NAMES = {
     19: "veto_analysis",
     20: "ideology_drift_agents",
     21: "ig_radicalization",
+    22: "party_splits",
+    23: "party_swaps",
 }
 
 
@@ -131,8 +135,10 @@ def generate_visualizations(
     history_party_total_seats = viz_data["history_party_total_seats"]
     all_reports = viz_data["all_reports"]
 
+    history_party_membership = viz_data.get("history_party_membership", [])
+
     if viz_numbers is None:
-        viz_numbers = list(range(1, 22))
+        viz_numbers = list(range(1, 24))
 
     print(f"Generating visualizations in {output_dir}")
 
@@ -277,10 +283,18 @@ def generate_visualizations(
         viz_ideology_drift_agents(history_agent_ideologies, output_dir)
 
     if 21 in viz_numbers:
-        print("Generating viz 21/21: IG Radicalization...")
+        print("Generating viz 21/23: IG Radicalization...")
         viz_ig_radicalization(
             history_ig_ideologies, [ig.name for ig in ALL_IGs], output_dir
         )
+
+    if 22 in viz_numbers:
+        print("Generating viz 22/23: Party Splits...")
+        viz_party_splits(all_reports, output_dir, PARTY_COLORS)
+
+    if 23 in viz_numbers:
+        print("Generating viz 23/23: Party Swaps...")
+        viz_party_swaps(history_party_membership, initial_agents_data, output_dir, PARTY_COLORS)
 
     print(f"Visualizations saved to {output_dir}")
     return output_dir

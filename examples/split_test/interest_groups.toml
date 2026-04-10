@@ -1,0 +1,15 @@
+[[interest_groups]]
+id = "workers"
+name = "Labour Union"
+
+[[interest_groups]]
+id = "business"
+name = "Business Council"
+
+[[interest_groups]]
+id = "enviro"
+name = "Green Alliance"
+
+[[interest_groups]]
+id = "farmers"
+name = "Farmers Federation"

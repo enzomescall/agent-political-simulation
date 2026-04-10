@@ -1,0 +1,12 @@
+[[governments]]
+place_id = "capitol"
+[governments.executive]
+office_type = "MAYOR"
+holder_id = "mayor"
+[governments.legislature]
+seat_type = "COUNCILPERSON"
+total_seats = 8
+member_ids = ["c_right1", "c_right2", "c_left1", "c_left2", "c_left3", "c_gl1", "c_gl2"]
+[governments.attributes]
+election_interval = 10
+last_election_turn = 0

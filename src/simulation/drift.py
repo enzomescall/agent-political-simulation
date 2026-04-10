@@ -27,6 +27,10 @@ _PARTY_PULL_RATE = 0.015
 _RAD_THRESHOLD = 0.25
 _RAD_AXIS_SCALE = 1.05   # per-turn extremism multiplier
 _RAD_SHARE_BOOST = 1.02  # per-turn mobilization multiplier
+# IG centrist drift: satisfaction above this threshold pulls ideology toward center.
+_CENTRIST_THRESHOLD = 0.72
+_CENTRIST_PULL_RATE = 0.03  # per-turn pull toward 0
+_CENTRIST_SHARE_DECAY = 0.99  # per-turn demobilization multiplier
 
 
 def _clamp(value: float, lo: float = -1.0, hi: float = 1.0) -> float:
@@ -129,6 +133,28 @@ def apply_ig_radicalization(world: World) -> list[str]:
                 )
                 events.append(
                     f"{ig.name} is radicalizing (satisfaction={avg_sat:.2f})"
+                )
+
+        elif avg_sat > _CENTRIST_THRESHOLD:
+            # Satisfied IGs moderate — pull ideology axes toward center
+            old_axes = dict(ig.ideology.axes)
+            for axis in list(ig.ideology.axes.keys()):
+                val = ig.ideology.axes[axis]
+                ig.ideology.axes[axis] = _clamp(val - val * _CENTRIST_PULL_RATE)
+
+            # Slight demobilization
+            for place in all_places:
+                if place in ig.electorate_share:
+                    ig.electorate_share[place] = max(
+                        0.01, ig.electorate_share[place] * _CENTRIST_SHARE_DECAY
+                    )
+
+            old_econ = old_axes.get("economic", 0)
+            new_econ = ig.ideology["economic"]
+            if abs(new_econ - old_econ) > 0.005:
+                _log.debug(
+                    "  IG '%s' moderating (avg_sat=%.3f): econ %.3f→%.3f",
+                    ig.name, avg_sat, old_econ, new_econ,
                 )
 
     return events

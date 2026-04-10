@@ -1,0 +1,27 @@
+[[parties]]
+id = "natcon"
+name = "National Conservative"
+directive_threshold = -0.3
+campaign_budget = 8
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = 0.8
+social = -0.7
+[parties.base_constituency]
+business = 0.8
+farmers = 0.6
+
+[[parties]]
+id = "greenleft"
+name = "Green Left Alliance"
+directive_threshold = -0.2
+campaign_budget = 6
+nomination_threshold = 0.2
+leadership_interval = 10
+[parties.ideology]
+economic = -0.7
+social = 0.8
+[parties.base_constituency]
+workers = 0.8
+enviro = 0.9

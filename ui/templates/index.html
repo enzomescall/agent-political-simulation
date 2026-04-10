@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Simulation</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 1.5rem; margin-bottom: 1rem; color: #1a1a2e; }
+        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+        .col { flex: 1; min-width: 200px; }
+        label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 4px; }
+        select, input { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; }
+        select:disabled { background: #f0f0f0; cursor: not-allowed; }
+        button { background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+        button:hover { background: #1d4ed8; }
+        button:disabled { background: #94a3b8; cursor: not-allowed; }
+        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+        .checkbox-grid label { display: flex; align-items: center; gap: 6px; font-weight: normal; cursor: pointer; }
+        .checkbox-grid input { width: auto; }
+        #output { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 4px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.8rem; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
+        #output .error { color: #f87171; }
+        .status { padding: 12px; border-radius: 4px; margin-bottom: 12px; }
+        .status.running { background: #fef3c7; color: #92400e; }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .viz-thumbnails { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+        .viz-thumbnails img { width: 100%; border-radius: 4px; border: 1px solid #eee; }
+        .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Political Simulation UI</h1>
+        
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <label>Command</label>
+                    <select id="command">
+                        <option value="from-config">from-config (load example)</option>
+                        <option value="generate">generate (procedural)</option>
+                    </select>
+                </div>
+                <div class="col" id="example-col">
+                    <label>Example Config</label>
+                    <select id="example">
+                        {% for ex in examples %}
+                        <option value="{{ ex }}">{{ ex }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col" id="profile-col" style="display:none;">
+                    <label>Profile</label>
+                    <select id="profile">
+                        <option value="local">local (single city)</option>
+                        <option value="federated">federated (multi-state)</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Turns</label>
+                    <input type="number" id="turns" value="10" min="1" max="100">
+                </div>
+                <div class="col">
+                    <label>Seed</label>
+                    <input type="number" id="seed" value="42">
+                </div>
+            </div>
+            
+            <label>Visualizations (1-21)</label>
+            <div class="checkbox-grid" id="viz-options">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div style="margin-top: 16px;">
+                <button id="run-btn">Run Simulation</button>
+            </div>
+        </div>
+        
+        <div class="card" id="status-card" style="display: none;"></div>
+        
+        <div class="card" id="output-card" style="display: none;">
+            <div class="section-title">Output</div>
+            <div id="output"></div>
+        </div>
+        
+        <div class="card" id="viz-card" style="display: none;">
+            <div class="section-title">Visualizations</div>
+            <div class="viz-thumbnails" id="viz-thumbnails"></div>
+        </div>
+    </div>
+    
+    <script>
+        const vizNames = {
+            1: 'Ideological Landscape', 2: 'Seat Evolution', 3: 'Vote Dynamics',
+            4: 'Policy Success', 5: 'IG Satisfaction', 6: 'Election Heatmap',
+            7: 'Popularity Trajectories', 8: 'Party Discipline', 9: 'Action Breakdown',
+            10: 'Agent Stories', 11: 'Exec Actions Over Time', 12: 'Exec Timeline',
+            13: 'Party Popularity', 14: 'Mobility', 15: 'Party Seat Share',
+            16: 'Party Leadership Timeline', 17: 'Party Discipline Heatmap',
+            18: 'Party Ideology Drift', 19: 'Veto Analysis', 20: 'Ideology Drift Agents',
+            21: 'IG Radicalization'
+        };
+        
+        const vizFiles = {
+            1: '01_ideological_landscape.png', 2: '02_seat_evolution.png', 3: '03_vote_dynamics.png',
+            4: '04_policy_success.png', 5: '05_ig_satisfaction.png', 6: '06_election_heatmap.png',
+            7: '07_popularity_trajectories.png', 8: '08_party_discipline.png', 9: '09_action_breakdown.png',
+            10: '10_agent_stories.png', 11: '11_exec_actions_over_time.png', 12: '12_exec_timeline.png',
+            13: '13_party_popularity.png', 14: '14_mobility.png', 15: '15_party_seat_share.png',
+            16: '16_party_leadership_timeline.png', 17: '17_party_discipline_heatmap.png',
+            18: '18_party_ideology_drift.png', 19: '19_veto_analysis.png', 20: '20_ideology_drift_agents.png',
+            21: '21_ig_radicalization.png'
+        };
+        
+        async function loadExamples() {
+            try {
+                const res = await fetch('/api/examples');
+                const examples = await res.json();
+                const sel = document.getElementById('example');
+                sel.innerHTML = examples.map(e => `<option value="${e}">${e}</option>`).join('');
+                sel.disabled = false;
+            } catch (e) {
+                console.error('Failed to load examples:', e);
+            }
+        }
+        
+        function buildVizOptions() {
+            const container = document.getElementById('viz-options');
+            for (let i = 1; i <= 21; i++) {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${i}" checked> ${i}. ${vizNames[i]}`;
+                container.appendChild(label);
+            }
+        }
+        
+        function showStatus(msg, type) {
+            const card = document.getElementById('status-card');
+            card.style.display = 'block';
+            card.className = `status ${type}`;
+            card.textContent = msg;
+        }
+        
+        function showOutput(text, isError = false) {
+            document.getElementById('output-card').style.display = 'block';
+            const out = document.getElementById('output');
+            out.innerHTML = `<span class="${isError ? 'error' : ''}">${text}</span>`;
+        }
+        
+        function showVizThumbnails(vizDir) {
+            const container = document.getElementById('viz-thumbnails');
+            container.innerHTML = '';
+            if (!vizDir) return;
+            
+            const parts = vizDir.split('/');
+            const dirName = parts[parts.length - 1];
+            
+            for (let i = 1; i <= 21; i++) {
+                const img = document.createElement('img');
+                img.src = `/viz/${dirName}/${vizFiles[i]}`;
+                img.alt = vizNames[i];
+                img.onerror = () => img.style.display = 'none';
+                container.appendChild(img);
+            }
+            document.getElementById('viz-card').style.display = 'block';
+        }
+        
+        document.getElementById('command').addEventListener('change', function() {
+            const isGenerate = this.value === 'generate';
+            document.getElementById('example-col').style.display = isGenerate ? 'none' : 'block';
+            document.getElementById('profile-col').style.display = isGenerate ? 'block' : 'none';
+        });
+        
+        document.getElementById('run-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('run-btn');
+            btn.disabled = true;
+            
+            const command = document.getElementById('command').value;
+            const example = document.getElementById('example').value;
+            const profile = document.getElementById('profile').value;
+            const turns = parseInt(document.getElementById('turns').value);
+            const seed = parseInt(document.getElementById('seed').value);
+            const selected = Array.from(document.querySelectorAll('#viz-options input:checked')).map(i => parseInt(i.value));
+            
+            showStatus('Running simulation...', 'running');
+            document.getElementById('viz-card').style.display = 'none';
+            
+            const res = await fetch('/api/run', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({command, example, profile, turns, seed, visualize: true, viz_nums: selected})
+            });
+            const data = await res.json();
+            
+            btn.disabled = false;
+            
+            if (data.success) {
+                showStatus('Simulation complete!', 'success');
+                showOutput(data.output);
+                showVizThumbnails(data.viz_dir);
+            } else {
+                showStatus('Simulation failed', 'error');
+                showOutput(data.error || data.output, true);
+            }
+        });
+        
+        loadExamples();
+        buildVizOptions();
+    </script>
+</body>
+</html>

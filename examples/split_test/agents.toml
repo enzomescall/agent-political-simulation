@@ -1,0 +1,184 @@
+# --- National Conservative ---
+
+[[agents]]
+id = "mayor"
+name = "Victor Holt"
+party_id = "natcon"
+place_id = "capitol"
+office = "MAYOR"
+party_role = "LEADER"
+detail_level = "L0"
+party_standing = 0.85
+ambition = 0.55
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.80
+social = -0.65
+[agents.allegiances]
+business = 0.85
+farmers = 0.65
+[agents.popularity]
+business = 0.75
+farmers = 0.60
+workers = 0.20
+enviro = 0.10
+
+[[agents]]
+id = "c_right1"
+name = "Edmund Reeves"
+party_id = "natcon"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "WHIP"
+detail_level = "L1"
+party_standing = 0.80
+ambition = 0.50
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.75
+social = -0.60
+[agents.allegiances]
+business = 0.80
+farmers = 0.55
+[agents.popularity]
+business = 0.70
+farmers = 0.55
+
+[[agents]]
+id = "c_right2"
+name = "Margaret Crane"
+party_id = "natcon"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+detail_level = "L1"
+party_standing = 0.75
+ambition = 0.45
+archetype = "LOYALIST"
+[agents.ideology]
+economic = 0.85
+social = -0.75
+[agents.allegiances]
+business = 0.75
+farmers = 0.70
+[agents.popularity]
+business = 0.68
+farmers = 0.65
+
+# --- NatCon left-bloc: trapped left-wingers in a right-wing party.
+# Their ideology is far-left, close to Green Left Alliance, but they've
+# historically belonged to NatCon. split_inertia = 2 means they need just
+# one more turn of dissatisfaction to break away.
+
+[[agents]]
+id = "c_left1"
+name = "Rosa Villareal"
+party_id = "natcon"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+detail_level = "L1"
+party_standing = 0.15
+ambition = 0.75
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.60
+social = 0.65
+[agents.allegiances]
+workers = 0.80
+enviro = 0.65
+[agents.popularity]
+workers = 0.70
+enviro = 0.60
+[agents.attributes]
+split_inertia = 2
+
+[[agents]]
+id = "c_left2"
+name = "Anton Marsh"
+party_id = "natcon"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+detail_level = "L1"
+party_standing = 0.20
+ambition = 0.70
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.55
+social = 0.70
+[agents.allegiances]
+workers = 0.75
+enviro = 0.60
+[agents.popularity]
+workers = 0.65
+enviro = 0.55
+[agents.attributes]
+split_inertia = 2
+
+[[agents]]
+id = "c_left3"
+name = "Diane Okeke"
+party_id = "natcon"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+detail_level = "L1"
+party_standing = 0.10
+ambition = 0.65
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.65
+social = 0.60
+[agents.allegiances]
+workers = 0.85
+enviro = 0.70
+[agents.popularity]
+workers = 0.72
+enviro = 0.62
+[agents.attributes]
+split_inertia = 2
+
+# --- Green Left Alliance ---
+
+[[agents]]
+id = "c_gl1"
+name = "Isabelle Fontaine"
+party_id = "greenleft"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "LEADER"
+detail_level = "L1"
+party_standing = 0.85
+ambition = 0.65
+archetype = "IDEOLOGUE"
+[agents.ideology]
+economic = -0.70
+social = 0.80
+[agents.allegiances]
+enviro = 0.90
+workers = 0.70
+[agents.popularity]
+enviro = 0.80
+workers = 0.65
+
+[[agents]]
+id = "c_gl2"
+name = "Kwame Asante"
+party_id = "greenleft"
+place_id = "capitol"
+office = "COUNCILPERSON"
+party_role = "MEMBER"
+detail_level = "L1"
+party_standing = 0.75
+ambition = 0.55
+archetype = "POPULIST"
+[agents.ideology]
+economic = -0.65
+social = 0.75
+[agents.allegiances]
+workers = 0.80
+enviro = 0.75
+[agents.popularity]
+workers = 0.70
+enviro = 0.72

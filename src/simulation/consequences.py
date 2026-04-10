@@ -30,7 +30,7 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
                 continue
             old = ig.satisfaction[result.place]
             # Scale: positive impacts land at 0.3×, negatives at 0.4× (slightly harsher)
-            scale = 0.3 if impact >= 0 else 0.4
+            scale = 0.5 if impact >= 0 else 0.6
             ig.satisfaction[result.place] = _clamp(old + impact * scale, 0.0, 1.0)
             _log.debug("  %s satisfaction: %.3f -> %.3f (impact=%.3f)",
                        ig.name, old, ig.satisfaction[result.place], impact)
@@ -59,7 +59,7 @@ def apply_vote_consequences(result: VoteResult, world: World) -> list[str]:
             if ig not in agent.popularity:
                 continue
             direction = 1.0 if voted_yes else -1.0
-            delta = direction * impact * 0.1
+            delta = direction * impact * 0.18
             old_pop = agent.popularity[ig]
             agent.popularity[ig] = _clamp(old_pop + delta, 0.0, 1.0)
             _log.debug("  %s popularity[%s]: %.3f -> %.3f (delta=%.3f)",
@@ -137,7 +137,7 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
             if ig not in agent.popularity:
                 continue
             allegiance = agent.allegiances.get(ig, 0.0)
-            delta = allegiance * 0.05 - (1.0 - allegiance) * 0.03
+            delta = allegiance * 0.08 - (1.0 - allegiance) * 0.05
             old = agent.popularity[ig]
             agent.popularity[ig] = _clamp(old + delta, 0.0, 1.0)
             impact_lines.append(
@@ -185,7 +185,7 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
         ig = action.params.get("interest_group")
         if ig is not None and ig in agent.popularity:
             campaign_old_pop = agent.popularity[ig]
-            new_pop = _clamp(campaign_old_pop + 0.08, 0.0, 1.0)
+            new_pop = _clamp(campaign_old_pop + 0.12, 0.0, 1.0)
             agent.popularity[ig] = new_pop
             old_standing = agent.party_standing
             new_standing = _clamp(agent.party_standing - 0.02, 0.0, 1.0)
@@ -198,7 +198,7 @@ def apply_action_consequences(action: Action, world: World) -> list[str]:
             for other_ig in agent.place.interest_group_presence:
                 if other_ig is not ig and other_ig in agent.popularity:
                     other_old_pop = agent.popularity[other_ig]
-                    new_other_pop = _clamp(other_old_pop - 0.02, 0.0, 1.0)
+                    new_other_pop = _clamp(other_old_pop - 0.04, 0.0, 1.0)
                     agent.popularity[other_ig] = new_other_pop
                     neglect_lines.append(
                         f"{other_ig.name}:{other_old_pop:.2f}->{new_other_pop:.2f}"

@@ -1,0 +1,9 @@
+[[places]]
+id = "capitol"
+name = "Capitol City"
+tier = "MUNICIPALITY"
+[places.interest_group_presence]
+workers = 0.35
+business = 0.30
+enviro = 0.20
+farmers = 0.15

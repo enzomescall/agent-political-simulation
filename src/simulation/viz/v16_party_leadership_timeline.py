@@ -40,32 +40,39 @@ def viz_party_leadership_timeline(
 
         start = 0
         prev_leader = None
+        segments = []  # (start, width, leader_name)
         for turn_idx, leader_name in enumerate(leaders):
             if leader_name != prev_leader and prev_leader is not None:
-                color = PARTY_COLORS.get(party_names[i], "#888888")
-                ax.barh(
-                    i,
-                    turn_idx - start,
-                    left=start,
-                    height=0.6,
-                    color=color,
-                    alpha=0.85,
-                    edgecolor="white",
-                )
+                segments.append((start, turn_idx - start, prev_leader))
                 start = turn_idx
             prev_leader = leader_name
 
         if prev_leader is not None:
+            segments.append((start, len(leaders) - start, prev_leader))
+
+        for seg_start, seg_width, seg_leader in segments:
             color = PARTY_COLORS.get(party_names[i], "#888888")
             ax.barh(
                 i,
-                len(leaders) - start,
-                left=start,
+                seg_width,
+                left=seg_start,
                 height=0.6,
                 color=color,
                 alpha=0.85,
                 edgecolor="white",
             )
+            if seg_width >= 1 and seg_leader != "none":
+                ax.text(
+                    seg_start + seg_width / 2,
+                    i,
+                    seg_leader,
+                    ha="center",
+                    va="center",
+                    fontsize=7,
+                    color="white",
+                    fontweight="bold",
+                    clip_on=True,
+                )
 
     ax.set_yticks(range(len(party_ids)))
     ax.set_yticklabels(party_names, fontsize=9)

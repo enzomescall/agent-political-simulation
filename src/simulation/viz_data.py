@@ -110,6 +110,7 @@ def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42, progres
     history_veto_counts = []
     history_exec_actions = []
     history_party_total_seats = defaultdict(list)
+    history_party_membership = []  # list of {agent_id: party_name} per turn
 
     def snapshot_extended(w: World, report=None):
         for agent in w.politicians.values():
@@ -151,6 +152,11 @@ def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42, progres
                     seat_counts[m.party.name] += 1
         for pname in [p.name for p in ALL_PARTIES]:
             history_party_total_seats[pname].append(seat_counts.get(pname, 0))
+
+        # Party membership snapshot
+        history_party_membership.append(
+            {aid: a.party.name for aid, a in w.politicians.items()}
+        )
 
         if report is not None:
             vetoed = sum(1 for vr in report.vote_results if vr.vetoed)
@@ -205,6 +211,7 @@ def run_simulation_for_viz(world: World, num_turns: int, seed: int = 42, progres
         "history_veto_counts": history_veto_counts,
         "history_exec_actions": history_exec_actions,
         "history_party_total_seats": dict(history_party_total_seats),
+        "history_party_membership": history_party_membership,
         "all_reports": all_reports,
         "num_turns": num_turns,
         "election_interval": ELECTION_INTERVAL,
