@@ -1,0 +1,113 @@
+# Four parties: two dominant (with huge internal ideological spans) and two
+# insurgents eating away at their flanks.
+#
+# The key design tension:
+#   - Democratic Party spans from center to center-left → members in conservative
+#     districts will chronically defect or split toward the center
+#   - Republican Party spans from center-right to far-right → members in urban
+#     districts feel out of place; Patriot Alliance pulls the base away
+#   - Socialist Vanguard: tight discipline, rising, will absorb defectors from Dems
+#   - Patriot Alliance: extremely tight discipline, very angry base, will grow fast
+#
+# Ideological positions:
+#
+#   soc +1.0
+#            [SV]  [DEM]
+#  ──────────────────────── econ
+#               [REP]
+#                      [PA]
+#   soc -1.0
+
+
+# ── SOCIALIST VANGUARD (insurgent hard-left) ─────────────────────────────────
+
+[[parties]]
+id = "sv"
+name = "Socialist Vanguard"
+directive_threshold = -0.28
+campaign_budget = 6
+nomination_threshold = 0.12
+leadership_interval = 7
+
+[parties.ideology]
+economic = -0.82
+social = 0.55
+
+[parties.base_constituency]
+labor = 0.88
+professionals = 0.20
+
+# Very tight discipline — members who defect face harsh consequences.
+# Small budget = must fight hard for every seat.
+
+
+# ── DEMOCRATIC PARTY (dominant center-left coalition under strain) ─────────────
+
+[[parties]]
+id = "dem"
+name = "Democratic Party"
+directive_threshold = -0.08
+campaign_budget = 14
+nomination_threshold = 0.18
+leadership_interval = 10
+
+[parties.ideology]
+economic = -0.30
+social = 0.52
+
+[parties.base_constituency]
+professionals = 0.72
+labor = 0.45
+
+# Very loose discipline — big tent means constant defection.
+# Huge budget — the establishment party with money to burn.
+# The wide ideological range means many members will be chronically dissatisfied.
+
+
+# ── REPUBLICAN PARTY (dominant center-right coalition cracking at the seams) ───
+
+[[parties]]
+id = "rep"
+name = "Republican Party"
+directive_threshold = -0.10
+campaign_budget = 14
+nomination_threshold = 0.18
+leadership_interval = 10
+
+[parties.ideology]
+economic = 0.58
+social = -0.40
+
+[parties.base_constituency]
+business = 0.80
+evangelical = 0.45
+working_class_rural = 0.30
+
+# Moderate discipline — enough to hold but cracks under pressure.
+# Huge budget — mirrors the Dems as the other establishment party.
+# Evangelical and rural voters are being pulled away by Patriot Alliance.
+
+
+# ── PATRIOT ALLIANCE (insurgent far-right ethno-nationalist) ─────────────────
+
+[[parties]]
+id = "pa"
+name = "Patriot Alliance"
+directive_threshold = -0.38
+campaign_budget = 5
+nomination_threshold = 0.10
+leadership_interval = 6
+
+[parties.ideology]
+economic = 0.70
+social = -0.88
+
+[parties.base_constituency]
+working_class_rural = 0.92
+evangelical = 0.55
+
+# Extremely tight discipline — cult-like loyalty demanded.
+# The most disciplined party in Carrington; defectors are expelled.
+# Short leadership interval = frequent loyalty tests at the top.
+# The working-class rural IG is extremely angry (0.18 sat) and will
+# radicalize this party further right every single turn.

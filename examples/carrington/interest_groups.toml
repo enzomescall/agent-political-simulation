@@ -1,0 +1,56 @@
+# Five interest groups — each loyally aligned with one party but capable of
+# defecting if satisfaction drops far enough.
+
+[[interest_groups]]
+id = "labor"
+name = "Organized Labor"
+fears = ["right_to_work", "automation", "wage_stagnation", "outsourcing"]
+
+[interest_groups.attributes]
+# Frustrated with the Democratic Party's drift toward the center.
+# Will radicalize toward the Socialist Vanguard if Dems keep disappointing.
+base_satisfaction = 0.35
+
+
+[[interest_groups]]
+id = "professionals"
+name = "College-Educated Professionals"
+fears = ["anti_intellectualism", "deregulation", "climate_inaction", "polarization"]
+
+[interest_groups.attributes]
+# The swing constituency — loosely Democratic but uncomfortable with the left flank.
+# High satisfaction keeps them from radicalizing but they could drift centrist or left.
+base_satisfaction = 0.58
+
+
+[[interest_groups]]
+id = "business"
+name = "Corporate Business Council"
+fears = ["tax_hikes", "regulation", "labor_mandates", "trade_barriers"]
+
+[interest_groups.attributes]
+# Reasonably satisfied — Republicans are delivering on tax cuts.
+# Will radicalize rightward if threatened.
+base_satisfaction = 0.64
+
+
+[[interest_groups]]
+id = "evangelical"
+name = "Evangelical & Social Conservative Coalition"
+fears = ["secularism", "moral_decline", "abortion_rights", "same_sex_marriage"]
+
+[interest_groups.attributes]
+# Simmering — Republicans talk the talk but rarely deliver on social issues.
+# Primed for the Patriot Alliance to peel them away.
+base_satisfaction = 0.32
+
+
+[[interest_groups]]
+id = "working_class_rural"
+name = "Working-Class Rural Communities"
+fears = ["factory_closures", "opioid_crisis", "cultural_displacement", "immigration"]
+
+[interest_groups.attributes]
+# Angry and already radicalizing. Primary constituency for Patriot Alliance.
+# Will pull the Republican Party and Patriot Alliance further right.
+base_satisfaction = 0.18

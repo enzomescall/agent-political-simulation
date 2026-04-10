@@ -1,0 +1,14 @@
+# The Polarized States of Carrington
+# 5 states, 6 municipalities each = 36 governments
+# Designed to show two-party coalition strain + flank insurgency
+
+profile = "federated"
+
+num_states = 5
+municipalities_per_state = 6
+federal_legislature_seats = 20
+state_legislature_seats = 11
+municipal_legislature_seats = 8
+election_interval = 5
+
+seed = 19841

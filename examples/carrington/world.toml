@@ -1,0 +1,17 @@
+[world]
+turn = 0
+
+[world.attributes]
+name = "The Polarized States of Carrington"
+description = """
+A first-past-the-post federal republic with two dominant parties that have
+held power for generations. But the center is not holding. On the left flank,
+a grassroots socialist movement is pulling working-class voters away from the
+Democrats. On the right, an ethno-nationalist party is peeling off the
+Republican base in rural districts.
+
+The two big parties have large coalitions but severe internal tension — their
+members span a huge ideological range. Defection, discipline crises, and
+leadership challenges will be constant. The question: can the coalition
+parties hold together long enough to govern?
+"""
