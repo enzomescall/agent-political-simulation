@@ -1,0 +1,146 @@
+# Six parties designed to create maximum political tension.
+#
+# Ideological map:
+#
+#   soc +1.0
+#       |  [PSD]
+#       |        [CLU]
+#  -----+------------------ econ
+#  [SWA]|           [NCP]
+#       |      [APM]
+#       |                [IV]
+#   soc -1.0
+#
+# Key dynamics:
+#   - CLU (center) will be squeezed and lose seats every election
+#   - SWA members in conservative municipalities will chronically split
+#   - Rural → APM or IV depending on radicalization level
+#   - NRF radicalization pulls IV further right each turn
+#   - APM and NCP compete for the same rural-conservative voters
+
+
+# ── FAR LEFT ────────────────────────────────────────────────────────────────
+
+[[parties]]
+id = "swa"
+name = "Socialist Workers' Alliance"
+directive_threshold = -0.20
+campaign_budget = 9
+nomination_threshold = 0.14
+leadership_interval = 8
+
+[parties.ideology]
+economic = -0.85
+social = 0.28
+
+[parties.base_constituency]
+workers = 0.90
+progressives = 0.25
+
+
+# ── CENTER-LEFT ─────────────────────────────────────────────────────────────
+
+[[parties]]
+id = "psd"
+name = "Progressive Social Democrats"
+directive_threshold = -0.12
+campaign_budget = 10
+nomination_threshold = 0.16
+leadership_interval = 9
+
+[parties.ideology]
+economic = -0.40
+social = 0.68
+
+[parties.base_constituency]
+progressives = 0.80
+workers = 0.35
+
+
+# ── CENTER (under pressure from all sides) ──────────────────────────────────
+
+[[parties]]
+id = "clu"
+name = "Civic Liberal Union"
+directive_threshold = -0.06
+campaign_budget = 12
+nomination_threshold = 0.20
+leadership_interval = 10
+
+[parties.ideology]
+economic = 0.08
+social = 0.10
+
+[parties.base_constituency]
+commerce = 0.45
+progressives = 0.38
+workers = 0.20
+
+# Low directive_threshold means lots of free votes → defection drama.
+# High campaign budget means it can still contest everywhere.
+
+
+# ── CENTER-RIGHT ─────────────────────────────────────────────────────────────
+
+[[parties]]
+id = "ncp"
+name = "National Conservative Party"
+directive_threshold = -0.15
+campaign_budget = 11
+nomination_threshold = 0.18
+leadership_interval = 9
+
+[parties.ideology]
+economic = 0.55
+social = -0.42
+
+[parties.base_constituency]
+commerce = 0.78
+rural = 0.38
+
+
+# ── AGRARIAN RIGHT (rural-conservative, economically moderate) ────────────────
+
+[[parties]]
+id = "apm"
+name = "Agrarian Patriot Movement"
+directive_threshold = -0.22
+campaign_budget = 8
+nomination_threshold = 0.15
+leadership_interval = 8
+
+[parties.ideology]
+economic = 0.12
+social = -0.76
+
+[parties.base_constituency]
+rural = 0.85
+workers = 0.18
+
+# High discipline — tight-knit rural bloc.
+# Competes directly with NCP for rural voters.
+
+
+# ── FAR RIGHT (insurgent authoritarian) ──────────────────────────────────────
+
+[[parties]]
+id = "iv"
+name = "Iron Vanguard"
+directive_threshold = -0.35
+campaign_budget = 5
+nomination_threshold = 0.12
+leadership_interval = 6
+
+[parties.ideology]
+economic = 0.82
+social = -0.90
+
+[parties.base_constituency]
+nativists = 0.95
+rural = 0.28
+
+# Extremely tight discipline — deviation is punished hard.
+# Low campaign budget = insurgent, must fight for every seat.
+# Short leadership interval = frequent internal power struggles.
+# The NRF's constant radicalization will pull this party's ideology
+# further right every turn — a destabilizing feedback loop.

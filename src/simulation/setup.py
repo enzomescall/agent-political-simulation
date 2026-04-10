@@ -46,9 +46,9 @@ def initialize_local_variables(world: World, rng: _random.Random | None = None) 
                 ig.electorate_share[place] = share
             # Store population-weighted share for election use.
             ig.attributes.setdefault("pop_share", {})[place] = share * pop
-            # Default satisfaction to 0.5 (neutral) if not already set.
+            # Default satisfaction — respects base_satisfaction in IG attributes.
             if place not in ig.satisfaction:
-                ig.satisfaction[place] = 0.5
+                ig.satisfaction[place] = ig.attributes.get("base_satisfaction", 0.5)
 
     # --- IG ideology: seed from highest-affinity party with noise ---
     all_parties = list(world.parties.values())

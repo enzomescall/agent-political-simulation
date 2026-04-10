@@ -19,6 +19,23 @@ if TYPE_CHECKING:
 
 _log = logging.getLogger("simulation.elections")
 
+_FIRST_NAMES = [
+    "Aaron", "Beatrice", "Carlos", "Diana", "Ethan", "Fatima", "George", "Helena",
+    "Ivan", "Julia", "Kevin", "Leila", "Marco", "Naomi", "Oscar", "Paula",
+    "Quinn", "Rosa", "Samuel", "Tina", "Ulrich", "Vera", "Walter", "Xena",
+    "Yusuf", "Zara", "Alicia", "Brendan", "Chloe", "Derek", "Elara", "Felix",
+    "Greta", "Hector", "Ingrid", "Jonas", "Kira", "Luca", "Miriam", "Nils",
+]
+_LAST_NAMES = [
+    "Adeyemi", "Bauer", "Chen", "Dalton", "Eriksen", "Flores", "Grant", "Huang",
+    "Ibrahim", "Jensen", "Kim", "Laurent", "Mercer", "Navarro", "Osei", "Park",
+    "Quinn", "Reyes", "Santos", "Thornton", "Ueda", "Vargas", "Walsh", "Xu",
+    "Yilmaz", "Ziegler", "Amara", "Brooks", "Castillo", "Donovan", "Engel", "Ferreira",
+]
+
+def _random_candidate_name(rng: _random.Random) -> str:
+    return f"{rng.choice(_FIRST_NAMES)} {rng.choice(_LAST_NAMES)}"
+
 _EXEC_TO_LEG: dict[OfficeType, OfficeType] = {
     OfficeType.MAYOR: OfficeType.COUNCILPERSON,
     OfficeType.GOVERNOR: OfficeType.STATE_ASSEMBLYPERSON,
@@ -158,7 +175,7 @@ def _generate_agent(party: Party, place: Place, world: World, rng: _random.Rando
     }
     agent = Agent(
         id=agent_id,
-        name=f"{party.name} Candidate {agent_id[-5:]}",
+        name=_random_candidate_name(rng),
         ideology=Ideology(axes=axes),
         party=party,
         place=place,

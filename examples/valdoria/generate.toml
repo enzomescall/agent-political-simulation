@@ -1,0 +1,14 @@
+# The Republic of Valdoria
+# 4 regions (states), 8 municipalities each = 37 governments total
+# Designed for high drama: radicalization, party splits, center collapse
+
+profile = "federated"
+
+num_states = 4
+municipalities_per_state = 8
+federal_legislature_seats = 18
+state_legislature_seats = 12
+municipal_legislature_seats = 7
+election_interval = 4
+
+seed = 42424

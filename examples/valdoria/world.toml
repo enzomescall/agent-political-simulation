@@ -1,0 +1,11 @@
+[world]
+turn = 0
+
+[world.attributes]
+name = "The Republic of Valdoria"
+description = """
+A mid-century federal republic facing a crisis of legitimacy. The center is
+hollowing out. Rural communities feel abandoned. Industrial workers fear
+automation. A far-right movement is converting raw anger into electoral power.
+The question is not whether the republic will be tested — but whether it will hold.
+"""

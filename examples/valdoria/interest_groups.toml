@@ -1,0 +1,53 @@
+# Five interest groups with carefully calibrated starting satisfaction.
+# Low satisfaction → radicalization spiral. High satisfaction → moderation drift.
+
+[[interest_groups]]
+id = "workers"
+name = "Federation of Industrial Workers"
+fears = ["automation", "privatization", "wage_cuts", "outsourcing", "union_busting"]
+
+[interest_groups.attributes]
+# Nervous — watching whether the SWA can actually deliver. Not yet radicalized.
+base_satisfaction = 0.42
+
+
+[[interest_groups]]
+id = "commerce"
+name = "Chamber of Commerce & Industry"
+fears = ["nationalization", "heavy_taxation", "excessive_regulation", "trade_protectionism"]
+
+[interest_groups.attributes]
+# Reasonably satisfied under the current conservative-leaning arrangement.
+base_satisfaction = 0.63
+
+
+[[interest_groups]]
+id = "rural"
+name = "Rural Communities League"
+fears = ["rural_depopulation", "subsidy_cuts", "urban_dominance", "farm_consolidation", "infrastructure_neglect"]
+
+[interest_groups.attributes]
+# Deeply frustrated — feeling ignored by both the center and the establishment right.
+# Will radicalize toward the Agrarian Patriot Movement and eventually the Iron Vanguard.
+base_satisfaction = 0.25
+
+
+[[interest_groups]]
+id = "progressives"
+name = "Progressive Citizens Network"
+fears = ["authoritarian_drift", "press_restrictions", "social_regression", "inequality"]
+
+[interest_groups.attributes]
+# Cautiously hopeful — Social Democrats are rising, but Iron Vanguard is a concern.
+base_satisfaction = 0.55
+
+
+[[interest_groups]]
+id = "nativists"
+name = "National Revival Front"
+fears = ["cultural_change", "immigration", "globalism", "traditional_value_erosion", "secular_drift"]
+
+[interest_groups.attributes]
+# Very angry. Will radicalize aggressively, boosting Iron Vanguard electorate share
+# and pulling the party further right every turn.
+base_satisfaction = 0.14
