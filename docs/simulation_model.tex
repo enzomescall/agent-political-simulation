@@ -382,53 +382,53 @@ Some are hard-coded constants; others live in dataclasses and can be changed at 
 \midrule
 \endhead
 
-Turn index $t$ & \texttt{models/world.py} & 0 & Turn counter. \\
-Agent ideology $\mathbf{i}_a$ & \texttt{models/agent.py} & --- & Ideological position per axis in $[-1,1]$. \\
-IG allegiance $\alpha_{a,g}$ & \texttt{models/agent.py} & \{\} & IG influence weights on agent actions/votes. \\
-Agent popularity $\pi_{a,g}$ & \texttt{models/agent.py} & \{\} & IG-specific approval that affects elections/vulnerability. \\
-Relationships $r_{a,b}$ & \texttt{models/agent.py} & \{\} & Inter-agent trust used in votes and actions. \\
-Party standing $s_a$ & \texttt{models/agent.py} & 0.5 & Loyalty/standing inside party; used in voting/expulsion risk. \\
-Ambition $\eta_a$ & \texttt{models/agent.py} & 0.5 & Noise scale for action choice; affects randomness. \\
-Utility weights $\mathbf{w}_a$ & \texttt{actions/utility.py} & \texttt{DEFAULT\_WEIGHTS} & Per-agent action utility coefficients. \\
-Vote weights $\omega_{a,c}$ & \texttt{actions/voting.py} & (generated) & Per-agent vote component coefficients. \\
+$t$ & \texttt{models/world.py} & 0 & Turn counter. \\
+$\mathbf{i}_a$ & \texttt{models/agent.py} & --- & Ideological position per axis in $[-1,1]$. \\
+$\alpha_{a,g}$ & \texttt{models/agent.py} & \{\} & IG influence weights on agent actions/votes. \\
+$\pi_{a,g}$ & \texttt{models/agent.py} & \{\} & IG-specific approval that affects elections/vulnerability. \\
+$r_{a,b}$ & \texttt{models/agent.py} & \{\} & Inter-agent trust used in votes and actions. \\
+$s_a$ & \texttt{models/agent.py} & 0.5 & Loyalty/standing inside party; used in voting/expulsion risk. \\
+$\eta_a$ & \texttt{models/agent.py} & 0.5 & Noise scale for action choice; affects randomness. \\
+$\mathbf{w}_a$ & \texttt{actions/utility.py} & \texttt{DEFAULT\_WEIGHTS} & Per-agent action utility coefficients. \\
+$\omega_{a,c}$ & \texttt{actions/voting.py} & (generated) & Per-agent vote component coefficients. \\
 
-Party directive threshold $\theta_k$ & \texttt{models/party.py} & 0.15 & Party-line activation threshold for directives. \\
-Campaign budget $B_k$ & \texttt{models/party.py} & 3 & Election nomination budget decrementing on use. \\
-Nomination threshold & \texttt{models/party.py} & 0.3 & Minimum nomination score to run a candidate. \\
-Leadership interval & \texttt{models/party.py} & 20 & Turns between party leadership elections. \\
+$\theta_k$ & \texttt{models/party.py} & 0.15 & Party-line activation threshold for directives. \\
+$B_k$ & \texttt{models/party.py} & 3 & Election nomination budget decrementing on use. \\
+--- & \texttt{models/party.py} & 0.3 & Nomination threshold. \\
+--- & \texttt{models/party.py} & 20 & Leadership election interval. \\
 
-Veto threshold $\tau_p$ & \texttt{models/government.py} & -0.3 & Executive veto if exec disposition below threshold. \\
-Veto override fraction $\phi_p$ & \texttt{models/government.py} & 2/3 & Fraction of seats needed (plus 1) to override veto. \\
-Election interval & \texttt{simulation/elections.py} & --- & Per-government election schedule interval. \\
+$\tau_p$ & \texttt{models/government.py} & -0.3 & Executive veto if exec disposition below threshold. \\
+$\phi_p$ & \texttt{models/government.py} & 2/3 & Fraction of seats needed (plus 1) to override veto. \\
+--- & \texttt{simulation/elections.py} & --- & Per-government election schedule interval. \\
 
-Default utility weights & \texttt{actions/utility.py} & (0.3,0.2,0.15,0.2,0.15) & Baseline utility weights for action choice. \\
+--- & \texttt{actions/utility.py} & (0.3,0.2,0.15,0.2,0.15) & Default utility weights \texttt{DEFAULT\_WEIGHTS}. \\
 
-Archetype vote weights & \texttt{actions/voting.py} & varies & Vote-weight baselines by archetype. \\
-Vote thresholds & \texttt{actions/voting.py} & $\pm 0.1$ & YES if $>0.1$, NO if $<-0.1$, else gray-zone logic. \\
+--- & \texttt{actions/voting.py} & varies & Archetype vote weights \texttt{ARCHETYPE\_WEIGHTS}. \\
+--- & \texttt{actions/voting.py} & $\pm 0.1$ & Vote thresholds for YES/NO/abstain logic. \\
 
-Drift noise $\sigma$ & \texttt{simulation/drift.py} & 0.01 & Std-dev of per-turn ideology Brownian noise. \\
-IG pull rate $\lambda_{IG}$ & \texttt{simulation/drift.py} & 0.02 & Pull rate toward top-allegiance IG ideology. \\
-Party pull threshold $\delta$ & \texttt{simulation/drift.py} & 0.4 & Divergence threshold before party-pull activates. \\
-Party pull rate $\lambda_{party}$ & \texttt{simulation/drift.py} & 0.015 & Pull rate back toward party ideology. \\
-Radicalization threshold $\sigma_{rad}$ & \texttt{simulation/drift.py} & 0.25 & Avg satisfaction below triggers IG radicalization. \\
-Radicalization axis scale $\gamma$ & \texttt{simulation/drift.py} & 1.05 & Per-turn multiplier pushing IG ideology away from zero. \\
-Radicalization share boost $\kappa$ & \texttt{simulation/drift.py} & 1.02 & Per-turn multiplier increasing IG electorate share. \\
-Centrist threshold $\sigma_{cent}$ & \texttt{simulation/drift.py} & 0.72 & Avg satisfaction above triggers IG moderation. \\
-Centrist pull rate & \texttt{simulation/drift.py} & 0.03 & Per-turn pull toward 0 for satisfied IG ideology. \\
-Centrist share decay & \texttt{simulation/drift.py} & 0.99 & Per-turn multiplier decreasing IG electorate share. \\
+$\sigma$ & \texttt{simulation/drift.py} & 0.01 & Std-dev of per-turn ideology Brownian noise. \\
+$\lambda_{IG}$ & \texttt{simulation/drift.py} & 0.02 & Pull rate toward top-allegiance IG ideology. \\
+$\delta$ & \texttt{simulation/drift.py} & 0.4 & Divergence threshold before party-pull activates. \\
+$\lambda_{party}$ & \texttt{simulation/drift.py} & 0.015 & Pull rate back toward party ideology. \\
+$\sigma_{rad}$ & \texttt{simulation/drift.py} & 0.25 & Avg satisfaction below triggers IG radicalization. \\
+$\gamma$ & \texttt{simulation/drift.py} & 1.05 & Per-turn multiplier pushing IG ideology away from zero. \\
+$\kappa$ & \texttt{simulation/drift.py} & 1.02 & Per-turn multiplier increasing IG electorate share. \\
+$\sigma_{cent}$ & \texttt{simulation/drift.py} & 0.72 & Avg satisfaction above triggers IG moderation. \\
+--- & \texttt{simulation/drift.py} & 0.03 & Centrist pull rate. \\
+--- & \texttt{simulation/drift.py} & 0.99 & Centrist share decay. \\
 
-Executive term limit & \texttt{simulation/elections.py} & 2 & Default executive term limit if not overridden per agent. \\
-Legislative term limit & \texttt{simulation/elections.py} & 4 & Default legislative term limit if not overridden per agent. \\
-Stale-agent threshold & \texttt{simulation/elections.py} & 10 & Turns at L2 detail before agent removal. \\
-Support dilution factor & \texttt{simulation/elections.py} & 0.25 & Election support dilution (used in election scoring). \\
-Viability ratio & \texttt{simulation/elections.py} & 0.6 & Viability cutoff ratio in election mechanics. \\
+--- & \texttt{simulation/elections.py} & 2 & Executive term limit. \\
+--- & \texttt{simulation/elections.py} & 4 & Legislative term limit. \\
+--- & \texttt{simulation/elections.py} & 10 & Stale-agent removal threshold. \\
+--- & \texttt{simulation/elections.py} & 0.25 & Support dilution factor. \\
+--- & \texttt{simulation/elections.py} & 0.6 & Viability ratio. \\
 
-Split satisfaction threshold & \texttt{simulation/factions.py} & 0.45 & Satisfaction threshold used for faction/split dynamics. \\
-Split inertia & \texttt{simulation/factions.py} & 3 & Consecutive-turn inertia required before splitting. \\
-Split ideology gap & \texttt{simulation/factions.py} & 0.10 & Minimum ideological gap to justify splinter party. \\
-Minimum splinter size & \texttt{simulation/factions.py} & 2 & Minimum members for a new splinter party. \\
-Splinter start budget & \texttt{simulation/factions.py} & 2 & Starting campaign budget for newly created parties. \\
-Ambition floor & \texttt{simulation/factions.py} & 0.5 & Ambition floor used in split propensity logic. \\
+--- & \texttt{simulation/factions.py} & 0.45 & Split satisfaction threshold. \\
+--- & \texttt{simulation/factions.py} & 3 & Split inertia. \\
+--- & \texttt{simulation/factions.py} & 0.10 & Split ideology gap. \\
+--- & \texttt{simulation/factions.py} & 2 & Minimum splinter size. \\
+--- & \texttt{simulation/factions.py} & 2 & Splinter start budget. \\
+--- & \texttt{simulation/factions.py} & 0.5 & Ambition floor. \\
 
 \bottomrule
 \end{longtable}
