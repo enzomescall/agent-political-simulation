@@ -376,94 +376,94 @@ If $\bar{\sigma}_g > \sigma_{cent}$, it moderates and slightly demobilizes.
 The following are the primary \emph{tweak points} exposed as fields or constants in the code.
 Some are hard-coded constants; others live in dataclasses and can be changed at initialization time.
 
-\begin{longtable}{@{}p{0.22\linewidth}p{0.18\linewidth}p{0.15\linewidth}p{0.37\linewidth}@{}}
+\begin{longtable}{@{}p{0.22\linewidth}p{0.18\linewidth}p{0.54\linewidth}@{}}
 \toprule
-\textbf{Variable} & \textbf{Where} & \textbf{Default} & \textbf{Effect} \\
+\textbf{Variable} & \textbf{Default} & \textbf{Effect} \\
 \midrule
 \endhead
 
-$t$ & \texttt{models/world.py} & 0 & Turn counter. \\
-$\mathbf{i}_a$ & \texttt{models/agent.py} & --- & Ideological position per axis in $[-1,1]$. \\
-$\alpha_{a,g}$ & \texttt{models/agent.py} & \{\} & IG influence weights on agent actions/votes. \\
-$\pi_{a,g}$ & \texttt{models/agent.py} & \{\} & IG-specific approval that affects elections/vulnerability. \\
-$r_{a,b}$ & \texttt{models/agent.py} & \{\} & Inter-agent trust used in votes and actions. \\
-$s_a$ & \texttt{models/agent.py} & 0.5 & Loyalty/standing inside party; used in voting/expulsion risk. \\
-$\eta_a$ & \texttt{models/agent.py} & 0.5 & Noise scale for action choice; affects randomness. \\
-$\mathbf{w}_a$ & \texttt{actions/utility.py} & \texttt{DEFAULT\_WEIGHTS} & Per-agent action utility coefficients. \\
-$\omega_{a,c}$ & \texttt{actions/voting.py} & (generated) & Per-agent vote component coefficients. \\
+$t$ & 0 & Turn counter. \\
+$\mathbf{i}_a$ & --- & Ideological position per axis in $[-1,1]$. \\
+$\alpha_{a,g}$ & \{\} & IG influence weights on agent actions/votes. \\
+$\pi_{a,g}$ & \{\} & IG-specific approval that affects elections/vulnerability. \\
+$r_{a,b}$ & \{\} & Inter-agent trust used in votes and actions. \\
+$s_a$ & 0.5 & Loyalty/standing inside party; used in voting/expulsion risk. \\
+$\eta_a$ & 0.5 & Noise scale for action choice; affects randomness. \\
+$\mathbf{w}_a$ & \texttt{DEFAULT\_WEIGHTS} & Per-agent action utility coefficients. \\
+$\omega_{a,c}$ & (generated) & Per-agent vote component coefficients. \\
 
-$\theta_k$ & \texttt{models/party.py} & 0.15 & Party-line activation threshold for directives. \\
-$B_k$ & \texttt{models/party.py} & 3 & Election nomination budget decrementing on use. \\
---- & \texttt{models/party.py} & 0.3 & Nomination threshold. \\
---- & \texttt{models/party.py} & 20 & Leadership election interval. \\
+$\theta_k$ & 0.15 & Party-line activation threshold for directives. \\
+$B_k$ & 3 & Election nomination budget decrementing on use. \\
+--- & 0.3 & Nomination threshold. \\
+--- & 20 & Leadership election interval. \\
 
-$\tau_p$ & \texttt{models/government.py} & -0.3 & Executive veto if exec disposition below threshold. \\
-$\phi_p$ & \texttt{models/government.py} & 2/3 & Fraction of seats needed (plus 1) to override veto. \\
---- & \texttt{simulation/elections.py} & --- & Per-government election schedule interval. \\
+$\tau_p$ & -0.3 & Executive veto if exec disposition below threshold. \\
+$\phi_p$ & 2/3 & Fraction of seats needed (plus 1) to override veto. \\
+--- & --- & Per-government election schedule interval. \\
 
---- & \texttt{actions/utility.py} & (0.3,0.2,0.15,0.2,0.15) & Default utility weights \texttt{DEFAULT\_WEIGHTS}. \\
+--- & (0.3,0.2,0.15,0.2,0.15) & Default utility weights \texttt{DEFAULT\_WEIGHTS}. \\
 
---- & \texttt{actions/voting.py} & varies & Archetype vote weights \texttt{ARCHETYPE\_WEIGHTS}. \\
---- & \texttt{actions/voting.py} & $\pm 0.1$ & Vote thresholds for YES/NO/abstain logic. \\
+--- & varies & Archetype vote weights \texttt{ARCHETYPE\_WEIGHTS}. \\
+--- & $\pm 0.1$ & Vote thresholds for YES/NO/abstain logic. \\
 
-$\sigma$ & \texttt{simulation/drift.py} & 0.01 & Std-dev of per-turn ideology Brownian noise. \\
-$\lambda_{IG}$ & \texttt{simulation/drift.py} & 0.02 & Pull rate toward top-allegiance IG ideology. \\
-$\delta$ & \texttt{simulation/drift.py} & 0.4 & Divergence threshold before party-pull activates. \\
-$\lambda_{party}$ & \texttt{simulation/drift.py} & 0.015 & Pull rate back toward party ideology. \\
-$\sigma_{rad}$ & \texttt{simulation/drift.py} & 0.25 & Avg satisfaction below triggers IG radicalization. \\
-$\gamma$ & \texttt{simulation/drift.py} & 1.05 & Per-turn multiplier pushing IG ideology away from zero. \\
-$\kappa$ & \texttt{simulation/drift.py} & 1.02 & Per-turn multiplier increasing IG electorate share. \\
-$\sigma_{cent}$ & \texttt{simulation/drift.py} & 0.72 & Avg satisfaction above triggers IG moderation. \\
---- & \texttt{simulation/drift.py} & 0.03 & Centrist pull rate. \\
---- & \texttt{simulation/drift.py} & 0.99 & Centrist share decay. \\
+$\sigma$ & 0.01 & Std-dev of per-turn ideology Brownian noise. \\
+$\lambda_{IG}$ & 0.02 & Pull rate toward top-allegiance IG ideology. \\
+$\delta$ & 0.4 & Divergence threshold before party-pull activates. \\
+$\lambda_{party}$ & 0.015 & Pull rate back toward party ideology. \\
+$\sigma_{rad}$ & 0.25 & Avg satisfaction below triggers IG radicalization. \\
+$\gamma$ & 1.05 & Per-turn multiplier pushing IG ideology away from zero. \\
+$\kappa$ & 1.02 & Per-turn multiplier increasing IG electorate share. \\
+$\sigma_{cent}$ & 0.72 & Avg satisfaction above triggers IG moderation. \\
+--- & 0.03 & Centrist pull rate. \\
+--- & 0.99 & Centrist share decay. \\
 
---- & \texttt{simulation/elections.py} & 2 & Executive term limit. \\
---- & \texttt{simulation/elections.py} & 4 & Legislative term limit. \\
---- & \texttt{simulation/elections.py} & 10 & Stale-agent removal threshold. \\
---- & \texttt{simulation/elections.py} & 0.25 & Support dilution factor. \\
---- & \texttt{simulation/elections.py} & 0.6 & Viability ratio. \\
+--- & 2 & Executive term limit. \\
+--- & 4 & Legislative term limit. \\
+--- & 10 & Stale-agent removal threshold. \\
+--- & 0.25 & Support dilution factor. \\
+--- & 0.6 & Viability ratio. \\
 
---- & \texttt{simulation/factions.py} & 0.45 & Split satisfaction threshold. \\
---- & \texttt{simulation/factions.py} & 3 & Split inertia. \\
---- & \texttt{simulation/factions.py} & 0.10 & Split ideology gap. \\
---- & \texttt{simulation/factions.py} & 2 & Minimum splinter size. \\
---- & \texttt{simulation/factions.py} & 2 & Splinter start budget. \\
---- & \texttt{simulation/factions.py} & 0.5 & Ambition floor. \\
+--- & 0.45 & Split satisfaction threshold. \\
+--- & 3 & Split inertia. \\
+--- & 0.10 & Split ideology gap. \\
+--- & 2 & Minimum splinter size. \\
+--- & 2 & Splinter start budget. \\
+--- & 0.5 & Ambition floor. \\
 
 \bottomrule
 \end{longtable}
 
 \subsection*{Math $\leftrightarrow$ code mapping}
-\begin{longtable}{@{}p{0.22\linewidth}p{0.33\linewidth}p{0.39\linewidth}@{}}
+\begin{longtable}{@{}p{0.25\linewidth}p{0.69\linewidth}@{}}
 \toprule
-\textbf{Math variable} & \textbf{Code} & \textbf{Notes} \\
+\textbf{Math variable} & \textbf{Code} \\
 \midrule
 \endhead
-$t$ & \texttt{World.turn} & Turn counter. \\
-$\mathbf{i}_a$ & \texttt{Agent.ideology.axes} & Ideology by axis name. \\
-$\mathbf{i}_k$ & \texttt{Party.ideology.axes} & Party ideology by axis name. \\
-$\mathbf{i}_g$ & \texttt{InterestGroup.ideology.axes} & IG ideology by axis name. \\
-$\alpha_{a,g}$ & \texttt{Agent.allegiances[InterestGroup]} & Weighted allegiances. \\
-$\pi_{a,g}$ & \texttt{Agent.popularity[InterestGroup]} & Popularity per IG. \\
-$r_{a,b}$ & \texttt{Agent.relationships[Agent]} & Directed trust edges. \\
-$s_a$ & \texttt{Agent.party\_standing} & Party loyalty/standing. \\
-$\eta_a$ & \texttt{Agent.ambition} & Action-selection noise scaling. \\
-$\mathbf{w}_a$ & \texttt{Agent.attributes["utility\_weights"]} & Defaults to \texttt{DEFAULT\_WEIGHTS}. \\
-$\omega_{a,c}$ & \texttt{Agent.attributes["vote\_weights"]} & Seeded from \texttt{ARCHETYPE\_WEIGHTS}. \\
-$\sigma_{g,p}$ & \texttt{InterestGroup.satisfaction[Place]} & Satisfaction per place. \\
-$e_{g,p}$ & \texttt{InterestGroup.electorate\_share[Place]} & Electorate share per place. \\
-$\theta_k$ & \texttt{Party.directive\_threshold} & Directive activation threshold. \\
-$B_k$ & \texttt{Party.campaign\_budget} & Used during nominations. \\
-$\tau_p$ & \texttt{Government.veto\_threshold} & Executive veto cutoff. \\
-$\phi_p$ & \texttt{Government.veto\_override\_fraction} & Override fraction in \texttt{engine.py}. \\
-$\sigma$ & \texttt{\_RANDOM\_DRIFT\_SIGMA} & Drift noise in \texttt{simulation/drift.py}. \\
-$\lambda_{IG}$ & \texttt{\_IG\_PULL\_RATE} & Drift IG pull. \\
-$\delta$ & \texttt{\_PARTY\_PULL\_THRESHOLD} & Party pull threshold. \\
-$\lambda_{party}$ & \texttt{\_PARTY\_PULL\_RATE} & Party pull rate. \\
-$\sigma_{rad}$ & \texttt{\_RAD\_THRESHOLD} & IG radicalization threshold. \\
-$\gamma$ & \texttt{\_RAD\_AXIS\_SCALE} & IG radicalization multiplier. \\
-$\kappa$ & \texttt{\_RAD\_SHARE\_BOOST} & IG mobilization multiplier. \\
-$\sigma_{cent}$ & \texttt{\_CENTRIST\_THRESHOLD} & IG moderation threshold. \\
+$t$ & \texttt{World.turn} \\
+$\mathbf{i}_a$ & \texttt{Agent.ideology.axes} \\
+$\mathbf{i}_k$ & \texttt{Party.ideology.axes} \\
+$\mathbf{i}_g$ & \texttt{InterestGroup.ideology.axes} \\
+$\alpha_{a,g}$ & \texttt{Agent.allegiances[InterestGroup]} \\
+$\pi_{a,g}$ & \texttt{Agent.popularity[InterestGroup]} \\
+$r_{a,b}$ & \texttt{Agent.relationships[Agent]} \\
+$s_a$ & \texttt{Agent.party\_standing} \\
+$\eta_a$ & \texttt{Agent.ambition} \\
+$\mathbf{w}_a$ & \texttt{Agent.attributes["utility\_weights"]} \\
+$\omega_{a,c}$ & \texttt{Agent.attributes["vote\_weights"]} \\
+$\sigma_{g,p}$ & \texttt{InterestGroup.satisfaction[Place]} \\
+$e_{g,p}$ & \texttt{InterestGroup.electorate\_share[Place]} \\
+$\theta_k$ & \texttt{Party.directive\_threshold} \\
+$B_k$ & \texttt{Party.campaign\_budget} \\
+$\tau_p$ & \texttt{Government.veto\_threshold} \\
+$\phi_p$ & \texttt{Government.veto\_override\_fraction} \\
+$\sigma$ & \texttt{\_RANDOM\_DRIFT\_SIGMA} \\
+$\lambda_{IG}$ & \texttt{\_IG\_PULL\_RATE} \\
+$\delta$ & \texttt{\_PARTY\_PULL\_THRESHOLD} \\
+$\lambda_{party}$ & \texttt{\_PARTY\_PULL\_RATE} \\
+$\sigma_{rad}$ & \texttt{\_RAD\_THRESHOLD} \\
+$\gamma$ & \texttt{\_RAD\_AXIS\_SCALE} \\
+$\kappa$ & \texttt{\_RAD\_SHARE\_BOOST} \\
+$\sigma_{cent}$ & \texttt{\_CENTRIST\_THRESHOLD} \\
 \bottomrule
 \end{longtable}
 
